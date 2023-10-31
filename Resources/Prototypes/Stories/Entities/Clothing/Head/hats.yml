@@ -12,3 +12,17 @@
     tags:
     - HamsterWearable
     - WhitelistChameleon
+
+- type: entity
+  parent: ClothingHeadBase
+  id: ClothingHeadHatBeretOSO
+  name: officer of special operations beret
+  description: A beret, an artists favorite headwear.
+  components:
+  - type: Sprite
+    sprite: Stories/Clothing/Head/Hats/beret_oso.rsi
+  - type: Clothing
+    sprite: Stories/Clothing/Head/Hats/beret_oso.rsi
+  - type: Tag
+    tags:
+    - WhitelistChameleon
