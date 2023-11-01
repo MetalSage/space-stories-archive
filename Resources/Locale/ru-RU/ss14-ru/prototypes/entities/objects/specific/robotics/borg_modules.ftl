@@ -50,6 +50,9 @@ ent-BorgModuleTreatment = лечащий модуль киборга
     .desc = { ent-BaseBorgModule.desc }
 ent-BorgModuleDefibrillator = дефибрилляторный модуль киборга
     .desc = { ent-BaseBorgModule.desc }
+ent-BorgModuleAdvancedTreatment = advanced treatment cyborg module
+
+  .desc = { ent-['BaseBorgModuleMedical', 'BaseProviderBorgModule'].desc }
 ent-BorgModuleArtifact = артефактный модуль киборга
     .desc = { ent-BaseBorgModule.desc }
 ent-BorgModuleAnomaly = аномальный модуль киборга

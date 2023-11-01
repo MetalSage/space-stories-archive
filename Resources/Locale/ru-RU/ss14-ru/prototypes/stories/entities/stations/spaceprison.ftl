@@ -1,0 +1,3 @@
+ent-StandardSpacePrisonStation = { ent-['BaseStation', 'BaseStationJobsSpawning', 'BaseStationRecords', 'BaseStationCentcomm', 'BaseStationAlertLevels', 'BaseStationSiliconLawCrewsimov', 'BaseStationAllEventsEligible', 'BaseStationNanotrasen'] }
+
+  .desc = { ent-['BaseStation', 'BaseStationJobsSpawning', 'BaseStationRecords', 'BaseStationCentcomm', 'BaseStationAlertLevels', 'BaseStationSiliconLawCrewsimov', 'BaseStationAllEventsEligible', 'BaseStationNanotrasen'].desc }

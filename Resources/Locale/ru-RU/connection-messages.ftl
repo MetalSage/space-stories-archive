@@ -10,6 +10,20 @@ whitelist-playercount-invalid =
             }
     }
 whitelist-not-whitelisted-rp = Вас нет в вайтлисте. Чтобы попасть в вайтлист, посетите наш Discord (ссылку можно найти по адресу discord.gg/space-stories).
+cmd-whitelistadd-desc = Adds the player with the given username to the server whitelist.
+cmd-whitelistadd-help = Usage: whitelistadd <username>
+cmd-whitelistadd-existing = { $username } is already on the whitelist!
+cmd-whitelistadd-added = { $username } added to the whitelist
+cmd-whitelistadd-not-found = Unable to find '{ $username }'
+cmd-whitelistadd-arg-player = [player]
+cmd-whitelistremove-desc = Removes the player with the given username from the server whitelist.
+cmd-whitelistremove-help = Usage: whitelistremove <username>
+cmd-whitelistremove-existing = { $username } is not on the whitelist!
+cmd-whitelistremove-removed = { $username } removed from the whitelist
+cmd-whitelistremove-not-found = Unable to find '{ $username }'
+cmd-whitelistremove-arg-player = [player]
+cmd-kicknonwhitelisted-desc = Kicks all non-whitelisted players from the server.
+cmd-kicknonwhitelisted-help = Usage: kicknonwhitelisted
 command-whitelistadd-description = Добавить игрока с указанным юзернеймом в вайтлист.
 command-whitelistadd-help = whitelistadd <username>
 command-whitelistadd-existing = { $username } уже в вайтлисте!

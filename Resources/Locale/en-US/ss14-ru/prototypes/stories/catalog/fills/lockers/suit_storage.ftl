@@ -1,0 +1,9 @@
+ent-SuitStorageOfficerSP = { ent-SuitStorageBase }
+    .suffix = SP Officer
+    .desc = { ent-SuitStorageBase.desc }
+ent-SuitStorageEngiSP = { ent-SuitStorageBase }
+    .suffix = SP Engineer
+    .desc = { ent-SuitStorageBase.desc }
+ent-SuitStorageWardenOfSP = { ent-SuitStorageBase }
+    .suffix = WardenOfSP
+    .desc = { ent-SuitStorageBase.desc }

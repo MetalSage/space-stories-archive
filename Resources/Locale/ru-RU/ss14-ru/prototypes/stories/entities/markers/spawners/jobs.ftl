@@ -1,5 +1,6 @@
 ent-SpawnPointJobBaseStories = { ent-MarkerBase }
     .desc = { ent-MarkerBase.desc }
+    .suffix = Job Spawn
 ent-SpawnPointIAA = АВД
     .desc = { ent-SpawnPointJobBaseStories.desc }
 ent-SpawnPointHeadOfSpacePrison = глава кт

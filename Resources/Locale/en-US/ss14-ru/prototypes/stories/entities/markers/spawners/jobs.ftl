@@ -1,0 +1,9 @@
+ent-SpawnPointJobBaseStories = { ent-MarkerBase }
+    .suffix = Job Spawn
+    .desc = { ent-MarkerBase.desc }
+ent-SpawnPointHeadOfSpacePrison = headofsp
+    .desc = { ent-SpawnPointJobBaseStories.desc }
+ent-SpawnPointSpacePrisonOfficer = spofficer
+    .desc = { ent-SpawnPointJobBaseStories.desc }
+ent-SpawnPointSpacePrisonEngineer = spengineer
+    .desc = { ent-SpawnPointJobBaseStories.desc }
