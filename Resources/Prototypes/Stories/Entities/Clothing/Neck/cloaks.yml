@@ -15,3 +15,12 @@
   components:
   - type: Sprite
     sprite: Stories/Clothing/Neck/Cloaks/oso.rsi
+
+- type: entity
+  parent: ClothingNeckBase
+  id: ClothingNeckCloakCSCC
+  name: chief of staff CentComm cloak
+  description: An exquisite green and gold cloak, suitable for those who know how to dominate everything that moves
+  components:
+  - type: Sprite
+    sprite: Stories/Clothing/Neck/Cloaks/cscc.rsi
