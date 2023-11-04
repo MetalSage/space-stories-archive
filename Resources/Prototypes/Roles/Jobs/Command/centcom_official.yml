@@ -13,6 +13,7 @@
 
 - type: startingGear
   id: CentcomGear
+  abstract: true
   equipment:
     jumpsuit: ClothingUniformJumpsuitCentcomOfficial
     shoes: ClothingShoesBootsCombatFilled
