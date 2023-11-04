@@ -1,28 +1,40 @@
-﻿- type: lobbyBackground
-  id: Planets
-  background: /Textures/LobbyScreens/planets.jpg
+﻿#- type: lobbyBackground
+#  id: Planets
+#  background: /Textures/Stories/LobbyScreens/planets.jpg
 
 - type: lobbyBackground
   id: Pretty_Unath
-  background: /Textures/LobbyScreens/pretty_unath.png
+  background: /Textures/Stories/LobbyScreens/pretty_unath.png
 
 - type: lobbyBackground
   id: Sleepy
-  background: /Textures/LobbyScreens/sleepy.png
+  background: /Textures/Stories/LobbyScreens/sleepy.png
 
 - type: lobbyBackground
   id: Anomaly
-  background: /Textures/LobbyScreens/anomaly.png
+  background: /Textures/Stories/LobbyScreens/anomaly.png
 
 - type: lobbyBackground
   id: Darkness
-  background: /Textures/LobbyScreens/darkness.png
+  background: /Textures/Stories/LobbyScreens/darkness.png
 
 - type: lobbyBackground
   id: Photo
-  background: /Textures/LobbyScreens/photo.png
+  background: /Textures/Stories/LobbyScreens/photo.png
 
 - type: lobbyBackground
   id: Operation
-  background: /Textures/LobbyScreens/operation.png
+  background: /Textures/Stories/LobbyScreens/operation.png
+
+- type: lobbyBackground
+  id: Atmos
+  background: /Textures/Stories/LobbyScreens/atmos.jpg
+
+- type: lobbyBackground
+  id: Botanic
+  background: /Textures/Stories/LobbyScreens/botanic.jpg
+
+- type: lobbyBackground
+  id: Engineer
+  background: /Textures/Stories/LobbyScreens/engineer.jpg
 
