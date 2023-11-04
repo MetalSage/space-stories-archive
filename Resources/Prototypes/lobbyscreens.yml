@@ -1,19 +1,28 @@
 ﻿- type: lobbyBackground
-  id: Robotics
-  background: /Textures/LobbyScreens/robotics.png
+  id: Planets
+  background: /Textures/LobbyScreens/planets.jpg
 
 - type: lobbyBackground
-  id: Supermatter
-  background: /Textures/LobbyScreens/supermatter.png
+  id: Pretty_Unath
+  background: /Textures/LobbyScreens/pretty_unath.png
 
 - type: lobbyBackground
-  id: Warden
-  background: /Textures/LobbyScreens/warden.png
+  id: Sleepy
+  background: /Textures/LobbyScreens/sleepy.png
 
 - type: lobbyBackground
-  id: Pharmacy
-  background: /Textures/LobbyScreens/pharmacy.png
+  id: Anomaly
+  background: /Textures/LobbyScreens/anomaly.png
 
 - type: lobbyBackground
-  id: SSXIV
-  background: /Textures/LobbyScreens/ssxiv.png
+  id: Darkness
+  background: /Textures/LobbyScreens/darkness.png
+
+- type: lobbyBackground
+  id: Photo
+  background: /Textures/LobbyScreens/photo.png
+
+- type: lobbyBackground
+  id: Operation
+  background: /Textures/LobbyScreens/operation.png
+
