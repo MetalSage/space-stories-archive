@@ -5,10 +5,43 @@
         "y": 32
     },
     "license": "CC-BY-SA-3.0",
-    "copyright": "Taken from https://github.com/tgstation/tgstation/commit/3d049e69fe71a0be2133005e65ea469135d648c8. Harm and disarm heavily modified. Web made by jackfrost (github) for SS14. disarm, disarmOff, harm, harmOff localized by discord: jerryimmouse(848188612293951506)",
+    "copyright": "Taken from https://github.com/tgstation/tgstation/commit/3d049e69fe71a0be2133005e65ea469135d648c8. Harm and disarm heavily modified. Web made by jackfrost (github) for SS14. spaf_... made by BeatusCrow and Fragoler",
     "states": [
         {
             "name": "internal0"
+        },
+        {
+            "name": "spaf_stealth" //Fragoler
+        },
+        {
+            "name": "spaf_lube" //Fragoler
+        },
+        {
+            "name": "spaf_mine" //Fragoler
+        },
+        {
+            "name": "spaf_light" //Fragoler
+        },
+        {
+            "name": "spaf_glue" //BeatusCrow
+        },
+        {
+            "name": "spaf_food" //BeatusCrow
+        },
+        {
+            "name": "spaf_devour" //BeatusCrow
+        },
+        {
+            "name": "spaf_egg" //BeatusCrow
+        },
+        {
+            "name": "spaf_info" //BeatusCrow
+        },
+        {
+            "name": "spaf_evol" //BeatusCrow
+        },
+        {
+            "name": "spaf_devour_on" //BeatusCrow
         },
         {
             "name": "internal1"
