@@ -7,10 +7,6 @@
     weight: 10
     startDelay: 30
     duration: 35
-    startAudio: # Corvax-Announcements
-      path: /Audio/Announcements/flux.ogg
-      params:
-        volume: -4
   - type: AnomalySpawnRule
 
 - type: entity
@@ -22,10 +18,6 @@
     weight: 5
     startDelay: 30
     duration: 35
-    startAudio: # Corvax-Announcements
-      path: /Audio/Announcements/blusp_anomalies.ogg
-      params:
-        volume: -4
   - type: BluespaceArtifactRule
 
 - type: entity
@@ -132,14 +124,8 @@
   - type: StationEvent
     startAnnouncement: station-event-gas-leak-start-announcement
     startAudio:
-      path: /Audio/Announcements/gasleak_start.ogg # Corvax-Announcements
-      params:
-        volume: -4
+      path: /Audio/Announcements/attention.ogg
     endAnnouncement: station-event-gas-leak-end-announcement
-    endAudio:
-      path: /Audio/Announcements/gasleak_end.ogg # Corvax-Announcements
-      params:
-        volume: -4
     earliestStart: 10
     minimumPlayers: 5
     weight: 5
@@ -171,11 +157,7 @@
     startAnnouncement: station-event-meteor-swarm-start-announcement
     endAnnouncement: station-event-meteor-swarm-end-announcement
     startAudio:
-      path: /Audio/Announcements/meteors_start.ogg
-      params:
-        volume: -4
-    endAudio:
-      path: /Audio/Announcements/meteors_end.ogg # Corvax-Announcements
+      path: /Audio/Announcements/meteors.ogg
       params:
         volume: -4
     duration: null #ending is handled by MeteorSwarmRule
@@ -205,6 +187,21 @@
       prob: 0.005
 
 - type: entity
+  id: CockroachMigration
+  parent: BaseGameRule
+  noSpawn: true
+  components:
+  - type: StationEvent
+    weight: 5
+    duration: 50
+  - type: VentCrittersRule
+    entries:
+    - id: MobCockroach
+      prob: 0.03
+    - id: MobMothroach
+      prob: 0.008
+
+- type: entity
   id: PowerGridCheck
   parent: BaseGameRule
   noSpawn: true
@@ -231,9 +228,7 @@
     weight: 10
     duration: 1
     startAudio:
-      path: /Audio/Announcements/sentience.ogg # Corvax-Announcements
-      params:
-        volume: -4
+      path: /Audio/Announcements/attention.ogg
   - type: RandomSentienceRule
 
 - type: entity
@@ -245,10 +240,8 @@
     weight: 10
     startAnnouncement: station-event-solar-flare-start-announcement
     endAnnouncement: station-event-solar-flare-end-announcement
-    startAudio: # Corvax-Announcements
-      path: /Audio/Announcements/comms_blackout.ogg
-      params:
-        volume: -4
+    startAudio:
+      path: /Audio/Announcements/attention.ogg
     duration: 120
     maxDuration: 240
   - type: SolarFlareRule
@@ -275,9 +268,7 @@
   - type: StationEvent
     startAnnouncement: station-event-vent-clog-start-announcement
     startAudio:
-      path: /Audio/Announcements/ventclog.ogg # Corvax-Announcements
-      params:
-        volume: -4
+      path: /Audio/Announcements/attention.ogg
     earliestStart: 15
     minimumPlayers: 15
     weight: 5
@@ -304,6 +295,8 @@
       prob: 0.02
     - id: MobMouse2
       prob: 0.02
+    - id: MobSpaf
+      prob: 0.005
 
 - type: entity
   id: SlimesSpawn
@@ -413,3 +406,18 @@
     earliestStart: 45
     minimumPlayers: 20
   - type: ImmovableRodRule
+
+- type: entity
+  noSpawn: true
+  parent: BaseGameRule
+  id: IonStorm
+  components:
+  - type: StationEvent
+    weight: 5
+    earliestStart: 20
+    reoccurrenceDelay: 60
+    startAnnouncement: station-event-ion-storm-start-announcement
+    startAudio:
+      path: /Audio/Announcements/ion_storm.ogg
+    duration: 1
+  - type: IonStormRule
