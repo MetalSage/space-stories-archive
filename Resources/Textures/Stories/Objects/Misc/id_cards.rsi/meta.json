@@ -11,6 +11,9 @@
       "name": "default"
     },
     {
+        "name": "idjedint"
+    },
+    {
       "name": "silver"
     },
     {
@@ -18,6 +21,9 @@
     },
     {
       "name": "idspengineer"
+    },
+    {
+      "name": "idspmedic"
     },
     {
       "name": "idhosp"
