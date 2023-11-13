@@ -14,10 +14,24 @@
 
 - type: statusIcon
   parent: JobIcon
+  id: JobIconJediNt
+  icon:
+    sprite: Stories/Interface/Misc/job_icons.rsi
+    state: JediNtSecurity
+
+- type: statusIcon
+  parent: JobIcon
   id: JobIconSpacePrisonEngineer
   icon:
     sprite: Stories/Interface/Misc/job_icons.rsi
     state: SpacePrisonEngineer
+
+- type: statusIcon
+  parent: JobIcon
+  id: JobIconSpacePrisonMedic
+  icon:
+    sprite: Stories/Interface/Misc/job_icons.rsi
+    state: SpacePrisonMedic
 
 - type: statusIcon
   parent: JobIcon
