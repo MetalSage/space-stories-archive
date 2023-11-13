@@ -49,8 +49,7 @@ namespace Content.Shared.Alert
         Debug5,
         Debug6,
         SuitPower,
-        BorgHealth,
-        SpafHealth
+        BorgHealth
     }
 
 }
