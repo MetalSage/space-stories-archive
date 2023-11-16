@@ -16,3 +16,4 @@ chat-radio-freelance = Пираты
 # not headset but whatever
 chat-radio-handheld = Портативный
 chat-radio-binary = Двоичный
+chat-radio-spaf-mind = Общий разум

@@ -95,3 +95,12 @@
   color: "#f6ce64"
   # long range since otherwise it'd defeat the point of a handheld radio independent of telecomms
   longRange: true
+
+- type: radioChannel
+  id: SpafMind
+  name: chat-radio-spaf-mind
+  keycode: 'r'
+  frequency: 9361
+  color: "#00FF00"
+  # long range since otherwise it'd defeat the point of a handheld radio independent of telecomms
+  longRange: true

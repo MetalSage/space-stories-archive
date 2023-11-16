@@ -38,6 +38,14 @@ ghost-role-information-revenant-name = Revenant
 ghost-role-information-revenant-description = You are a Revenant. Use your powers to harvest souls and unleash chaos upon the crew. Unlock new abilities with the essence you harvest.
 ghost-role-information-revenant-rules = You are an antagonist, harvest, defile, and drive the crew insane.
 
+ghost-role-information-spaf-name = S.P.A.F.
+ghost-role-information-spaf-description = You are a space parasite who wants only two things: food and life. Play as a real hunter in those tunnels with the help of your abilities, which cost a certain amount of food
+ghost-role-information-spaf-rules = You are the antagonist, kill, eat, multiply and eventually take over this station!
+
+ghost-role-information-spafegg-name = S.P.A.F. egg
+ghost-role-information-spafegg-description = You are not yet a born spaf. Evolve from a cocoon into a small monster that looks like a slug. This is your weapon ;)
+ghost-role-information-spafegg-rules = You are the antagonist, kill, eat, evolve, multiply and eventually take over this station! spafegg
+
 ghost-role-information-kangaroo-name = Kangaroo
 ghost-role-information-kangaroo-description = You're a kangaroo! Do whatever kangaroos do.
 
