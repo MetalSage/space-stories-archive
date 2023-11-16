@@ -47,7 +47,7 @@
   components:
   - type: StorageFill
     contents:
-      - id: Flash
+      - id: BoxSurvivalMedical
 
 - type: entity
   noSpawn: true
