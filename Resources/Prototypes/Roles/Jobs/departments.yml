@@ -82,6 +82,7 @@
   - Detective
   - Warden
   - JediNt # Stories-Jedi
+  - Brigmedic # Stories-Brigmedic
 
 - type: department
   id: Science
