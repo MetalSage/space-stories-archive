@@ -199,6 +199,14 @@
     - SpafLast
   - type: Speech
     speechVerb: Ghost
+  - type: Destructible
+    thresholds:
+      - trigger:
+          !type:DamageTrigger
+          damage: 300
+        behaviors:
+          - !type:DoActsBehavior
+            acts: [ "Destruction" ]
   - type: Barotrauma
     damage:
       types:

@@ -319,19 +319,9 @@
           prob: 0.02
         - id: MobMouse2
           prob: 0.02
-
-- type: entity
-  parent: BaseGameRule
-  id: SpafSpawn
-  noSpawn: true
-  components:
-    - type: StationEvent
-      weight: 7.5
-      duration: 1
-      earliestStart: 30
-      minimumPlayers: 20
-    - type: RandomSpawnRule
-      prototype: MobSpaf
+      specialEntries:
+        - id: MobSpaf
+          prob: 0.005
 
 - type: entity
   id: SlimesSpawn
