@@ -14,6 +14,13 @@ ghost-role-information-giant-spider-description = Wreak havoc on the station's i
 
 ghost-role-information-cognizine-description = Made conscious with the magic of cognizine.
 
+ghost-role-information-spaf-name = S.P.A.F.
+ghost-role-information-spaf-description = You are a space parasite who wants only two things: food and life. Play as a real hunter in those tunnels with the help of your abilities, which cost a certain amount of food
+ghost-role-information-spaf-rules = You are the antagonist, kill, eat, multiply and eventually take over this station!
+ghost-role-information-spafegg-name = S.P.A.F. egg
+ghost-role-information-spafegg-description = You are not yet a born spaf. Evolve from a cocoon into a small monster that looks like a slug. This is your weapon ;)
+ghost-role-information-spafegg-rules = You are the antagonist, kill, eat, evolve, multiply and eventually take over this station! spafegg
+
 ghost-role-information-hamster-name = Hamster
 ghost-role-information-hamster-description = A grumpy little ball of fluff.
 
