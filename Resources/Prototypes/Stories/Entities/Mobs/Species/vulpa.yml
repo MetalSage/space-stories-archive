@@ -28,6 +28,7 @@
   - type: Damageable
     damageContainer: Biological
     damageModifierSet: Scale
+  - type: WeakEyes
   - type: MeleeWeapon
     hidden: true
     soundHit:
