@@ -10,6 +10,12 @@
       stomach:
         maxVol: 40
   - type: Stomach
+    specialDigestible:
+      tags:
+      - Fruit
+      - Meat
+      - Pill
+      - Crayon
   - type: Metabolizer
     maxReagents: 3
     metabolizerTypes: [ Vulpa ]
