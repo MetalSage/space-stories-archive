@@ -5,10 +5,43 @@
         "y": 32
     },
     "license": "CC-BY-SA-3.0",
-    "copyright": "Taken from https://github.com/tgstation/tgstation/commit/3d049e69fe71a0be2133005e65ea469135d648c8. Harm and disarm heavily modified. Web made by jackfrost (github) for SS14. disarm, disarmOff, harm, harmOff localized by discord: jerryimmouse(848188612293951506)",
+    "copyright": "Taken from https://github.com/tgstation/tgstation/commit/3d049e69fe71a0be2133005e65ea469135d648c8. Harm and disarm heavily modified. Web made by jackfrost (github) for SS14. disarm, disarmOff, harm, harmOff localized by discord: jerryimmouse(848188612293951506), Space_Stories",
     "states": [
         {
             "name": "internal0"
+        },
+        {
+            "name": "spaf_stealth" //Space_Stories
+        },
+        {
+            "name": "spaf_lube" //Space_Stories
+        },
+        {
+            "name": "spaf_mine" //Space_Stories
+        },
+        {
+            "name": "spaf_light" //Space_Stories
+        },
+        {
+            "name": "spaf_glue" //Space_Stories
+        },
+        {
+            "name": "spaf_food" //Space_Stories
+        },
+        {
+            "name": "spaf_devour" //Space_Stories
+        },
+        {
+            "name": "spaf_egg" //Space_Stories
+        },
+        {
+            "name": "spaf_info" //Space_Stories
+        },
+        {
+            "name": "spaf_evol" //Space_Stories
+        },
+        {
+            "name": "spaf_devour_on" //Space_Stories
         },
         {
             "name": "internal1"
