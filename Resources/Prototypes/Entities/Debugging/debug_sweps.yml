@@ -4,7 +4,6 @@
   id: WeaponPistolDebug
   description: ded
   suffix: DEBUG
-  DontPresent: true #add by BeatusCrow
   components:
   - type: Tag
     tags:
@@ -47,7 +46,6 @@
   name: bang, ded mag
   parent: BaseMagazinePistol
   suffix: DEBUG
-  DontPresent: true #add by BeatusCrow
   components:
   - type: Tag
     tags:
@@ -64,7 +62,6 @@
   parent: BaseBullet
   noSpawn: true
   suffix: DEBUG
-  DontPresent: true #add by BeatusCrow
   components:
   - type: Tag
     tags:
@@ -79,7 +76,6 @@
   name: bang, ded cartridge
   parent: BaseCartridgePistol
   suffix: DEBUG
-  DontPresent: true #add by BeatusCrow
   components:
   - type: Tag
     tags:
@@ -93,7 +89,6 @@
   id: MeleeDebugGib
   description: hit hard ye
   suffix: DEBUG
-  DontPresent: true #add by BeatusCrow
   components:
   - type: Tag
     tags:
@@ -113,7 +108,6 @@
   name: bang stick 100dmg
   parent: MeleeDebugGib
   id: MeleeDebug100
-  DontPresent: true #add by BeatusCrow
   components:
   - type: Tag
     tags:
@@ -127,7 +121,6 @@
   name: bang stick 200dmg
   parent: MeleeDebugGib
   id: MeleeDebug200
-  DontPresent: true #add by BeatusCrow
   components:
   - type: Tag
     tags:

@@ -4,6 +4,7 @@ using Content.Shared.Database;
 using Content.Shared.Examine;
 using Content.Shared.Interaction.Events;
 using Content.Shared.Item;
+using Robust.Server.Audio;
 using Robust.Server.GameObjects;
 using Robust.Shared.Map.Components;
 using Robust.Shared.Physics.Components;
@@ -92,7 +93,7 @@ public sealed class RandomGiftSystem : EntitySystem
 
         foreach (var proto in _prototype.EnumeratePrototypes<EntityPrototype>())
         {
-            if (proto.Abstract || proto.NoSpawn || proto.Components.ContainsKey(mapGridCompName) || proto.DontPresent || !proto.Components.ContainsKey(physicsCompName)) //add by BeatusCrow
+            if (proto.Abstract || proto.NoSpawn || proto.Components.ContainsKey(mapGridCompName) || !proto.Components.ContainsKey(physicsCompName))
                 continue;
 
             _possibleGiftsUnsafe.Add(proto.ID);

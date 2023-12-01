@@ -101,7 +101,7 @@
   components:
   - type: Sprite
     drawdepth: SmallMobs
-    sprite: Mobs/Aliens/spaf.rsi
+    sprite: Stories/Mobs/Aliens/spaf.rsi
     layers:
     - map: ["enum.DamageStateVisualLayers.Base"]
       state: spaf
@@ -216,7 +216,7 @@
   components:
     - type: Sprite
       drawdepth: SmallMobs
-      sprite: Mobs/Aliens/spaf.rsi
+      sprite: Stories/Mobs/Aliens/spaf.rsi
       layers:
         - map: ["enum.DamageStateVisualLayers.Base"]
           state: spaf
@@ -324,7 +324,7 @@
   components:
     - type: Sprite
       drawdepth: Mobs
-      sprite: Mobs/Aliens/spafegg.rsi
+      sprite: Stories/Mobs/Aliens/spafegg.rsi
       layers:
         - map: ["enum.DamageStateVisualLayers.Base"]
           state: spaf_eggs
@@ -410,7 +410,7 @@
   components:
     - type: Sprite
       drawdepth: SmallMobs
-      sprite: Mobs/Aliens/minispaf.rsi
+      sprite: Stories/Mobs/Aliens/minispaf.rsi
       layers:
         - map: ["enum.DamageStateVisualLayers.Base"]
           state: spaf
