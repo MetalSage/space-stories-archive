@@ -1,14 +1,21 @@
 using Content.Shared.Damage;
 using Robust.Shared.Audio;
+using Robust.Shared.Audio.Systems;
 using Robust.Shared.GameStates;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
-using Robust.Shared.Utility;
+using Robust.Shared.Prototypes;
 
 namespace Content.Server.SpaceStories.Force.Components;
 
 [RegisterComponent]
 public sealed partial class ForceProtectiveBubbleComponent : Component
 {
+    [DataField]
+    public EntProtoId StopProtectiveBubbleAction = "ActionStopProtectiveBubble";
+
+    [DataField, AutoNetworkedField]
+    public EntityUid? StopProtectiveBubbleActionEntity;
+
     [DataField("health"), ViewVariables(VVAccess.ReadWrite)]
     public float Health = 150;
 
@@ -16,10 +23,7 @@ public sealed partial class ForceProtectiveBubbleComponent : Component
     public SoundSpecifier StopSound = new SoundPathSpecifier("/Audio/Weapons/block_metal1.ogg");
 
     [ViewVariables(VVAccess.ReadWrite), DataField("soundLoop")]
-    public SoundSpecifier? SoundLoop = new SoundPathSpecifier("/Audio/Effects/Grenades/Supermatter/whitehole_loop.ogg") { Params = AudioParams.Default.WithLoop(true) };
-
-    [ViewVariables(VVAccess.ReadWrite), DataField("playingStream")]
-    public IPlayingAudioStream? PlayingStream { get; set; }
+    public SoundSpecifier? SoundLoop = new SoundPathSpecifier("/Audio/Effects/Grenades/Supermatter/whitehole_loop.ogg") { Params = AudioParams.Default.WithLoop(true).WithVolume(-10f) };
 
     [ViewVariables(VVAccess.ReadWrite), DataField("effectEntityProto")]
     public string EffectEntityProto = "EffectProtectiveBubble";
@@ -41,4 +45,6 @@ public sealed partial class ForceProtectiveBubbleComponent : Component
         { "Caustic", 0.5f }
         }
     };
+
+    public EntityUid? PlayingStream;
 }

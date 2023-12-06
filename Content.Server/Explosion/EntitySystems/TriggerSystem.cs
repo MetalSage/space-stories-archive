@@ -24,6 +24,7 @@ using Robust.Shared.Physics.Systems;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Weapons.Ranged.Events;
+using Robust.Shared.Audio.Systems;
 
 namespace Content.Server.Explosion.EntitySystems
 {
@@ -230,7 +231,7 @@ namespace Content.Server.Explosion.EntitySystems
             comp.TimeRemaining += amount;
         }
 
-        public void HandleTimerTrigger(EntityUid uid, EntityUid? user, float delay , float beepInterval, float? initialBeepDelay, SoundSpecifier? beepSound)
+        public void HandleTimerTrigger(EntityUid uid, EntityUid? user, float delay, float beepInterval, float? initialBeepDelay, SoundSpecifier? beepSound)
         {
             if (delay <= 0)
             {

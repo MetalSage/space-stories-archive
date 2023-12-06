@@ -16,6 +16,7 @@ using Content.Shared.Throwing;
 using Content.Shared.Weapons.Melee.Events;
 using JetBrains.Annotations;
 using Robust.Shared.Audio;
+using Robust.Shared.Audio.Systems;
 using Robust.Shared.Network;
 using Robust.Shared.Player;
 using Robust.Shared.Random;
@@ -95,7 +96,7 @@ public sealed partial class PushOnCollideSystem : EntitySystem
         var xformQuery = GetEntityQuery<TransformComponent>();
         var worldPos = _xform.GetWorldPosition(xform, xformQuery);
         var foo = _xform.GetWorldPosition(args.Target, xformQuery) - worldPos;
-        _throwing.TryThrow(args.Target, foo * 10, strength, uid, 0);
+        _throwing.TryThrow(args.Target, foo, strength, uid, 0);
     }
 
 

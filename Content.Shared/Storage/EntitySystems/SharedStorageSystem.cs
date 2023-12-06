@@ -17,6 +17,8 @@ using Content.Shared.Stacks;
 using Content.Shared.Storage.Components;
 using Content.Shared.Timing;
 using Content.Shared.Verbs;
+using Robust.Shared.Audio;
+using Robust.Shared.Audio.Systems;
 using Robust.Shared.Containers;
 using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
@@ -389,6 +391,10 @@ public abstract class SharedStorageSystem : EntitySystem
         var (uid, storage, appearance) = entity;
         if (!Resolve(uid, ref storage, ref appearance, false))
             return;
+
+        // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
+        if (storage.Container == null)
+            return; // component hasn't yet been initialized.
 
         int capacity;
         int used;

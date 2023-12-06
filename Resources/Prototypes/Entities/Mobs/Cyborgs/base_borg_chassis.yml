@@ -131,7 +131,7 @@
     - cell_slot
   - type: Flashable
   - type: Damageable
-    damageContainer: Inorganic
+    damageContainer: Silicon
   - type: Destructible
     thresholds:
     - trigger:
@@ -193,6 +193,9 @@
     - ShoesRequiredStepTriggerImmune
     - DoorBumpOpener
   - type: Emoting
+  - type: GuideHelp
+    guides:
+      - Cyborgs
 
 - type: entity
   id: BaseBorgChassisNT
@@ -208,5 +211,6 @@
     - AllAccess
   - type: Lock
     locked: true
+  - type: ActivatableUIRequiresLock
   - type: AccessReader
     access: [["Command"], ["Research"]]
