@@ -536,7 +536,7 @@
         damage:
           types:
             Poison: 0.06
-            
+
 
 - type: reagent
   id: Lead
