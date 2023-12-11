@@ -1,8 +1,8 @@
-using Content.Server.Flash;
 using Content.Server.Fluids.EntitySystems;
-using Content.Shared.SpaceStories.Force.Shadowling;
+using Content.Shared.SpaceStories.Shadowling;
+using Content.Shared.Chemistry.Components;
 
-namespace Content.Server.SpaceStories.Force.Shadowling;
+namespace Content.Server.SpaceStories.Shadowling;
 
 public sealed class ShadowlingBlindnessSmokeSystem : EntitySystem
 {
@@ -17,6 +17,9 @@ public sealed class ShadowlingBlindnessSmokeSystem : EntitySystem
     {
         if (!TryComp<TransformComponent>(uid, out var transform))
             return;
+
+        var solution = new Solution();
+        solution.AddReagent("ShadowlingSmokeReagent", 300);
 
         var foamEnt = Spawn("Foam", transform.Coordinates);
         _smoke.StartSmoke(foamEnt, solution, 30, 16);

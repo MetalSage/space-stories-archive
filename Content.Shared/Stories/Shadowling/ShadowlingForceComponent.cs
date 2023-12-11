@@ -1,7 +1,9 @@
-namespace Content.Shared.SpaceStories.Force.Shadowling;
 using Content.Shared.Actions;
-using Robust.Shared.Prototypes;
+using Content.Shared.Chemistry.Reagent;
+using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
+using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 
+namespace Content.Shared.SpaceStories.Shadowling;
 [RegisterComponent]
 public sealed partial class ShadowlingForceComponent : Component
 {
@@ -22,11 +24,18 @@ public sealed partial class ShadowlingForceComponent : Component
     /// <summary>
     /// Когда shadow walk окончится
     /// </summary>
-    [ViewVariables(VVAccess.ReadOnly), DataField("shadowWalkEndsIn")]
-    public TimeSpan ShadowWalkEndsIn = default!;
+    [ViewVariables(VVAccess.ReadOnly), DataField("shadowWalkEndsAt", customTypeSerializer: typeof(TimeOffsetSerializer))]
+    public TimeSpan ShadowWalkEndsAt = default!;
 
-    [ViewVariables(VVAccess.ReadOnly), DataField("icyVeinsReagent")]
-    public EntProtoId? IcyVeinsReagent = default!;
+    /// <summary>
+    /// Через сколько shadow walk окончится отсчитывая от активации
+    /// </summary>
+    [ViewVariables(VVAccess.ReadOnly), DataField("shadowWalkEndsIn", customTypeSerializer: typeof(TimeOffsetSerializer))]
+    public TimeSpan ShadowWalkEndsIn = TimeSpan.FromSeconds(5);
+
+    [ViewVariables(VVAccess.ReadOnly)]
+    [DataField("icyVeinsReagentId", customTypeSerializer: typeof(PrototypeIdSerializer<ReagentPrototype>))]
+    public string IcyVeinsReagentId = "IceOil";
 
     /// <summary>
     /// Какая связь у существа с силой.

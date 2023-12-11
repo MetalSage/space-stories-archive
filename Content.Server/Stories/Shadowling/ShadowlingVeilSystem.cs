@@ -1,9 +1,8 @@
 using Content.Server.Emp;
-using Content.Shared.SpaceStories.Force.Shadowling;
+using Content.Shared.SpaceStories.Shadowling;
 using Robust.Server.GameObjects;
 
-namespace Content.Server.SpaceStories.Force.Shadowling;
-
+namespace Content.Server.SpaceStories.Shadowling;
 public sealed class ShadowlingVeilSystem : EntitySystem
 {
     [Dependency] private readonly ShadowlingForceSystem _shadowling = default!;

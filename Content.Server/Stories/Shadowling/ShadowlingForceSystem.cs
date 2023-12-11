@@ -1,5 +1,6 @@
+using Content.Shared.SpaceStories.Shadowling;
 
-namespace Content.Shared.SpaceStories.Force.Shadowling;
+namespace Content.Server.SpaceStories.Shadowling;
 public sealed class ShadowlingForceSystem : EntitySystem
 {
     [Dependency] private readonly EntityLookupSystem _entityLookup = default!;
@@ -9,7 +10,7 @@ public sealed class ShadowlingForceSystem : EntitySystem
         base.Initialize();
     }
 
-    public List<EntityUid> GetEntitiesAroundShadowling<TFilter>(EntityUid uid, float radius) where TFilter : IComponent
+    public List<EntityUid> GetEntitiesAroundShadowling<TFilter>(EntityUid uid, float radius, bool filterTrells = true) where TFilter : IComponent
     {
         List<EntityUid> result = new() { };
 
@@ -20,7 +21,7 @@ public sealed class ShadowlingForceSystem : EntitySystem
         {
             if (!TryComp<TFilter>(entity, out var _))
                 continue;
-            if (TryComp<ShadowlingForceComponent>(entity, out var _))
+            if (filterTrells && TryComp<ShadowlingForceComponent>(entity, out var _))
                 continue;
 
             result.Add(entity);

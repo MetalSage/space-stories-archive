@@ -7,7 +7,7 @@ using Content.Shared.Mindshield.Components;
 using Content.Shared.Popups;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.SpaceStories.Force.Shadowling;
+namespace Content.Shared.SpaceStories.Shadowling;
 public sealed class ShadowlingEnthrallSystem : EntitySystem
 {
     [Dependency] private readonly StaminaSystem _stamina = default!;

@@ -1,10 +1,8 @@
 using Content.Server.Popups;
 using Content.Shared.Damage;
-using Content.Shared.Mobs.Components;
-using Content.Shared.SpaceStories.Force.Shadowling;
+using Content.Shared.SpaceStories.Shadowling;
 
-namespace Content.Server.SpaceStories.Force.Shadowling;
-
+namespace Content.Server.SpaceStories.Shadowling;
 public sealed class ShadowlingBlackRecuperationSystem : EntitySystem
 {
     [Dependency] private readonly DamageableSystem _damageable = default!;
@@ -28,7 +26,7 @@ public sealed class ShadowlingBlackRecuperationSystem : EntitySystem
         if (!TryComp<DamageableComponent>(ev.Target, out var slaveDamageable))
             return;
 
-        // You have rapid re-hatch to heal yourself!
+        // you can't heal yourself!
         if (shadowlingSlave.ForceType != ShadowlingForceType.ShadowlingSlave || shadowlingSlave.ForceType != ShadowlingForceType.ShadowlingTrell)
             return;
 

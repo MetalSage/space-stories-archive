@@ -1,6 +1,6 @@
 using Content.Shared.Popups;
 
-namespace Content.Shared.SpaceStories.Force.Shadowling;
+namespace Content.Shared.SpaceStories.Shadowling;
 public sealed class ShadowlingCollectiveMindSystem : EntitySystem
 {
     [Dependency] private readonly SharedPopupSystem _popup = default!;

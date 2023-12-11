@@ -1,7 +1,6 @@
-using Content.Shared.SpaceStories.Force.Shadowling;
+using Content.Shared.SpaceStories.Shadowling;
 
-namespace Content.Server.SpaceStories.Force.Shadowling;
-
+namespace Content.Server.SpaceStories.Shadowling;
 public sealed class ShadowlingEnthrallSystem : EntitySystem
 {
     [Dependency] private readonly IEntityManager _entity = default!;
