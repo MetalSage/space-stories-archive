@@ -96,7 +96,7 @@
   - type: MobThresholds
     thresholds:
       0: Alive
-      300: Dead
+      150: Dead
     stateAlertDict:
       Alive: SpafHealth
     showOverlays: false
@@ -107,7 +107,7 @@
       Dead:
         Base: dead
   - type: Stamina
-    critThreshold: 300
+    critThreshold: 150
   - type: SlowOnDamage
     speedModifierThresholds:
       40: 1.1
@@ -177,8 +177,8 @@
       path: /Audio/Weapons/Xeno/alien_claw_flesh3.ogg
     damage:
       types:
-        Piercing: 15
-        Slash: 15
+        Piercing: 10
+        Slash: 10
   - type: RandomMetadata
     nameSegments:
     - SpafFirst
@@ -189,7 +189,7 @@
     thresholds:
       - trigger:
           !type:DamageTrigger
-          damage: 300
+          damage: 150
         behaviors:
           - !type:DoActsBehavior
             acts: [ "Destruction" ]
@@ -216,7 +216,7 @@
     - type: MobThresholds
       thresholds:
         0: Alive
-        300: Dead
+        150: Dead
       stateAlertDict:
         Alive: SpafHealth
       showOverlays: false
@@ -227,7 +227,7 @@
         Dead:
           Base: dead
     - type: Stamina
-      critThreshold: 300
+      critThreshold: 150
     - type: SlowOnDamage
       speedModifierThresholds:
         40: 1.1
@@ -251,7 +251,7 @@
       thresholds:
         - trigger:
             !type:DamageTrigger
-            damage: 300
+            damage: 150
           behaviors:
             - !type:DoActsBehavior
               acts: [ "Destruction" ]
@@ -286,7 +286,7 @@
     - type: SpafGlue
       hungerPerSpafGlue: 10
     - type: SpafEgg
-      hungerPerSpafEgg: 50
+      hungerPerSpafEgg: 75
     - type: SpafMine
       hungerPerSpafMine: 20
     - type: SpafStealth
@@ -299,8 +299,8 @@
         path: /Audio/Weapons/Xeno/alien_claw_flesh3.ogg
       damage:
         types:
-          Piercing: 15
-          Slash: 15
+          Piercing: 10
+          Slash: 10
     - type: RandomMetadata
       nameSegments:
         - SpafFirst
@@ -468,7 +468,7 @@
     - type: SpafFood
       hungerPerSpafFood: 0
     - type: SpafEvols
-      hungerPerSpafEvols: 70
+      hungerPerSpafEvols: 50
     - type: MeleeWeapon
       altDisarm: false
       soundHit:
