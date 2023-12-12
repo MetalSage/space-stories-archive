@@ -6,6 +6,8 @@ using Content.Server.Chat.Systems;
 using Content.Shared.Nutrition.Components;
 using Content.Shared.Nutrition.EntitySystems;
 using System;
+using Robust.Server.Audio;
+using Robust.Shared.Audio;
 
 namespace Content.Server.Abilities.SpafHeal;
 
@@ -14,6 +16,7 @@ public sealed class SpafHealSystem : SharedSpafHealSystem // Creating a system f
     [Dependency] private readonly HungerSystem _hunger = default!;
     [Dependency] private readonly PopupSystem _popup = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!;
+    [Dependency] private readonly AudioSystem _audio = default!;
 
     public override void Initialize()
     {
@@ -40,6 +43,7 @@ public sealed class SpafHealSystem : SharedSpafHealSystem // Creating a system f
         args.Handled = true;
         _hunger.ModifyHunger(uid, -component.HungerPerSpafHeal, hunger); // Taking away food
 
+        _audio.PlayPvs("/Audio/Effects/Fluids/blood2.ogg", uid, AudioParams.Default.WithVariation(0.2f).WithVolume(-4f));
         var child = Spawn(component.TransMobSpawnId, Transform(uid).Coordinates); // Creating an Heal. It will automatically create a guest role, but there is no need to prescribe it here
     }
 }
