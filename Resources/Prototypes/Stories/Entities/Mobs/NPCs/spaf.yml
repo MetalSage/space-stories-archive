@@ -53,6 +53,7 @@
 - type: entity
   parent:
     - SimpleSpaceMobBaseSpaf
+    - MobBloodstream
   id: SimpleMobBaseSpaf # for air breathers
   abstract: true
   components:
@@ -72,6 +73,9 @@
         Parched: 50
         Dead: 0
       baseDecayRate: 0.04
+    - type: Bloodstream
+      bloodReagent: Slime
+      bloodMaxVolume: 150
     - type: StatusEffects
       allowed:
         - Stun
@@ -127,6 +131,9 @@
           - SmallMobMask
         layer:
           - SmallMobLayer
+  - type: Bloodstream
+    bloodReagent: Slime
+    bloodMaxVolume: 150
   - type: StatusEffects
     allowed:
       - Stun
@@ -165,6 +172,8 @@
     hungerPerSpafGlue: 10
   - type: SpafEgg
     hungerPerSpafEgg: 50
+  - type: SpafHeal
+    hungerPerSpafHeal: 10
   - type: SpafMine
     hungerPerSpafMine: 20
   - type: SpafStealth
@@ -259,6 +268,9 @@
       allowed:
         - Stun
         - StaminaModifier
+    - type: Bloodstream
+      bloodReagent: Slime
+      bloodMaxVolume: 150
     - type: PointLight
       color: DarkGreen
       radius: 0
@@ -341,6 +353,9 @@
           Base: dead
     - type: Stamina
       critThreshold: 10
+    - type: Bloodstream
+      bloodReagent: Slime
+      bloodMaxVolume: 150
     - type: MovementSpeedModifier
       baseWalkSpeed: 0
       baseSprintSpeed: 0
@@ -418,6 +433,9 @@
       stateAlertDict:
         Alive: SpafHealth
       showOverlays: false
+    - type: Bloodstream
+      bloodReagent: Slime
+      bloodMaxVolume: 150
     - type: DamageStateVisuals
       states:
         Alive:
@@ -505,6 +523,9 @@
       stateAlertDict:
         Alive: SpafHealth
       showOverlays: false
+    - type: Bloodstream
+      bloodReagent: Blood
+      bloodMaxVolume: 150
     - type: Speech
       speechSounds: Squeak
       speechVerb: SmallMob
@@ -572,3 +593,28 @@
     - type: Tag
       tags:
         - CannotSuicide
+
+- type: entity
+  name: spafball
+  parent: FoodMeatBase
+  id: FoodMeatSpaf
+  description: A gelatinous shaping of slime jelly.
+  components:
+    - type: SolutionContainerManager
+      solutions:
+        food:
+          maxVol: 20
+          reagents:
+            - ReagentId: Slime
+              Quantity: 9
+            - ReagentId: Omnizine
+              Quantity: 11
+    - type: FlavorProfile
+      flavors:
+        - slimy
+    - type: Tag
+      tags:
+        - Raw
+        - Meat
+    - type: Sprite
+      state: slime
