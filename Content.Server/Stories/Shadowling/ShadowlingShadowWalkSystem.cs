@@ -16,6 +16,7 @@ public sealed class ShadowlingShadowWalkSystem : EntitySystem
         base.Initialize();
 
         SubscribeLocalEvent<ShadowlingForceComponent, ShadowlingShadowWalkEvent>(OnShadowlingShadowWalkEvent);
+        SubscribeLocalEvent<ShadowlingForceComponent, ShadowlingPlaneShiftEvent>(OnShadowlingPlaneShiftEvent);
     }
 
     private void OnShadowlingShadowWalkEvent(EntityUid uid, ShadowlingForceComponent component, ref ShadowlingShadowWalkEvent ev)
@@ -23,7 +24,21 @@ public sealed class ShadowlingShadowWalkSystem : EntitySystem
         if (!TryComp<FixturesComponent>(uid, out var fixtures))
             return;
 
-        BeginShadowWalk(uid, component, fixtures);
+        if (!component.InShadowWalk)
+            BeginShadowWalk(uid, component, fixtures);
+        else
+            EndShadowWalk(uid, component, fixtures);
+    }
+
+    private void OnShadowlingPlaneShiftEvent(EntityUid uid, ShadowlingForceComponent component, ref ShadowlingPlaneShiftEvent ev)
+    {
+        if (!TryComp<FixturesComponent>(uid, out var fixtures))
+            return;
+
+        if (!component.InShadowWalk)
+            BeginShadowWalk(uid, component, fixtures);
+        else
+            EndShadowWalk(uid, component, fixtures);
     }
 
     public override void FrameUpdate(float frameTime)
@@ -35,7 +50,7 @@ public sealed class ShadowlingShadowWalkSystem : EntitySystem
 
         while (query.MoveNext(out var uid, out var comp, out var fixtures))
         {
-            if (comp.InShadowWalk && curTime > comp.ShadowWalkEndsAt)
+            if (comp.InShadowWalk && comp.ForceType != ShadowlingForceType.ShadowlingOverlord && curTime > comp.ShadowWalkEndsAt)
             {
                 EndShadowWalk(uid, comp, fixtures);
             }

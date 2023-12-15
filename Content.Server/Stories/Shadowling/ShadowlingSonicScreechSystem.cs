@@ -1,0 +1,67 @@
+using Content.Server.Construction.Components;
+using Content.Server.Emp;
+using Content.Server.Popups;
+using Content.Shared.Body.Components;
+using Content.Shared.Damage;
+using Content.Shared.Damage.Components;
+using Content.Shared.Damage.Prototypes;
+using Content.Shared.Damage.Systems;
+using Content.Shared.Silicons.Borgs.Components;
+using Content.Shared.SpaceStories.Shadowling;
+using Robust.Shared.Prototypes;
+
+namespace Content.Server.SpaceStories.Shadowling;
+public sealed class ShadowlingSonicScreechSystem : EntitySystem
+{
+    [Dependency] private readonly ShadowlingForceSystem _shadowling = default!;
+    [Dependency] private readonly DamageableSystem _damageable = default!;
+    [Dependency] private readonly IPrototypeManager _prototype = default!;
+    [Dependency] private readonly StaminaSystem _stamina = default!;
+    [Dependency] private readonly PopupSystem _popup = default!;
+    [Dependency] private readonly EmpSystem _emp = default!;
+
+    public override void Initialize()
+    {
+        base.Initialize();
+        SubscribeLocalEvent<ShadowlingForceComponent, ShadowlingSonicScreechEvent>(OnShadowlingSonicScreechEvent);
+    }
+
+    private void OnShadowlingSonicScreechEvent(EntityUid uid, ShadowlingForceComponent component, ref ShadowlingSonicScreechEvent ev)
+    {
+        var constructions = _shadowling.GetEntitiesAroundShadowling<ConstructionComponent>(uid, 15);
+
+        foreach (var entity in constructions)
+        {
+            var construction = Comp<ConstructionComponent>(entity);
+
+            if (construction.Graph != "Window")
+                continue;
+
+            if (!_prototype.TryIndex<DamageTypePrototype>("Brute", out var brute))
+                continue;
+
+            _damageable.TryChangeDamage(entity, new(brute, 60), true);
+        }
+
+        var bodies = _shadowling.GetEntitiesAroundShadowling<BodyComponent>(uid, 15);
+
+        foreach (var body in bodies)
+        {
+            if (TryComp<StaminaComponent>(body, out var _))
+            {
+                _stamina.TakeStaminaDamage(body, 70);
+                _popup.PopupClient("Волна визга оглушает вас, ваши уши кровоточат!", body, body);
+                continue;
+            }
+            if (TryComp<BorgChassisComponent>(uid, out var borg))
+            {
+                if (!_prototype.TryIndex<DamageTypePrototype>("Shock", out var shock))
+                    continue;
+
+                _damageable.TryChangeDamage(body, new(shock, 60), true);
+                _emp.DoEmpEffects(body, 50_000, 15);
+                _popup.PopupClient("Волна визга выводит вашу электронику из строя", body, body);
+            }
+        }
+    }
+}

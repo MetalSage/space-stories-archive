@@ -13,11 +13,13 @@ public sealed class ShadowlingEnthrallSystem : EntitySystem
     [Dependency] private readonly StaminaSystem _stamina = default!;
     [Dependency] private readonly SharedPopupSystem _popup = default!;
     [Dependency] private readonly SharedDoAfterSystem _doAfterSystem = default!;
+    [Dependency] private readonly SharedTransformSystem _transform = default!;
 
     public override void Initialize()
     {
         base.Initialize();
         SubscribeLocalEvent<ShadowlingForceComponent, ShadowlingEnthrallEvent>(OnEnthrallEvent);
+        SubscribeLocalEvent<ShadowlingForceComponent, ShadowlingHypnosisEvent>(OnHypnosisEvent);
         SubscribeLocalEvent<ShadowlingForceComponent, EnthrallDoAfterEvent>(OnEnthrallDoAfterEvent);
     }
 
@@ -38,6 +40,12 @@ public sealed class ShadowlingEnthrallSystem : EntitySystem
         if (!TryComp<DamageableComponent>(ev.Target, out var damage) || damage.DamageContainerID != "Biological")
             return;
 
+        var coords = _transform.GetWorldPosition(ev.Target);
+        var distance = (_transform.GetWorldPosition(uid) - coords).Length();
+
+        if (distance > 2)
+            return;
+
         if (TryComp<MindShieldComponent>(ev.Target, out var _))
         {
             _popup.PopupClient("Вы поглощаете чей-то разум... Некий барьер полностью отражает вашу атаку", ev.Performer, ev.Performer);
@@ -56,6 +64,46 @@ public sealed class ShadowlingEnthrallSystem : EntitySystem
             BlockDuplicate = true,
             BreakOnDamage = true,
             BreakOnTargetMove = true,
+        };
+
+        _doAfterSystem.TryStartDoAfter(doAfter);
+    }
+
+    private void OnHypnosisEvent(EntityUid uid, ShadowlingForceComponent component, ref ShadowlingHypnosisEvent ev)
+    {
+        if (ev.Handled)
+            return;
+        ev.Handled = true;
+
+        // You cannot enthrall animals
+        if (!TryComp<BodyComponent>(ev.Target, out var body) || body.Prototype == "Animal")
+            return;
+        // You cannot enthrall someone without mind
+        if (!TryComp<MindContainerComponent>(ev.Target, out var mind) || !mind.HasMind)
+            return;
+
+        // You cannot enthrall someone or something not biological (borgs for example)
+        if (!TryComp<DamageableComponent>(ev.Target, out var damage) || damage.DamageContainerID != "Biological")
+            return;
+
+        var coords = _transform.GetWorldPosition(ev.Target);
+        var distance = (_transform.GetWorldPosition(uid) - coords).Length();
+
+        if (distance > 2)
+            return;
+
+        if (TryComp<MindShieldComponent>(ev.Target, out var _))
+        {
+            _popup.PopupClient("Некий барьер полностью отражает вашу атаку", ev.Performer, ev.Performer);
+            _popup.PopupClient("Некий барьер отразил сильнейшую ментальную атаку", ev.Target, ev.Target);
+            return;
+        }
+
+        _stamina.TryTakeStamina(ev.Target, 100);
+
+        var doAfter = new DoAfterArgs(EntityManager, ev.Performer, 1, new EnthrallDoAfterEvent(), ev.Target)
+        {
+            BlockDuplicate = true,
         };
 
         _doAfterSystem.TryStartDoAfter(doAfter);

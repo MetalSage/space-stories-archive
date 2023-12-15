@@ -202,6 +202,10 @@ public sealed partial class ShadowlingEnthrallEvent : EntityTargetActionEvent
 {
 }
 
+public sealed partial class ShadowlingHypnosisEvent : EntityTargetActionEvent
+{
+}
+
 public sealed partial class ShadowlingGlareEvent : InstantActionEvent
 {
 }
