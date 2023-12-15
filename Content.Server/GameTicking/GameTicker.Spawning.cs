@@ -333,6 +333,7 @@ namespace Content.Server.GameTicking
                 _mind.SetUserId(mind.Value, player.UserId);
                 _roles.MindAddRole(mind.Value, new ObserverRoleComponent());
             }
+            
             var name = GetPlayerProfile(player).Name;
             var ghost = SpawnObserverMob();
             _metaData.SetEntityName(ghost, name);
