@@ -345,7 +345,7 @@ namespace Content.Server.GameTicking
         private EntityUid SpawnObserverMob()
         {
             var coordinates = GetObserverSpawnPoint();
-            return EntityManager.SpawnEntity("MobObserver", coordinates);
+            return EntityManager.SpawnEntity(ObserverPrototypeName, coordinates);
         }
         #endregion
 
