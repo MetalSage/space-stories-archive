@@ -3,6 +3,7 @@
   id: MobObserver
   name: observer
   description: Boo!
+  noSpawn: true
   components:
   - type: CargoSellBlacklist
   - type: Sprite
@@ -31,7 +32,6 @@
   - type: Examiner
     skipChecks: true
   - type: Ghost
-    canInteract: true
   - type: GhostHearing
   - type: MovementSpeedModifier
     baseSprintSpeed: 12
@@ -110,18 +110,3 @@
       state: icon
     iconOn: Interface/Actions/ghostHearingToggled.png
     event: !type:ToggleGhostHearingActionEvent
-
-- type: entity
-  parent: MobObserver
-  id: MobObserver2
-  name: observer
-  description: Boo!
-  components:
-    - type: Sprite
-      overrideContainerOcclusion: true
-      drawdepth: Ghosts
-      sprite: Mobs/Ghosts/ghost_admin.rsi
-      color: "#fff8"
-      layers:
-        - state: animated
-          shader: unshaded
