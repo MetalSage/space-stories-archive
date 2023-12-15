@@ -334,11 +334,10 @@ namespace Content.Server.GameTicking
                 _roles.MindAddRole(mind.Value, new ObserverRoleComponent());
             }
             var name = GetPlayerProfile(player).Name;
-
             var ghost = SpawnObserverMob();
             _metaData.SetEntityName(ghost, name);
             _ghost.SetCanReturnToBody(ghost, false);
-             _mind.TransferTo(mind.Value, ghost);
+            _mind.TransferTo(mind.Value, ghost);
         }
 
         #region Mob Spawning Helpers
