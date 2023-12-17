@@ -20,8 +20,6 @@ using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Utility;
-using Content.Server.Corvax.Sponsors;
-using Content.Shared.Corvax.Sponsors;
 
 namespace Content.Server.GameTicking
 {
@@ -29,7 +27,6 @@ namespace Content.Server.GameTicking
     {
         [Dependency] private readonly IAdminManager _adminManager = default!;
         [Dependency] private readonly SharedJobSystem _jobs = default!;
-        [Dependency] private readonly SponsorsManager _sponsorsManager = default!;
 
         [ValidatePrototypeId<EntityPrototype>]
         public const string ObserverPrototypeName = "MobObserver";
@@ -336,35 +333,19 @@ namespace Content.Server.GameTicking
                 _mind.SetUserId(mind.Value, player.UserId);
                 _roles.MindAddRole(mind.Value, new ObserverRoleComponent());
             }
+            
             var name = GetPlayerProfile(player).Name;
-
-            if(_sponsorsManager.TryGetInfo(player.UserId, out var sponsor))
-            {
-                var ghost = SpawnObserverMob2();
-                _metaData.SetEntityName(ghost, name);
-                _ghost.SetCanReturnToBody(ghost, false);
-                _mind.TransferTo(mind.Value, ghost);
-            }
-            else
-            {
-                var ghost = SpawnObserverMob();
-                _metaData.SetEntityName(ghost, name);
-                _ghost.SetCanReturnToBody(ghost, false);
-                _mind.TransferTo(mind.Value, ghost);
-            }
+            var ghost = SpawnObserverMob();
+            _metaData.SetEntityName(ghost, name);
+            _ghost.SetCanReturnToBody(ghost, false);
+            _mind.TransferTo(mind.Value, ghost);
         }
 
         #region Mob Spawning Helpers
         private EntityUid SpawnObserverMob()
         {
             var coordinates = GetObserverSpawnPoint();
-            return EntityManager.SpawnEntity("MobObserver", coordinates);
-        }
-
-        private EntityUid SpawnObserverMob2()
-        {
-            var coordinates = GetObserverSpawnPoint();
-            return EntityManager.SpawnEntity("MobObserver2", coordinates);
+            return EntityManager.SpawnEntity(ObserverPrototypeName, coordinates);
         }
         #endregion
 
