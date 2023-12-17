@@ -100,7 +100,7 @@
   - type: MobThresholds
     thresholds:
       0: Alive
-      150: Dead
+      100: Dead
     stateAlertDict:
       Alive: SpafHealth
     showOverlays: false
@@ -109,7 +109,7 @@
       Alive:
         Base: spaf
   - type: Stamina
-    critThreshold: 150
+    critThreshold: 100
   - type: SlowOnDamage
     speedModifierThresholds:
       40: 1.1
@@ -131,7 +131,7 @@
           - SmallMobLayer
   - type: Bloodstream
     bloodReagent: Slime
-    bloodMaxVolume: 150
+    bloodMaxVolume: 100
   - type: StatusEffects
     allowed:
       - Stun
@@ -196,7 +196,7 @@
     thresholds:
       - trigger:
           !type:DamageTrigger
-          damage: 150
+          damage: 100
         behaviors:
           - !type:DoActsBehavior
             acts: [ "Destruction" ]
@@ -223,7 +223,7 @@
     - type: MobThresholds
       thresholds:
         0: Alive
-        150: Dead
+        100: Dead
       stateAlertDict:
         Alive: SpafHealth
       showOverlays: false
@@ -234,7 +234,7 @@
         Dead:
           Base: dead
     - type: Stamina
-      critThreshold: 150
+      critThreshold: 100
     - type: SlowOnDamage
       speedModifierThresholds:
         40: 1.1
@@ -258,7 +258,7 @@
       thresholds:
         - trigger:
             !type:DamageTrigger
-            damage: 150
+            damage: 100
           behaviors:
             - !type:DoActsBehavior
               acts: [ "Destruction" ]
@@ -268,7 +268,7 @@
         - StaminaModifier
     - type: Bloodstream
       bloodReagent: Slime
-      bloodMaxVolume: 150
+      bloodMaxVolume: 100
     - type: PointLight
       color: DarkGreen
       radius: 0
@@ -427,13 +427,13 @@
     - type: MobThresholds
       thresholds:
         0: Alive
-        100: Dead
+        50: Dead
       stateAlertDict:
         Alive: SpafHealth
       showOverlays: false
     - type: Bloodstream
       bloodReagent: Slime
-      bloodMaxVolume: 150
+      bloodMaxVolume: 50
     - type: DamageStateVisuals
       states:
         Alive:
@@ -441,7 +441,7 @@
         Dead:
           Base: dead
     - type: Stamina
-      critThreshold: 100
+      critThreshold: 50
     - type: SlowOnDamage
       speedModifierThresholds:
         40: 1.1
@@ -517,13 +517,13 @@
     - type: MobThresholds
       thresholds:
         0: Alive
-        300: Dead
+        25: Dead
       stateAlertDict:
         Alive: SpafHealth
       showOverlays: false
     - type: Bloodstream
       bloodReagent: Blood
-      bloodMaxVolume: 150
+      bloodMaxVolume: 25
     - type: Speech
       speechSounds: Squeak
       speechVerb: SmallMob
@@ -534,7 +534,7 @@
         Dead:
           Base: dead
     - type: Stamina
-      critThreshold: 300
+      critThreshold: 25
     - type: SlowOnDamage
       speedModifierThresholds:
         40: 1.1
@@ -556,7 +556,7 @@
       thresholds:
         - trigger:
             !type:DamageTrigger
-            damage: 300
+            damage: 25
           behaviors:
             - !type:DoActsBehavior
               acts: [ "Destruction" ]
