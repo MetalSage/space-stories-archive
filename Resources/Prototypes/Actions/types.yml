@@ -406,36 +406,3 @@
       icon: Stories/Actions/spaf.rsi/spaf_devour.png
       iconOn: Stories/Actions/spaf.rsi/spaf_devour_on.png
       event: !type:SpafDevourActionEvent
-
-- type: entity
-  id: ActionSpcbDevour
-  name: "[color=lime]In[/color]"
-  description: Devour your prey to get 50 food and restore your health
-  noSpawn: true
-  components:
-    - type: EntityTargetAction
-      icon: Stories/Actions/spaf.rsi/spaf_devour.png
-      iconOn: Stories/Actions/spaf.rsi/spaf_devour_on.png
-      event: !type:SpcbDevourActionEvent
-
-- type: entity
-  id: ActionSpcbExit
-  name: "[color=blue]Exit[/color]"
-  description: Spend 70 meals to evolve into something bigger
-  noSpawn: true
-  components:
-    - type: InstantAction
-      useDelay: 5
-      icon: Stories/Actions/spaf.rsi/spaf_evol.png
-      event: !type:SpcbExitEvent
-
-- type: entity
-  id: ActionSpcbNew
-  name: "[color=blue]New/color]"
-  description: Spend 70 meals to evolve into something bigger
-  noSpawn: true
-  components:
-    - type: InstantAction
-      useDelay: 5
-      icon: Stories/Actions/spaf.rsi/spaf_evol.png
-      event: !type:SpcbNewEvent

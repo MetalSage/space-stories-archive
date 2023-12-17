@@ -108,8 +108,6 @@
     states:
       Alive:
         Base: spaf
-      Dead:
-        Base: dead
   - type: Stamina
     critThreshold: 150
   - type: SlowOnDamage
@@ -181,7 +179,7 @@
   - type: SpafFood
     hungerPerSpafFood: 0
   - type: MeleeWeapon
-    altDisarm: false
+    altDisarm: true
     soundHit:
       path: /Audio/Weapons/Xeno/alien_claw_flesh3.ogg
     damage:
@@ -306,7 +304,7 @@
     - type: SpafFood
       hungerPerSpafFood: 0
     - type: MeleeWeapon
-      altDisarm: false
+      altDisarm: true
       soundHit:
         path: /Audio/Weapons/Xeno/alien_claw_flesh3.ogg
       damage:
@@ -488,7 +486,7 @@
     - type: SpafEvols
       hungerPerSpafEvols: 50
     - type: MeleeWeapon
-      altDisarm: false
+      altDisarm: true
       soundHit:
         path: /Audio/Weapons/Xeno/alien_claw_flesh3.ogg
       damage:
