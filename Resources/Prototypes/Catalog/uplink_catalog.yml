@@ -551,7 +551,7 @@
     Telecrystal: 2
   categories:
   - UplinkUtility
-  
+
 # Implants
 
 - type: listing
@@ -1100,6 +1100,7 @@
     whitelist:
     - Zookeeper
     - Scientist
+    - SeniorResearcher # Stories-Seniors
     - ResearchDirector
     - Chef
 
