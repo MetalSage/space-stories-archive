@@ -66,7 +66,7 @@ public class SharedShadowlingSystem : EntitySystem
         Dirty(uid, component);
     }
 
-    public static bool IsShadowlingSlave(ShadowlingComponent component)
+    public bool IsShadowlingSlave(ShadowlingComponent component)
     {
         return component.Stage switch
         {

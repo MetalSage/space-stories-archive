@@ -1,13 +1,11 @@
 using Content.Client.Antag;
 using Content.Shared.SpaceStories.Shadowling;
-using Content.Shared.StatusIcon;
 using Content.Shared.StatusIcon.Components;
-using Robust.Shared.Prototypes;
 
 namespace Content.Client.Overlays;
 public sealed class ShowShadowlingIconSystem : AntagStatusIconSystem<ShadowlingComponent>
 {
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
+    [Dependency] private readonly SharedShadowlingSystem _shadowling = default!;
 
     public override void Initialize()
     {
@@ -18,11 +16,12 @@ public sealed class ShowShadowlingIconSystem : AntagStatusIconSystem<ShadowlingC
 
     private void OnGetStatusIconsEvent(EntityUid uid, StatusIconComponent _, ref GetStatusIconsEvent args)
     {
-        var result = new List<StatusIconPrototype>();
-
         if (!TryComp<ShadowlingComponent>(uid, out var shadowling))
-        {
             return;
-        }
+
+        if (_shadowling.IsShadowlingSlave(shadowling))
+            GetStatusIcon("ShadowlingThrallFaction", ref args);
+        else
+            GetStatusIcon("ShadowlingFaction", ref args);
     }
 }
