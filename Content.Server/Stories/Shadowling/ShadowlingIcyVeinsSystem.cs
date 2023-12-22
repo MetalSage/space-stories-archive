@@ -7,16 +7,16 @@ namespace Content.Server.SpaceStories.Shadowling;
 
 public sealed class ShadowlingIcyVeinsSystem : EntitySystem
 {
-    [Dependency] private readonly ShadowlingForceSystem _shadowling = default!;
+    [Dependency] private readonly ShadowlingSystem _shadowling = default!;
     [Dependency] private readonly SolutionContainerSystem _solution = default!;
 
     public override void Initialize()
     {
         base.Initialize();
-        SubscribeLocalEvent<ShadowlingForceComponent, ShadowlingIcyVeinsEvent>(OnShadowlingIcyVeinsEvent);
+        SubscribeLocalEvent<ShadowlingComponent, ShadowlingIcyVeinsEvent>(OnIcyVeinsEvent);
     }
 
-    private void OnShadowlingIcyVeinsEvent(EntityUid uid, ShadowlingForceComponent component, ref ShadowlingIcyVeinsEvent ev)
+    private void OnIcyVeinsEvent(EntityUid uid, ShadowlingComponent component, ref ShadowlingIcyVeinsEvent ev)
     {
         var bodies = _shadowling.GetEntitiesAroundShadowling<BodyComponent>(uid, 15);
 

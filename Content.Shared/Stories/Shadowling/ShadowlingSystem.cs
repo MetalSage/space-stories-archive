@@ -1,24 +1,25 @@
 using Content.Shared.Actions;
 
 namespace Content.Shared.SpaceStories.Shadowling;
-public sealed class ShadowlingForceSystem : EntitySystem
+[Virtual]
+public class SharedShadowlingSystem : EntitySystem
 {
     [Dependency] private readonly SharedActionsSystem _actions = default!;
 
     public override void Initialize()
     {
         base.Initialize();
-        SubscribeLocalEvent<ShadowlingForceComponent, ComponentStartup>(OnStartUp);
-        SubscribeLocalEvent<ShadowlingForceComponent, ComponentShutdown>(OnShutdown);
-        SubscribeLocalEvent<ShadowlingForceComponent, ShadowlingForceTypeChangeEvent>(OnForceTypeChanged);
+        SubscribeLocalEvent<ShadowlingComponent, ComponentStartup>(OnStartUp);
+        SubscribeLocalEvent<ShadowlingComponent, ComponentShutdown>(OnShutdown);
+        SubscribeLocalEvent<ShadowlingComponent, ShadowlingStageChangeEvent>(OnForceTypeChanged);
     }
 
-    private void OnStartUp(EntityUid uid, ShadowlingForceComponent component, ComponentStartup args)
+    private void OnStartUp(EntityUid uid, ShadowlingComponent component, ComponentStartup args)
     {
         if (!TryComp<ActionsComponent>(uid, out var action))
             return;
 
-        component.Actions.TryGetValue(component.ForceType, out var toGrant);
+        component.Actions.TryGetValue(component.Stage, out var toGrant);
         if (toGrant == null) return;
         foreach (var id in toGrant)
         {
@@ -30,7 +31,7 @@ public sealed class ShadowlingForceSystem : EntitySystem
         Dirty(uid, component);
     }
 
-    private void OnShutdown(EntityUid uid, ShadowlingForceComponent component, ComponentShutdown args)
+    private void OnShutdown(EntityUid uid, ShadowlingComponent component, ComponentShutdown args)
     {
         if (!TryComp<ActionsComponent>(uid, out var action))
             return;
@@ -43,7 +44,7 @@ public sealed class ShadowlingForceSystem : EntitySystem
         component.GrantedActions.Clear();
     }
 
-    private void OnForceTypeChanged(EntityUid uid, ShadowlingForceComponent component, ref ShadowlingForceTypeChangeEvent args)
+    private void OnForceTypeChanged(EntityUid uid, ShadowlingComponent component, ref ShadowlingStageChangeEvent args)
     {
         if (!TryComp<ActionsComponent>(uid, out var action) || args.NewActions == null)
             return;
@@ -63,5 +64,20 @@ public sealed class ShadowlingForceSystem : EntitySystem
         }
 
         Dirty(uid, component);
+    }
+
+    public static bool IsShadowlingSlave(ShadowlingComponent component)
+    {
+        return component.Stage switch
+        {
+            ShadowlingStage.Thrall or ShadowlingStage.Lower => true,
+            ShadowlingStage.Start or
+            ShadowlingStage.Basic or
+            ShadowlingStage.Medium or
+            ShadowlingStage.High or
+            ShadowlingStage.Final or
+            ShadowlingStage.Ascended => false,
+            _ => false,
+        };
     }
 }

@@ -18,12 +18,12 @@ public sealed class ShadowlingEnthrallSystem : EntitySystem
     public override void Initialize()
     {
         base.Initialize();
-        SubscribeLocalEvent<ShadowlingForceComponent, ShadowlingEnthrallEvent>(OnEnthrallEvent);
-        SubscribeLocalEvent<ShadowlingForceComponent, ShadowlingHypnosisEvent>(OnHypnosisEvent);
-        SubscribeLocalEvent<ShadowlingForceComponent, EnthrallDoAfterEvent>(OnEnthrallDoAfterEvent);
+        SubscribeLocalEvent<ShadowlingComponent, ShadowlingEnthrallEvent>(OnEnthrallEvent);
+        SubscribeLocalEvent<ShadowlingComponent, ShadowlingHypnosisEvent>(OnHypnosisEvent);
+        SubscribeLocalEvent<ShadowlingComponent, EnthrallDoAfterEvent>(OnEnthrallDoAfterEvent);
     }
 
-    private void OnEnthrallEvent(EntityUid uid, ShadowlingForceComponent component, ref ShadowlingEnthrallEvent ev)
+    private void OnEnthrallEvent(EntityUid uid, ShadowlingComponent component, ref ShadowlingEnthrallEvent ev)
     {
         if (ev.Handled)
             return;
@@ -69,7 +69,7 @@ public sealed class ShadowlingEnthrallSystem : EntitySystem
         _doAfterSystem.TryStartDoAfter(doAfter);
     }
 
-    private void OnHypnosisEvent(EntityUid uid, ShadowlingForceComponent component, ref ShadowlingHypnosisEvent ev)
+    private void OnHypnosisEvent(EntityUid uid, ShadowlingComponent component, ref ShadowlingHypnosisEvent ev)
     {
         if (ev.Handled)
             return;
@@ -109,7 +109,7 @@ public sealed class ShadowlingEnthrallSystem : EntitySystem
         _doAfterSystem.TryStartDoAfter(doAfter);
     }
 
-    private void OnEnthrallDoAfterEvent(EntityUid uid, ShadowlingForceComponent component, ref EnthrallDoAfterEvent ev)
+    private void OnEnthrallDoAfterEvent(EntityUid uid, ShadowlingComponent component, ref EnthrallDoAfterEvent ev)
     {
         if (ev.Target is not { } target)
             return;

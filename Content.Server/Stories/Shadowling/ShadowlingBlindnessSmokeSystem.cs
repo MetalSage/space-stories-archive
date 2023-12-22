@@ -10,10 +10,10 @@ public sealed class ShadowlingBlindnessSmokeSystem : EntitySystem
     public override void Initialize()
     {
         base.Initialize();
-        SubscribeLocalEvent<ShadowlingForceComponent, ShadowlingBlindnessSmokeEvent>(OnShadowlingBlindnessSmokeEvent);
+        SubscribeLocalEvent<ShadowlingComponent, ShadowlingBlindnessSmokeEvent>(OnBlindnessSmokeEvent);
     }
 
-    private void OnShadowlingBlindnessSmokeEvent(EntityUid uid, ShadowlingForceComponent component, ref ShadowlingBlindnessSmokeEvent ev)
+    private void OnBlindnessSmokeEvent(EntityUid uid, ShadowlingComponent component, ref ShadowlingBlindnessSmokeEvent ev)
     {
         if (!TryComp<TransformComponent>(uid, out var transform))
             return;

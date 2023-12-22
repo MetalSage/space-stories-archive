@@ -13,7 +13,7 @@ using Robust.Shared.Prototypes;
 namespace Content.Server.SpaceStories.Shadowling;
 public sealed class ShadowlingSonicScreechSystem : EntitySystem
 {
-    [Dependency] private readonly ShadowlingForceSystem _shadowling = default!;
+    [Dependency] private readonly ShadowlingSystem _shadowling = default!;
     [Dependency] private readonly DamageableSystem _damageable = default!;
     [Dependency] private readonly IPrototypeManager _prototype = default!;
     [Dependency] private readonly StaminaSystem _stamina = default!;
@@ -23,10 +23,10 @@ public sealed class ShadowlingSonicScreechSystem : EntitySystem
     public override void Initialize()
     {
         base.Initialize();
-        SubscribeLocalEvent<ShadowlingForceComponent, ShadowlingSonicScreechEvent>(OnShadowlingSonicScreechEvent);
+        SubscribeLocalEvent<ShadowlingComponent, ShadowlingSonicScreechEvent>(OnSonicScreechEvent);
     }
 
-    private void OnShadowlingSonicScreechEvent(EntityUid uid, ShadowlingForceComponent component, ref ShadowlingSonicScreechEvent ev)
+    private void OnSonicScreechEvent(EntityUid uid, ShadowlingComponent component, ref ShadowlingSonicScreechEvent ev)
     {
         var constructions = _shadowling.GetEntitiesAroundShadowling<ConstructionComponent>(uid, 15);
 

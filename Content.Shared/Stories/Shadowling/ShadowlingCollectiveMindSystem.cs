@@ -8,32 +8,32 @@ public sealed class ShadowlingCollectiveMindSystem : EntitySystem
     public override void Initialize()
     {
         base.Initialize();
-        SubscribeLocalEvent<ShadowlingForceComponent, ShadowlingCollectiveMindEvent>(OnCollectiveEvent);
+        SubscribeLocalEvent<ShadowlingComponent, ShadowlingCollectiveMindEvent>(OnCollectiveEvent);
     }
 
-    private void OnCollectiveEvent(EntityUid uid, ShadowlingForceComponent component, ref ShadowlingCollectiveMindEvent ev)
+    private void OnCollectiveEvent(EntityUid uid, ShadowlingComponent component, ref ShadowlingCollectiveMindEvent ev)
     {
         _popup.PopupClient(string.Format("У вас {0} порабощённых", component.Slaves.Count), uid, uid);
 
-        ShadowlingForceType? nextPhase = null;
+        ShadowlingStage? nextPhase = null;
 
-        switch (component.ForceType)
+        switch (component.Stage)
         {
-            case ShadowlingForceType.ShadowlingBasic:
+            case ShadowlingStage.Start:
                 if (component.Slaves.Count >= 3)
-                    nextPhase = ShadowlingForceType.ShadowlingBeginning;
+                    nextPhase = ShadowlingStage.Basic;
                 break;
-            case ShadowlingForceType.ShadowlingBeginning:
+            case ShadowlingStage.Basic:
                 if (component.Slaves.Count >= 5)
-                    nextPhase = ShadowlingForceType.ShadowlingMedium;
+                    nextPhase = ShadowlingStage.Medium;
                 break;
-            case ShadowlingForceType.ShadowlingMedium:
+            case ShadowlingStage.Medium:
                 if (component.Slaves.Count >= 9)
-                    nextPhase = ShadowlingForceType.ShadowlingHigh;
+                    nextPhase = ShadowlingStage.High;
                 break;
-            case ShadowlingForceType.ShadowlingHigh:
+            case ShadowlingStage.High:
                 if (component.Slaves.Count >= 15)
-                    nextPhase = ShadowlingForceType.ShadowlingFinal;
+                    nextPhase = ShadowlingStage.Final;
                 break;
         }
 
@@ -41,7 +41,7 @@ public sealed class ShadowlingCollectiveMindSystem : EntitySystem
             return;
 
         _popup.PopupClient("Новые способности разблокированы", uid, uid);
-        component.ForceType = notNullNextPhase;
+        component.Stage = notNullNextPhase;
         Dirty(uid, component);
     }
 }

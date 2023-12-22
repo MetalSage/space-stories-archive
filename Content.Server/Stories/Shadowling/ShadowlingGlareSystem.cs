@@ -7,15 +7,15 @@ namespace Content.Server.SpaceStories.Shadowling;
 public sealed class ShadowlingGlareSystem : EntitySystem
 {
     [Dependency] private readonly FlashSystem _flash = default!;
-    [Dependency] private readonly ShadowlingForceSystem _shadowling = default!;
+    [Dependency] private readonly ShadowlingSystem _shadowling = default!;
 
     public override void Initialize()
     {
         base.Initialize();
-        SubscribeLocalEvent<ShadowlingForceComponent, ShadowlingGlareEvent>(OnShadowlingGlareEvent);
+        SubscribeLocalEvent<ShadowlingComponent, ShadowlingGlareEvent>(OnGlareEvent);
     }
 
-    private void OnShadowlingGlareEvent(EntityUid uid, ShadowlingForceComponent component, ref ShadowlingGlareEvent ev)
+    private void OnGlareEvent(EntityUid uid, ShadowlingComponent component, ref ShadowlingGlareEvent ev)
     {
         var entities = _shadowling.GetEntitiesAroundShadowling<FlashableComponent>(uid, 15);
 

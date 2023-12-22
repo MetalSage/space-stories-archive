@@ -8,10 +8,10 @@ public sealed class ShadowlingRapidReHatchSystem : EntitySystem
     public override void Initialize()
     {
         base.Initialize();
-        SubscribeLocalEvent<ShadowlingForceComponent, ShadowlingRapidReHatchEvent>(OnShadowlingRapidReHatchEvent);
+        SubscribeLocalEvent<ShadowlingComponent, ShadowlingRapidReHatchEvent>(OnRapidReHatchEvent);
     }
 
-    private void OnShadowlingRapidReHatchEvent(EntityUid uid, ShadowlingForceComponent component, ref ShadowlingRapidReHatchEvent ev)
+    private void OnRapidReHatchEvent(EntityUid uid, ShadowlingComponent component, ref ShadowlingRapidReHatchEvent ev)
     {
         var rejuvenate = new RejuvenateEvent();
         RaiseLocalEvent(uid, rejuvenate);

@@ -8,19 +8,19 @@ public sealed class ShadowlingEnthrallSystem : EntitySystem
     public override void Initialize()
     {
         base.Initialize();
-        SubscribeLocalEvent<ShadowlingForceComponent, EnthrallDoAfterEvent>(OnEnthrallDoAfterEvent);
+        SubscribeLocalEvent<ShadowlingComponent, EnthrallDoAfterEvent>(OnEnthrallDoAfterEvent);
     }
 
-    private void OnEnthrallDoAfterEvent(EntityUid uid, ShadowlingForceComponent component, ref EnthrallDoAfterEvent ev)
+    private void OnEnthrallDoAfterEvent(EntityUid uid, ShadowlingComponent component, ref EnthrallDoAfterEvent ev)
     {
         if (ev.Target is not { } target)
             return;
 
-        if (!TryComp<ShadowlingForceComponent>(ev.User, out var shadowling))
+        if (!TryComp<ShadowlingComponent>(ev.User, out var shadowling))
             return;
 
         shadowling.Slaves.Add(target);
-        _entity.AddComponent<ShadowlingForceComponent>(target);
+        _entity.AddComponent<ShadowlingComponent>(target);
 
         Dirty(ev.User, shadowling);
     }

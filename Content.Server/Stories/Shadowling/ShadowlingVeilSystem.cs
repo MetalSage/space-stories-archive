@@ -5,16 +5,16 @@ using Robust.Server.GameObjects;
 namespace Content.Server.SpaceStories.Shadowling;
 public sealed class ShadowlingVeilSystem : EntitySystem
 {
-    [Dependency] private readonly ShadowlingForceSystem _shadowling = default!;
+    [Dependency] private readonly ShadowlingSystem _shadowling = default!;
     [Dependency] private readonly EmpSystem _emp = default!;
 
     public override void Initialize()
     {
         base.Initialize();
-        SubscribeLocalEvent<ShadowlingForceComponent, ShadowlingVeilEvent>(OnShadowlingVeilEvent);
+        SubscribeLocalEvent<ShadowlingComponent, ShadowlingVeilEvent>(OnVeilEvent);
     }
 
-    private void OnShadowlingVeilEvent(EntityUid performer, ShadowlingForceComponent component, ref ShadowlingVeilEvent ev)
+    private void OnVeilEvent(EntityUid performer, ShadowlingComponent component, ref ShadowlingVeilEvent ev)
     {
         var lights = _shadowling.GetEntitiesAroundShadowling<PointLightComponent>(performer, 15);
 

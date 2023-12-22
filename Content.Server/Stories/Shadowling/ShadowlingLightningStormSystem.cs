@@ -18,17 +18,17 @@ public sealed class ShadowlingLightningStormSystem : EntitySystem
     public override void Initialize()
     {
         base.Initialize();
-        SubscribeLocalEvent<ShadowlingForceComponent, ShadowlingLightningStormEvent>(OnShadowlingLightningStormEvent);
+        SubscribeLocalEvent<ShadowlingComponent, ShadowlingLightningStormEvent>(OnLightningStormEvent);
     }
 
-    private void OnShadowlingLightningStormEvent(EntityUid uid, ShadowlingForceComponent component, ref ShadowlingLightningStormEvent ev)
+    private void OnLightningStormEvent(EntityUid uid, ShadowlingComponent component, ref ShadowlingLightningStormEvent ev)
     {
         var poweredQuery = GetEntityQuery<ApcPowerReceiverComponent>();
         var mobQuery = GetEntityQuery<MobThresholdsComponent>();
         var validEnts = new HashSet<EntityUid>();
         foreach (var ent in _lookup.GetEntitiesInRange(uid, 9))
         {
-            if (TryComp<ShadowlingForceComponent>(ent, out var _))
+            if (TryComp<ShadowlingComponent>(ent, out var _))
                 continue;
 
             if (mobQuery.HasComponent(ent))

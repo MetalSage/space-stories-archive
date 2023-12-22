@@ -5,7 +5,7 @@ using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototy
 
 namespace Content.Shared.SpaceStories.Shadowling;
 [RegisterComponent]
-public sealed partial class ShadowlingForceComponent : Component
+public sealed partial class ShadowlingComponent : Component
 {
     [Dependency] private readonly IEntityManager _entityManager = default!;
 
@@ -16,19 +16,19 @@ public sealed partial class ShadowlingForceComponent : Component
     public List<EntityUid> Slaves = new();
 
     /// <summary>
-    /// Активен ли shadow walk
+    /// Активен ли теневой шаг
     /// </summary>
     [ViewVariables(VVAccess.ReadOnly), DataField("inShadowWalk")]
     public bool InShadowWalk = false;
 
     /// <summary>
-    /// Когда shadow walk окончится
+    /// Когда теневой шаг окончится
     /// </summary>
     [ViewVariables(VVAccess.ReadOnly), DataField("shadowWalkEndsAt", customTypeSerializer: typeof(TimeOffsetSerializer))]
     public TimeSpan ShadowWalkEndsAt = default!;
 
     /// <summary>
-    /// Через сколько shadow walk окончится отсчитывая от активации
+    /// Через сколько теневой шаг окончится отсчитывая от активации
     /// </summary>
     [ViewVariables(VVAccess.ReadOnly), DataField("shadowWalkEndsIn", customTypeSerializer: typeof(TimeOffsetSerializer))]
     public TimeSpan ShadowWalkEndsIn = TimeSpan.FromSeconds(5);
@@ -40,34 +40,34 @@ public sealed partial class ShadowlingForceComponent : Component
     /// <summary>
     /// Какая связь у существа с силой.
     /// </summary>
-    [ViewVariables(VVAccess.ReadWrite), DataField("forceType")]
-    public ShadowlingForceType ForceType
+    [ViewVariables(VVAccess.ReadWrite), DataField("stage")]
+    public ShadowlingStage Stage
     {
-        get => _forceType;
+        get => _stage;
         set
         {
-            _forceType = value;
+            _stage = value;
             Actions.TryGetValue(value, out var toGrant);
-            var ev = new ShadowlingForceTypeChangeEvent(Owner, value, toGrant);
+            var ev = new ShadowlingStageChangeEvent(Owner, value, toGrant);
             _entityManager.EventBus.RaiseLocalEvent(Owner, ref ev, true);
         }
     }
-    private ShadowlingForceType _forceType = ShadowlingForceType.ShadowlingHatch;
+    private ShadowlingStage _stage = ShadowlingStage.Beginning;
 
     /// <summary>
     /// Способности у существа в зависимости от типа силы.
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite), DataField("actions")]
-    public Dictionary<ShadowlingForceType, List<string>> Actions = new()
+    public Dictionary<ShadowlingStage, List<string>> Actions = new()
     {
         {
-            ShadowlingForceType.ShadowlingHatch,
+            ShadowlingStage.Beginning,
             new() {
                 "ActionShadowlingHatch" // Раскрыться
             }
         },
         {
-            ShadowlingForceType.ShadowlingBasic,
+            ShadowlingStage.Start,
             new() {
                 "ActionShadowlingEnthrall", // Поработить
                 "ActionShadowlingGlare", // Вспышка
@@ -80,7 +80,7 @@ public sealed partial class ShadowlingForceComponent : Component
             }
         },
         {
-            ShadowlingForceType.ShadowlingBeginning,
+            ShadowlingStage.Basic,
             new () {
                 "ActionShadowlingEnthrall", // Поработить
                 "ActionShadowlingGlare", // Вспышка
@@ -94,7 +94,7 @@ public sealed partial class ShadowlingForceComponent : Component
             }
         },
         {
-            ShadowlingForceType.ShadowlingMedium,
+            ShadowlingStage.Medium,
             new () {
                 "ActionShadowlingEnthrall", // Поработить
                 "ActionShadowlingGlare", // Вспышка
@@ -109,7 +109,7 @@ public sealed partial class ShadowlingForceComponent : Component
             }
         },
         {
-            ShadowlingForceType.ShadowlingHigh,
+            ShadowlingStage.High,
             new() {
                 "ActionShadowlingEnthrall", // Поработить
                 "ActionShadowlingGlare", // Вспышка
@@ -125,7 +125,7 @@ public sealed partial class ShadowlingForceComponent : Component
             }
         },
         {
-            ShadowlingForceType.ShadowlingFinal,
+            ShadowlingStage.Final,
             new() {
                 "ActionShadowlingEnthrall", // Поработить
                 "ActionShadowlingGlare", // Вспышка
@@ -142,7 +142,7 @@ public sealed partial class ShadowlingForceComponent : Component
             }
         },
         {
-            ShadowlingForceType.ShadowlingOverlord,
+            ShadowlingStage.Ascended,
             new() {
                 "ActionShadowlingHypnosis", // Гипноз
                 "ActionShadowlingGlare", // Вспышка
@@ -161,13 +161,13 @@ public sealed partial class ShadowlingForceComponent : Component
             }
         },
         {
-            ShadowlingForceType.ShadowlingSlave,
+            ShadowlingStage.Thrall,
             new() {
                 "ActionShadowlingGuise", // Сокройте своё присутствие на короткий промежуток времени
             }
         },
         {
-            ShadowlingForceType.ShadowlingTrell,
+            ShadowlingStage.Lower,
             new() {
                 "ActionShadowlingShadowWalk", // Теневой шаг, прямо как у истинного тенелинга
             }
@@ -175,28 +175,28 @@ public sealed partial class ShadowlingForceComponent : Component
     };
 
     /// <summary>
-    /// Способности которые сила дала существу.
+    /// Способности данные тенеморфу
     /// </summary>
     [ViewVariables(VVAccess.ReadWrite), DataField("grantedActions")]
     public List<EntityUid> GrantedActions = new();
 }
 
-public enum ShadowlingForceType : byte
+public enum ShadowlingStage : byte
 {
-    ShadowlingSlave, // You're just a slave
-    ShadowlingTrell, // You're gained with a little power of a true shadowling
+    Thrall, // You're just a slave
+    Lower, // You're gained with a little power of a true shadowling
 
-    ShadowlingHatch, // You can only hatch yourself
-    ShadowlingBasic, // Almost all common powers
-    ShadowlingBeginning, // Basic shadowling but with 3 slaves
-    ShadowlingMedium, // Beginning shadowling but with 5 slaves
-    ShadowlingHigh, // Medium shadowling but with 9 slaves
-    ShadowlingFinal, // You're able to become an overlord (requires 15 slaves)
-    ShadowlingOverlord, // Absolute power!
+    Beginning, // You can only hatch yourself
+    Start, // Almost all common powers
+    Basic, // Starting shadowling but with 3 slaves
+    Medium, // Basic shadowling but with 5 slaves
+    High, // Medium shadowling but with 9 slaves
+    Final, // You're able to become an ascended (requires 15 slaves)
+    Ascended, // Absolute power!
 }
 
 [ByRefEvent]
-public readonly record struct ShadowlingForceTypeChangeEvent(EntityUid Uid, ShadowlingForceType ShadowlingForceType, List<string>? NewActions);
+public readonly record struct ShadowlingStageChangeEvent(EntityUid Uid, ShadowlingStage ShadowlingStage, List<string>? NewActions);
 
 public sealed partial class ShadowlingEnthrallEvent : EntityTargetActionEvent
 {

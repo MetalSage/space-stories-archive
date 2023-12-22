@@ -15,11 +15,11 @@ public sealed class ShadowlingShadowWalkSystem : EntitySystem
     {
         base.Initialize();
 
-        SubscribeLocalEvent<ShadowlingForceComponent, ShadowlingShadowWalkEvent>(OnShadowlingShadowWalkEvent);
-        SubscribeLocalEvent<ShadowlingForceComponent, ShadowlingPlaneShiftEvent>(OnShadowlingPlaneShiftEvent);
+        SubscribeLocalEvent<ShadowlingComponent, ShadowlingShadowWalkEvent>(OnShadowWalkEvent);
+        SubscribeLocalEvent<ShadowlingComponent, ShadowlingPlaneShiftEvent>(OnPlaneShiftEvent);
     }
 
-    private void OnShadowlingShadowWalkEvent(EntityUid uid, ShadowlingForceComponent component, ref ShadowlingShadowWalkEvent ev)
+    private void OnShadowWalkEvent(EntityUid uid, ShadowlingComponent component, ref ShadowlingShadowWalkEvent ev)
     {
         if (!TryComp<FixturesComponent>(uid, out var fixtures))
             return;
@@ -30,7 +30,7 @@ public sealed class ShadowlingShadowWalkSystem : EntitySystem
             EndShadowWalk(uid, component, fixtures);
     }
 
-    private void OnShadowlingPlaneShiftEvent(EntityUid uid, ShadowlingForceComponent component, ref ShadowlingPlaneShiftEvent ev)
+    private void OnPlaneShiftEvent(EntityUid uid, ShadowlingComponent component, ref ShadowlingPlaneShiftEvent ev)
     {
         if (!TryComp<FixturesComponent>(uid, out var fixtures))
             return;
@@ -46,18 +46,18 @@ public sealed class ShadowlingShadowWalkSystem : EntitySystem
         base.FrameUpdate(frameTime);
 
         var curTime = _timing.CurTime;
-        var query = EntityQueryEnumerator<ShadowlingForceComponent, FixturesComponent>();
+        var query = EntityQueryEnumerator<ShadowlingComponent, FixturesComponent>();
 
         while (query.MoveNext(out var uid, out var comp, out var fixtures))
         {
-            if (comp.InShadowWalk && comp.ForceType != ShadowlingForceType.ShadowlingOverlord && curTime > comp.ShadowWalkEndsAt)
+            if (comp.InShadowWalk && comp.Stage != ShadowlingStage.Ascended && curTime > comp.ShadowWalkEndsAt)
             {
                 EndShadowWalk(uid, comp, fixtures);
             }
         }
     }
 
-    private void BeginShadowWalk(EntityUid uid, ShadowlingForceComponent shadowling, FixturesComponent fixtures)
+    private void BeginShadowWalk(EntityUid uid, ShadowlingComponent shadowling, FixturesComponent fixtures)
     {
         var fixture = fixtures.Fixtures.First();
 
@@ -72,7 +72,7 @@ public sealed class ShadowlingShadowWalkSystem : EntitySystem
         Dirty(uid, shadowling);
     }
 
-    private void EndShadowWalk(EntityUid uid, ShadowlingForceComponent shadowling, FixturesComponent fixtures)
+    private void EndShadowWalk(EntityUid uid, ShadowlingComponent shadowling, FixturesComponent fixtures)
     {
         var fixture = fixtures.Fixtures.First();
         _physics.SetCollisionMask(uid, fixture.Key, fixture.Value, (int) CollisionGroup.MobMask, fixtures);
