@@ -27,7 +27,8 @@ using Robust.Shared.Map.Components;
 using Robust.Shared.Player;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
-using Content.Shared.Whitelist;
+using Content.Server.Stories.Systems;
+
 
 namespace Content.Server.Stories.Stations.Prison;
 
@@ -115,6 +116,7 @@ public sealed partial class StoriesStationPrisonSystem : EntitySystem
 
             var ftl = EnsureComp<FTLDestinationComponent>(component.Entity);
 
+            ftl.Whitelist = DestinationWL.CreateList("FTLDestinationAccessPrison");
         }
         else
         {
