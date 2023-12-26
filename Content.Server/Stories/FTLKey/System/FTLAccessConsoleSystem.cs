@@ -70,17 +70,25 @@ namespace Content.Server.Stories.FTLKey
         {
             if (consl.FTLKeySlotA.ContainerSlot is not null && consl.FTLKeySlotA.ContainerSlot.ContainedEntity is not null)
                 consl.FTLKeyA = (EntityUid) consl.FTLKeySlotA.ContainerSlot.ContainedEntity;
+            else consl.FTLKeyA = EntityUid.Invalid;
             if (consl.FTLKeySlotB.ContainerSlot is not null && consl.FTLKeySlotB.ContainerSlot.ContainedEntity is not null)
                 consl.FTLKeyB = (EntityUid) consl.FTLKeySlotB.ContainerSlot.ContainedEntity;
+            else consl.FTLKeyB = EntityUid.Invalid;
 
             RemoveAccess(uid, consl);
 
-            var tagComponent = GetTagComp(uid);
+
+            // Getting tag component of shuttle
+            var trans = _entityManager.GetComponent<TransformComponent>(uid);
+
+            if (trans.GridUid is null)
+            {
+                return;
+            }
+
+            var tagComponent = EnsureComp<TagComponent>((EntityUid) trans.GridUid);
 
             if (tagComponent is null) return;
-
-            if (removing is not null && removing != EntityUid.Invalid)
-                RemoveFTLTags(tagComponent, _entityManager.GetComponent<FTLKeyComponent>((EntityUid) removing));
 
             if (consl.FTLKeyA != EntityUid.Invalid)
                 AddFTLTags(tagComponent, _entityManager.GetComponent<FTLKeyComponent>(consl.FTLKeyA));
@@ -92,13 +100,15 @@ namespace Content.Server.Stories.FTLKey
 
         private void RemoveAccess(EntityUid uid, FTLAccessConsoleComponent consl)
         {
-            var tagComponent = GetTagComp(uid);
-            if (tagComponent is null) return;
+            var trans = _entityManager.GetComponent<TransformComponent>(uid);
+            if (trans.GridUid is null)
+            {
+                return;
+            }
 
-            if (consl.FTLKeyA != EntityUid.Invalid)
-                RemoveFTLTags(tagComponent, _entityManager.GetComponent<FTLKeyComponent>(consl.FTLKeyA));
-            if (consl.FTLKeyB != EntityUid.Invalid)
-                RemoveFTLTags(tagComponent, _entityManager.GetComponent<FTLKeyComponent>(consl.FTLKeyB));
+            // Remake Tag Component
+            RemComp<TagComponent>((EntityUid) trans.GridUid);
+            EnsureComp<TagComponent>((EntityUid) trans.GridUid);
         }
 
         private void AddFTLTags(TagComponent tagComponent, FTLKeyComponent keycomp)
