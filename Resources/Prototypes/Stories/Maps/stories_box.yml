@@ -5,7 +5,7 @@
   minPlayers: 60
   stations:
     Boxstation:
-      stationProto: StandardNanotrasenStation
+      stationProto: StoriesStandardNanotrasenStation
       components:
         - type: StationNameSetup
           mapNameTemplate: '{0} Box Station {1}'

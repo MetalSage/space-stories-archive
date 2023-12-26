@@ -5,7 +5,7 @@
   minPlayers: 80
   stations:
     Fland:
-      stationProto: StandardNanotrasenStation
+      stationProto: StoriesStandardNanotrasenStation
       components:
         - type: StationNameSetup
           mapNameTemplate: '{0} Fland Installation {1}'

@@ -12,3 +12,32 @@
   noSpawn: true
   components:
     - type: Transform
+
+- type: entity
+  id: BaseStoriesStationPrison
+  abstract: true
+  components:
+   - type: StoriesStationPrison
+
+- type: entity
+  id: StoriesStandardNanotrasenStation
+  parent:
+    - BaseStation
+    - BaseStationCargo
+    - BaseStationJobsSpawning
+    - BaseStationRecords
+    - BaseStationArrivals
+    - BaseStationGateway
+    - BaseStationShuttles
+    - BaseStationCentcomm
+    - BaseStationEvacuation
+    - BaseStationAlertLevels
+    - BaseStationExpeditions
+    - BaseStationSiliconLawCrewsimov
+    - BaseStationAllEventsEligible
+    - BaseStationNanotrasen
+
+    - BaseStoriesStationPrison #Stories
+  noSpawn: true
+  components:
+    - type: Transform
