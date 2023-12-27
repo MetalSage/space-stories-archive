@@ -177,6 +177,13 @@ namespace Content.Server.GameTicking
             var gridUids = gridIds.ToList();
             RaiseLocalEvent(new PostGameMapLoad(map, targetMapId, gridUids, stationName));
 
+            //Stories FTL WL
+            foreach (var uid in gridUids)
+            {
+                RemComp<FTLDestinationComponent>(uid);
+            }
+            //Stories end
+
             return gridUids;
         }
 
