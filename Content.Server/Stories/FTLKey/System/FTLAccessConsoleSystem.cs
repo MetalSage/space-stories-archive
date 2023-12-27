@@ -1,10 +1,7 @@
 using Content.Shared.Containers.ItemSlots;
 using Robust.Shared.Containers;
 using Content.Shared.Tag;
-using YamlDotNet.Core.Tokens;
-using Content.Server.Shuttles.Components;
 using Content.Server.Shuttles.Systems;
-using Content.Server.Stories.FTLKey;
 
 
 namespace Content.Server.Stories.FTLKey
@@ -95,7 +92,7 @@ namespace Content.Server.Stories.FTLKey
             if (consl.FTLKeyB != EntityUid.Invalid)
                 AddFTLTags(tagComponent, _entityManager.GetComponent<FTLKeyComponent>(consl.FTLKeyB));
 
-            UpdateConsoles(uid);
+            UpdateConsole(uid);
         }
 
         private void RemoveAccess(EntityUid uid, FTLAccessConsoleComponent consl)
@@ -134,11 +131,9 @@ namespace Content.Server.Stories.FTLKey
             return EnsureComp<TagComponent>((EntityUid) trans.GridUid);
         }
 
-        private void UpdateConsoles(EntityUid uid)
+        private void UpdateConsole(EntityUid uid)
         {
             _shuttleConsoleSystem.RefreshShuttleConsoles(uid);
         }
-
     }
-
 }

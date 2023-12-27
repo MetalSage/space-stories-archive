@@ -1,7 +1,4 @@
 using Content.Shared.Whitelist;
-using Content.Shared.Tag;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
-using System.Linq;
 
 namespace Content.Server.Stories.Systems;
 
