@@ -1,0 +1,83 @@
+- type: entity
+  save: false
+  name: Urist' McShadowling
+  parent: BaseMobSpeciesOrganic
+  id: BaseMobShadowling
+  abstract: true
+  components:
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      150: Critical
+      200: Dead
+  - type: Flashable
+  - type: StatusEffects
+    allowed:
+    - Stun
+    - KnockedDown
+    - SlowedDown
+    - Stutter
+    - Electrocution
+    - TemporaryBlindness
+    - SlurredSpeech
+    - RatvarianLanguage
+    - Muted
+    - StaminaModifier
+  - type: Blindable
+  - type: FireVisuals
+    alternateState: Standing
+  - type: HumanoidAppearance
+    species: Shadowling
+  - type: Icon
+    sprite: Stories/Mobs/Species/Shadowling/parts.rsi
+    state: full
+  - type: Body
+    prototype: Shadowling
+    requiredLegs: 2
+  - type: IntrinsicRadioReceiver
+  - type: IntrinsicRadioTransmitter
+    channels:
+    - ShadowlingMind
+  - type: ActiveRadio
+    channels:
+    - ShadowlingMind
+  - type: Vocal
+    sounds:
+      Male: UnsexedShadowling
+      Female: UnsexedShadowling
+      Unsexed: UnsexedShadowling
+  - type: Damageable
+    damageContainer: Biological
+    damageModifierSet: Shadowling
+  - type: MeleeWeapon
+    soundHit:
+      collection: Punch
+    angle: 30
+    animation: WeaponArcFist
+    attackRate: 1
+    damage:
+      types:
+        Blunt: 5
+  - type: MovementSpeedModifier
+    baseWalkSpeed : 2.7
+    baseSprintSpeed : 4.5
+  - type: Perishable
+
+- type: entity
+  save: false
+  name: Urist McShadowling
+  parent: BaseSpeciesDummy
+  id: MobShadowlingDummy
+  noSpawn: true
+  description: A dummy Shadowling meant to be used in character setup.
+  components:
+  - type: HumanoidAppearance
+    species: Shadowling
+
+- type: radioChannel
+  id: ShadowlingMind
+  name: chat-radio-shadowling
+  frequency: 98767
+  keycode: 'р'
+  color: "#300a07"
+  longRange: true
