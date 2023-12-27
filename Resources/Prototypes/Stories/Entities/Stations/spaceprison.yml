@@ -20,7 +20,16 @@
    - type: StoriesStationPrison
 
 - type: entity
-  id: StoriesStandardNanotrasenStation
+  id: BaseStoriesStationShuttles
+  abstract: true
+  components:
+    - type: GridSpawn
+      paths:
+        - /Maps/Stories/Shuttles/cargo.yml
+        - /Maps/Stories/Shuttles/mining.yml
+
+- type: entity
+  id: StoriesStandardNanotrasenStationWithPrison
   parent:
     - BaseStation
     - BaseStationCargo
@@ -28,7 +37,6 @@
     - BaseStationRecords
     - BaseStationArrivals
     - BaseStationGateway
-    - BaseStationShuttles
     - BaseStationCentcomm
     - BaseStationEvacuation
     - BaseStationAlertLevels
@@ -37,7 +45,32 @@
     - BaseStationAllEventsEligible
     - BaseStationNanotrasen
 
-    - BaseStoriesStationPrison #Stories
+    #Stories
+    - BaseStoriesStationPrison
+    - BaseStoriesStationShuttles
+  noSpawn: true
+  components:
+    - type: Transform
+
+- type: entity
+  id: StoriesStandardNanotrasenStation
+  parent:
+    - BaseStation
+    - BaseStationCargo
+    - BaseStationJobsSpawning
+    - BaseStationRecords
+    - BaseStationArrivals
+    - BaseStationGateway
+    - BaseStationCentcomm
+    - BaseStationEvacuation
+    - BaseStationAlertLevels
+    - BaseStationExpeditions
+    - BaseStationSiliconLawCrewsimov
+    - BaseStationAllEventsEligible
+    - BaseStationNanotrasen
+
+    #Stories
+    - BaseStoriesStationShuttles
   noSpawn: true
   components:
     - type: Transform

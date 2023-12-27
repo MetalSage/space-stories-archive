@@ -5,7 +5,7 @@
   minPlayers: 50
   stations:
     Origin:
-      stationProto: StandardNanotrasenStation
+      stationProto: StoriesStandardNanotrasenStation
       components:
         - type: StationNameSetup
           mapNameTemplate: '{0} Origin {1}'
@@ -69,4 +69,4 @@
             Musician: [ 2, 2 ]
             Boxer: [ 1, 1 ]
             Reporter: [ 1, 1 ]
-            
+

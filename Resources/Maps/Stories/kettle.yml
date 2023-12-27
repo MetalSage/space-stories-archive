@@ -10253,6 +10253,8 @@ entities:
           damping: 795.8949
           stiffness: 7143.936
       type: Joint
+    - tags: []
+      type: Tag
   - uid: 84
     components:
     - type: MetaData
@@ -10453,6 +10455,8 @@ entities:
           damping: 795.8949
           stiffness: 7143.936
       type: Joint
+    - tags: []
+      type: Tag
 - proto: AccordionInstrument
   entities:
   - uid: 21533
@@ -13168,7 +13172,7 @@ entities:
     - dockJointId: docking284593
       dockedWith: 36545
       type: Docking
-    - secondsUntilStateChange: -114.372284
+    - secondsUntilStateChange: -146.37207
       state: Opening
       type: Door
   - uid: 4030
@@ -13179,7 +13183,7 @@ entities:
     - dockJointId: docking284592
       dockedWith: 36544
       type: Docking
-    - secondsUntilStateChange: -115.172226
+    - secondsUntilStateChange: -147.17201
       state: Opening
       type: Door
   - uid: 7706
@@ -13225,7 +13229,7 @@ entities:
     - dockJointId: docking284592
       dockedWith: 4030
       type: Docking
-    - secondsUntilStateChange: -115.4466
+    - secondsUntilStateChange: -147.44638
       state: Opening
       type: Door
   - uid: 36545
@@ -13237,7 +13241,7 @@ entities:
     - dockJointId: docking284593
       dockedWith: 4029
       type: Docking
-    - secondsUntilStateChange: -114.68889
+    - secondsUntilStateChange: -146.68867
       state: Opening
       type: Door
   - uid: 36546
@@ -66942,13 +66946,6 @@ entities:
     - pos: 44.5,35.5
       parent: 82
       type: Transform
-- proto: ComputerShuttle
-  entities:
-  - uid: 36611
-    components:
-    - pos: -0.5,4.5
-      parent: 36542
-      type: Transform
 - proto: ComputerShuttleCargo
   entities:
   - uid: 3402
@@ -66956,6 +66953,43 @@ entities:
     - pos: 47.5,30.5
       parent: 82
       type: Transform
+    - containers:
+        board: !type:Container
+          showEnts: False
+          occludes: True
+          ents: []
+        ShuttleConsole-FTLKeySlotA: !type:ContainerSlot
+          showEnts: False
+          occludes: True
+          ent: null
+        ShuttleConsole-FTLKeySlotB: !type:ContainerSlot
+          showEnts: False
+          occludes: True
+          ent: null
+      type: ContainerContainer
+    - type: ItemSlots
+- proto: ComputerShuttleFTLKeyPrison
+  entities:
+  - uid: 20067
+    components:
+    - pos: -0.5,4.5
+      parent: 36542
+      type: Transform
+    - containers:
+        board: !type:Container
+          showEnts: False
+          occludes: True
+          ents: []
+        ShuttleConsole-FTLKeySlotA: !type:ContainerSlot
+          showEnts: False
+          occludes: True
+          ent: null
+        ShuttleConsole-FTLKeySlotB: !type:ContainerSlot
+          showEnts: False
+          occludes: True
+          ent: null
+      type: ContainerContainer
+    - type: ItemSlots
 - proto: ComputerShuttleSalvage
   entities:
   - uid: 17425
@@ -66963,6 +66997,21 @@ entities:
     - pos: 45.5,35.5
       parent: 82
       type: Transform
+    - containers:
+        board: !type:Container
+          showEnts: False
+          occludes: True
+          ents: []
+        ShuttleConsole-FTLKeySlotA: !type:ContainerSlot
+          showEnts: False
+          occludes: True
+          ent: null
+        ShuttleConsole-FTLKeySlotB: !type:ContainerSlot
+          showEnts: False
+          occludes: True
+          ent: null
+      type: ContainerContainer
+    - type: ItemSlots
 - proto: ComputerSolarControl
   entities:
   - uid: 6400

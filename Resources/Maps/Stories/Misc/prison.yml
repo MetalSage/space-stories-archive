@@ -58,13 +58,23 @@ tilemap:
 entities:
 - proto: ""
   entities:
+  - uid: 1
+    components:
+    - name: map 112
+      type: MetaData
+    - type: Transform
+    - type: Map
+    - type: PhysicsMap
+    - type: GridTree
+    - type: MovedGrids
+    - type: Broadphase
+    - type: OccluderTree
   - uid: 26185
     components:
     - name: NTST Resort EV-624
       type: MetaData
     - rot: -0.26098859310150146 rad
-      pos: 0, 0
-      parent: invalid
+      parent: 1
       type: Transform
     - chunks:
         0,0:
@@ -3540,7 +3550,8 @@ entities:
           4,2:
             0: 65535
           4,3:
-            0: 65535
+            0: 65471
+            1: 64
           4,-4:
             0: 65535
           4,-3:
@@ -3673,7 +3684,7 @@ entities:
             0: 65535
           -8,-1:
             0: 4607
-            1: 60928
+            2: 60928
           -7,-4:
             0: 65535
           -7,-3:
@@ -3682,7 +3693,7 @@ entities:
             0: 65535
           -7,-1:
             0: 255
-            1: 65280
+            2: 65280
           -6,-4:
             0: 65535
           -6,-3:
@@ -3691,7 +3702,7 @@ entities:
             0: 65535
           -6,-1:
             0: 61183
-            1: 4352
+            2: 4352
           -5,-4:
             0: 65535
           -5,-3:
@@ -3718,12 +3729,12 @@ entities:
             0: 65535
           -8,0:
             0: 65297
-            1: 238
+            2: 238
           -7,0:
-            1: 255
+            2: 255
             0: 65280
           -6,0:
-            1: 17
+            2: 17
             0: 65518
           -5,0:
             0: 65535
@@ -4495,6 +4506,21 @@ entities:
           moles:
           - 21.824879
           - 82.10312
+          - 0
+          - 0
+          - 0
+          - 0
+          - 0
+          - 0
+          - 0
+          - 0
+          - 0
+          - 0
+        - volume: 2500
+          temperature: 293.14975
+          moles:
+          - 20.078888
+          - 75.53487
           - 0
           - 0
           - 0
@@ -30094,7 +30120,7 @@ entities:
       pos: 8.5,-11.5
       parent: 26185
       type: Transform
-    - secondsUntilStateChange: -10853.918
+    - secondsUntilStateChange: -11010.604
       state: Opening
       type: Door
   - uid: 32163
@@ -31827,6 +31853,20 @@ entities:
     components:
     - rot: 6.283185307179586 rad
       pos: 26.26738,18.914389
+      parent: 26185
+      type: Transform
+- proto: FTLKeyPrison
+  entities:
+  - uid: 2
+    components:
+    - pos: 17.611984,13.121544
+      parent: 26185
+      type: Transform
+- proto: FTLKeyStation
+  entities:
+  - uid: 3
+    components:
+    - pos: 17.356531,13.182194
       parent: 26185
       type: Transform
 - proto: GasAnalyzer
@@ -42520,7 +42560,7 @@ entities:
       pos: -2.5,-5.5
       parent: 26185
       type: Transform
-    - secondsUntilStateChange: -40945.445
+    - secondsUntilStateChange: -41102.13
       state: Opening
       type: Door
 - proto: HospitalCurtainsOpen
@@ -43162,6 +43202,24 @@ entities:
     - pos: 18.5,13.5
       parent: 26185
       type: Transform
+    - air:
+        volume: 200
+        immutable: False
+        temperature: 293.14673
+        moles:
+        - 1.7459903
+        - 6.568249
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+      type: EntityStorage
 - proto: LockerSpacePrison
   entities:
   - uid: 34001
@@ -44035,17 +44093,17 @@ entities:
       type: Transform
   - uid: 34147
     components:
-    - pos: 17.466879,13.630572
+    - pos: 17.592014,13.657113
       parent: 26185
       type: Transform
   - uid: 34148
     components:
-    - pos: 17.529379,13.630571
+    - pos: 17.535046,13.670873
       parent: 26185
       type: Transform
   - uid: 34149
     components:
-    - pos: 17.56063,13.630572
+    - pos: 17.515228,13.645278
       parent: 26185
       type: Transform
   - uid: 34150
@@ -44169,7 +44227,7 @@ entities:
       type: Transform
   - uid: 34171
     components:
-    - pos: 17.37648,13.264481
+    - pos: 17.446873,13.616883
       parent: 26185
       type: Transform
   - uid: 34172

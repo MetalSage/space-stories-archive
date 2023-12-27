@@ -5,7 +5,7 @@
   minPlayers: 40
   stations:
     Delta:
-      stationProto: StandardNanotrasenStation
+      stationProto: StoriesStandardNanotrasenStation
       components:
         - type: StationNameSetup
           mapNameTemplate: '{0} Дельта {1}'
