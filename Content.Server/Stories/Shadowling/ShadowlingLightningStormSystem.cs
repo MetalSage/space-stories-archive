@@ -23,6 +23,7 @@ public sealed class ShadowlingLightningStormSystem : EntitySystem
 
     private void OnLightningStormEvent(EntityUid uid, ShadowlingComponent component, ref ShadowlingLightningStormEvent ev)
     {
+        ev.Handled = true;
         var poweredQuery = GetEntityQuery<ApcPowerReceiverComponent>();
         var mobQuery = GetEntityQuery<MobThresholdsComponent>();
         var validEnts = new HashSet<EntityUid>();

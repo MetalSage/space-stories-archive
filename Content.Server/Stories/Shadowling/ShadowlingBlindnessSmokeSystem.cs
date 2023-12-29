@@ -18,10 +18,11 @@ public sealed class ShadowlingBlindnessSmokeSystem : EntitySystem
         if (!TryComp<TransformComponent>(uid, out var transform))
             return;
 
+        ev.Handled = true;
         var solution = new Solution();
         solution.AddReagent("ShadowlingSmokeReagent", 300);
 
-        var foamEnt = Spawn("Foam", transform.Coordinates);
-        _smoke.StartSmoke(foamEnt, solution, 30, 16);
+        var smokeEnt = Spawn("Smoke", transform.Coordinates);
+        _smoke.StartSmoke(smokeEnt, solution, 30, 12);
     }
 }

@@ -4,7 +4,7 @@
   group: Medicine
   desc: reagent-desc-shadowlingsmoke
   physicalDesc: reagent-physical-desc-nondescript
-  color: "#EBFF8E"
+  color: "#212529"
   metabolisms:
     Medicine:
       effects:

@@ -1,4 +1,5 @@
 using System.Linq;
+using Content.Shared.Movement.Systems;
 using Content.Shared.Physics;
 using Content.Shared.SpaceStories.Shadowling;
 using Robust.Shared.Physics;
@@ -10,6 +11,7 @@ public sealed class ShadowlingShadowWalkSystem : EntitySystem
 {
     [Dependency] private readonly SharedPhysicsSystem _physics = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
+    [Dependency] private readonly MovementSpeedModifierSystem _speed = default!;
 
     public override void Initialize()
     {
@@ -23,6 +25,7 @@ public sealed class ShadowlingShadowWalkSystem : EntitySystem
     {
         if (!TryComp<FixturesComponent>(uid, out var fixtures))
             return;
+        ev.Handled = true;
 
         if (!component.InShadowWalk)
             BeginShadowWalk(uid, component, fixtures);
@@ -34,6 +37,7 @@ public sealed class ShadowlingShadowWalkSystem : EntitySystem
     {
         if (!TryComp<FixturesComponent>(uid, out var fixtures))
             return;
+        ev.Handled = true;
 
         if (!component.InShadowWalk)
             BeginShadowWalk(uid, component, fixtures);
@@ -41,9 +45,9 @@ public sealed class ShadowlingShadowWalkSystem : EntitySystem
             EndShadowWalk(uid, component, fixtures);
     }
 
-    public override void FrameUpdate(float frameTime)
+    public override void Update(float frameTime)
     {
-        base.FrameUpdate(frameTime);
+        base.Update(frameTime);
 
         var curTime = _timing.CurTime;
         var query = EntityQueryEnumerator<ShadowlingComponent, FixturesComponent>();
@@ -59,10 +63,12 @@ public sealed class ShadowlingShadowWalkSystem : EntitySystem
 
     private void BeginShadowWalk(EntityUid uid, ShadowlingComponent shadowling, FixturesComponent fixtures)
     {
+        _speed.ChangeBaseSpeed(uid, 5, 8.5f, 20);
+
         var fixture = fixtures.Fixtures.First();
 
-        _physics.SetCollisionMask(uid, fixture.Key, fixture.Value, (int) CollisionGroup.Opaque, fixtures);
-        _physics.SetCollisionLayer(uid, fixture.Key, fixture.Value, (int) CollisionGroup.GhostImpassable, fixtures);
+        _physics.SetCollisionMask(uid, fixture.Key, fixture.Value, (int) CollisionGroup.None, fixtures);
+        _physics.SetCollisionLayer(uid, fixture.Key, fixture.Value, (int) CollisionGroup.Opaque, fixtures);
 
         var curTime = _timing.CurTime;
 
@@ -74,6 +80,7 @@ public sealed class ShadowlingShadowWalkSystem : EntitySystem
 
     private void EndShadowWalk(EntityUid uid, ShadowlingComponent shadowling, FixturesComponent fixtures)
     {
+        _speed.ChangeBaseSpeed(uid, 2.5f, 4.5f, 20);
         var fixture = fixtures.Fixtures.First();
         _physics.SetCollisionMask(uid, fixture.Key, fixture.Value, (int) CollisionGroup.MobMask, fixtures);
         _physics.SetCollisionLayer(uid, fixture.Key, fixture.Value, (int) CollisionGroup.MobLayer, fixtures);

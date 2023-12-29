@@ -1,5 +1,7 @@
 using Content.Server.Popups;
 using Content.Shared.Damage;
+using Content.Shared.Mobs;
+using Content.Shared.Mobs.Components;
 using Content.Shared.SpaceStories.Shadowling;
 
 namespace Content.Server.SpaceStories.Shadowling;
@@ -26,17 +28,24 @@ public sealed class ShadowlingBlackRecuperationSystem : EntitySystem
         if (!TryComp<DamageableComponent>(ev.Target, out var slaveDamageable))
             return;
 
-        // you can't heal yourself!
-        if (shadowlingSlave.Stage != ShadowlingStage.Thrall || shadowlingSlave.Stage != ShadowlingStage.Lower)
+        if (!TryComp<MobStateComponent>(ev.Target, out var slaveState))
             return;
 
-        _damageable.SetAllDamage(ev.Target, slaveDamageable, 0);
-        _popup.PopupClient("Ваши раны покрываются тенью и затягиваются...", ev.Target, ev.Target);
+        // you can't heal yourself!
+        if (shadowlingSlave.Stage != ShadowlingStage.Thrall && shadowlingSlave.Stage != ShadowlingStage.Lower)
+            return;
 
-        if (shadowlingSlave.Stage != ShadowlingStage.Lower)
+        ev.Handled = true;
+
+        if (slaveState.CurrentState == MobState.Dead && shadowlingSlave.Stage != ShadowlingStage.Lower)
         {
-            _shadowling.ChangeStage(ev.Target, shadowlingSlave, ShadowlingStage.Lower);
+            _shadowling.SetStage(ev.Target, shadowlingSlave, ShadowlingStage.Lower);
             _popup.PopupClient("Ваше тело сливается с тенью...", ev.Target, ev.Target);
+        }
+        else
+        {
+            _damageable.SetAllDamage(ev.Target, slaveDamageable, 0);
+            _popup.PopupClient("Ваши раны покрываются тенью и затягиваются...", ev.Target, ev.Target);
         }
     }
 }

@@ -28,7 +28,9 @@ public sealed class ShadowlingSonicScreechSystem : EntitySystem
 
     private void OnSonicScreechEvent(EntityUid uid, ShadowlingComponent component, ref ShadowlingSonicScreechEvent ev)
     {
-        var constructions = _shadowling.GetEntitiesAroundShadowling<ConstructionComponent>(uid, 15);
+        ev.Handled = true;
+
+        var constructions = _shadowling.GetEntitiesAroundShadowling<ConstructionComponent>(uid, 7.5f);
 
         foreach (var entity in constructions)
         {
@@ -37,10 +39,10 @@ public sealed class ShadowlingSonicScreechSystem : EntitySystem
             if (construction.Graph != "Window")
                 continue;
 
-            if (!_prototype.TryIndex<DamageTypePrototype>("Brute", out var brute))
+            if (!_prototype.TryIndex<DamageTypePrototype>("Structural", out var structural))
                 continue;
 
-            _damageable.TryChangeDamage(entity, new(brute, 60), true);
+            _damageable.TryChangeDamage(entity, new(structural, 160), true);
         }
 
         var bodies = _shadowling.GetEntitiesAroundShadowling<BodyComponent>(uid, 15);

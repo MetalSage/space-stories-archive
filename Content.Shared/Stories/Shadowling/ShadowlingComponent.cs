@@ -1,7 +1,11 @@
 using Content.Shared.Actions;
+using Content.Shared.Body.Prototypes;
 using Content.Shared.Chemistry.Reagent;
+using Content.Shared.DoAfter;
+using Robust.Shared.Serialization;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
+using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype.List;
 
 namespace Content.Shared.SpaceStories.Shadowling;
 [RegisterComponent]
@@ -33,6 +37,18 @@ public sealed partial class ShadowlingComponent : Component
     [ViewVariables(VVAccess.ReadOnly), DataField("shadowWalkEndsIn", customTypeSerializer: typeof(TimeOffsetSerializer))]
     public TimeSpan ShadowWalkEndsIn = TimeSpan.FromSeconds(5);
 
+    /// <summary>
+    /// Когда теневой покров кончится
+    /// </summary>
+    [ViewVariables(VVAccess.ReadOnly), DataField("guiseEndsAt", customTypeSerializer: typeof(TimeOffsetSerializer))]
+    public TimeSpan GuiseEndsAt = default!;
+
+    /// <summary>
+    /// Через сколько теневой покров окончится отсчитывая от активации
+    /// </summary>
+    [ViewVariables(VVAccess.ReadOnly), DataField("guiseEndsIn", customTypeSerializer: typeof(TimeOffsetSerializer))]
+    public TimeSpan GuiseEndsIn = TimeSpan.FromSeconds(5);
+
     [ViewVariables(VVAccess.ReadOnly)]
     [DataField("icyVeinsReagentId", customTypeSerializer: typeof(PrototypeIdSerializer<ReagentPrototype>))]
     public string IcyVeinsReagentId = "IceOil";
@@ -52,7 +68,19 @@ public sealed partial class ShadowlingComponent : Component
             _entityManager.EventBus.RaiseLocalEvent(Owner, ref ev, true);
         }
     }
-    private ShadowlingStage _stage = ShadowlingStage.Beginning;
+    private ShadowlingStage _stage = ShadowlingStage.Ascended;
+
+    [ViewVariables(VVAccess.ReadWrite), DataField("enthrallablePrototypes", customTypeSerializer: typeof(PrototypeIdListSerializer<BodyPrototype>))]
+    public List<string> EnthrallablePrototypes = new()
+    {
+        "Arachnid",
+        "Diona",
+        "Dwarf",
+        "Human",
+        "Moth",
+        "Reptilian",
+        "Slime"
+    };
 
     /// <summary>
     /// Способности у существа в зависимости от типа силы.
@@ -157,7 +185,6 @@ public sealed partial class ShadowlingComponent : Component
                 "ActionShadowlingBlackRecuperation", // Чёрная медицина, воскрешает раба, если тот в крите/мёртв, делает живого раба низшим тенелингом
                 "ActionShadowlingAnnihilate", // Вы стали богом, вы можете заставить разорваться членов экипажа просто силой мысли
                 "ActionShadowlingLightningStorm", // Грозовой шторм, уничтожьте электричеством всё в округе
-                "ActionShadowlingAscendantBroadcast", // Послание бога, которое не может не услышать никто
             }
         },
         {
@@ -197,6 +224,18 @@ public enum ShadowlingStage : byte
 
 [ByRefEvent]
 public readonly record struct ShadowlingStageChangeEvent(EntityUid Uid, ShadowlingStage ShadowlingStage, List<string>? NewActions);
+
+public sealed partial class ShadowlingHatchEvent : InstantActionEvent
+{
+}
+
+/// <summary>
+/// Is relayed at the end of the sericulturing doafter.
+/// </summary>
+[Serializable, NetSerializable]
+public sealed partial class ShadowlingHatchDoAfterEvent : SimpleDoAfterEvent
+{
+}
 
 public sealed partial class ShadowlingEnthrallEvent : EntityTargetActionEvent
 {
@@ -254,14 +293,25 @@ public sealed partial class ShadowlingLightningStormEvent : InstantActionEvent
 {
 }
 
-public sealed partial class ShadowlingAscendantBroadcastEvent : InstantActionEvent
-{
-}
-
 public sealed partial class ShadowlingPlaneShiftEvent : InstantActionEvent
 {
 }
 
 public sealed partial class ShadowlingGuiseEvent : InstantActionEvent
+{
+}
+
+public sealed partial class ShadowlingAscendanceEvent : InstantActionEvent
+{
+}
+// <summary>
+/// Is relayed at the end of the sericulturing doafter.
+/// </summary>
+[Serializable, NetSerializable]
+public sealed partial class ShadowlingAscendanceDoAfterEvent : SimpleDoAfterEvent
+{
+}
+
+public sealed partial class ShadowlingNightVisionEvent : InstantActionEvent
 {
 }

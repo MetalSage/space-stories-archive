@@ -16,6 +16,8 @@ public sealed class ShadowlingVeilSystem : EntitySystem
 
     private void OnVeilEvent(EntityUid performer, ShadowlingComponent component, ref ShadowlingVeilEvent ev)
     {
+        ev.Handled = true;
+
         var lights = _shadowling.GetEntitiesAroundShadowling<PointLightComponent>(performer, 15);
 
         foreach (var entity in lights)

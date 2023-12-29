@@ -13,6 +13,7 @@ public sealed class ShadowlingRapidReHatchSystem : EntitySystem
 
     private void OnRapidReHatchEvent(EntityUid uid, ShadowlingComponent component, ref ShadowlingRapidReHatchEvent ev)
     {
+        ev.Handled = true;
         var rejuvenate = new RejuvenateEvent();
         RaiseLocalEvent(uid, rejuvenate);
     }

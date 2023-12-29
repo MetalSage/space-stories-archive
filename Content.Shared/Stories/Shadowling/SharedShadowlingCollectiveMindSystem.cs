@@ -1,7 +1,7 @@
 using Content.Shared.Popups;
 
 namespace Content.Shared.SpaceStories.Shadowling;
-public sealed class ShadowlingCollectiveMindSystem : EntitySystem
+public sealed class SharedShadowlingCollectiveMindSystem : EntitySystem
 {
     [Dependency] private readonly SharedPopupSystem _popup = default!;
 
@@ -13,7 +13,7 @@ public sealed class ShadowlingCollectiveMindSystem : EntitySystem
 
     private void OnCollectiveEvent(EntityUid uid, ShadowlingComponent component, ref ShadowlingCollectiveMindEvent ev)
     {
-        _popup.PopupClient(string.Format("У вас {0} порабощённых", component.Slaves.Count), uid, uid);
+        _popup.PopupEntity(string.Format("У вас {0} порабощённых", component.Slaves.Count), uid, uid);
 
         ShadowlingStage? nextPhase = null;
 
@@ -40,7 +40,7 @@ public sealed class ShadowlingCollectiveMindSystem : EntitySystem
         if (nextPhase is not { } notNullNextPhase)
             return;
 
-        _popup.PopupClient("Новые способности разблокированы", uid, uid);
+        _popup.PopupEntity("Новые способности разблокированы", uid, uid);
         component.Stage = notNullNextPhase;
         Dirty(uid, component);
     }

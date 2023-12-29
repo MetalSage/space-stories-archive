@@ -17,11 +17,12 @@ public sealed class ShadowlingGlareSystem : EntitySystem
 
     private void OnGlareEvent(EntityUid uid, ShadowlingComponent component, ref ShadowlingGlareEvent ev)
     {
+        ev.Handled = true;
         var entities = _shadowling.GetEntitiesAroundShadowling<FlashableComponent>(uid, 15);
 
         foreach (var entity in entities)
         {
-            var flashable = Comp<FlashableComponent>(uid);
+            var flashable = Comp<FlashableComponent>(entity);
             _flash.Flash(entity, uid, uid, 15, 0.8f, false, flashable);
         }
     }
