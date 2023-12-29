@@ -12,7 +12,7 @@ public sealed class ShadowlingAscendanceSystem : EntitySystem
     [Dependency] private readonly SmokeSystem _smoke = default!;
     [Dependency] private readonly StandingStateSystem _standing = default!;
     [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly ShadowlingSystem _shadowling = default!;
+    [Dependency] private readonly SharedShadowlingSystem _shadowling = default!;
     [Dependency] private readonly DamageableSystem _damageable = default!;
 
     public override void Initialize()
@@ -48,6 +48,10 @@ public sealed class ShadowlingAscendanceSystem : EntitySystem
     private void OnAscendanceDoAfter(EntityUid uid, ShadowlingComponent component, ref ShadowlingAscendanceDoAfterEvent ev)
     {
         _standing.Stand(uid);
+
+        if (ev.Cancelled)
+            return;
+
         _shadowling.SetStage(uid, component, ShadowlingStage.Ascended);
 
         if (TryComp<DamageableComponent>(uid, out var damageable))

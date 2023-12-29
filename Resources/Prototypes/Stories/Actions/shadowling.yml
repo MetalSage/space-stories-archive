@@ -25,7 +25,7 @@
 - type: entity
   id: ActionShadowlingGlare
   name: Блик
-  description: 	Блик — базовый прием для оглушения целей.
+  description: Блик — базовый прием для оглушения целей.
   noSpawn: true
   components:
   - type: InstantAction
@@ -55,7 +55,7 @@
   noSpawn: true
   components:
   - type: InstantAction
-    useDelay: 30
+    useDelay: 90
     icon: { sprite: Stories/Actions/shadowling.rsi, state: shadow_walk }
     itemIconStyle: NoItem
     priority: -11
@@ -94,7 +94,7 @@
   noSpawn: true
   components:
   - type: InstantAction
-    useDelay: 60
+    useDelay: 120
     icon: { sprite: Stories/Actions/shadowling.rsi, state: rapid_re_hatch }
     itemIconStyle: NoItem
     priority: -11
@@ -119,7 +119,7 @@
   noSpawn: true
   components:
   - type: InstantAction
-    useDelay: 30
+    useDelay: 90
     icon: { sprite: Stories/Actions/shadowling.rsi, state: sonic_screech }
     itemIconStyle: NoItem
     priority: -11
@@ -222,7 +222,7 @@
   components:
   - type: InstantAction
     useDelay: 120
-    icon: { sprite: Stories/Actions/shadowling.rsi, state: guise }
+    icon: { sprite: Stories/Actions/shadowling.rsi, state: shadow_walk }
     itemIconStyle: NoItem
     priority: -11
     event: !type:ShadowlingGuiseEvent {}

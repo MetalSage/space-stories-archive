@@ -38,6 +38,5 @@ shadowling-not-enough-ready-players = Недостаточно игроков г
 shadowling-no-one-ready = Нет готовых игроков! Нельзя запустить пресет Тенеморфы.
 shadowling-no-shadowling = Нет кандидатов на роль тенеморфа. Нельзя запустить пресет Тенеморфы.
 shadowling-won = Тенеморф поработил станцию и превознёсся.
-shadowling-player =
-    { $title } был тенеморфом.
+shadowling-player = { $title } был тенеморфом.
 shadowling-lost = Станция уничтожила всех тенеморфов.

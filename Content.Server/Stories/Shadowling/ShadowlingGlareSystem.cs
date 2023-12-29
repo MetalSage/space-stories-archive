@@ -1,4 +1,5 @@
 using Content.Server.Flash;
+using Content.Server.Stunnable;
 using Content.Shared.Flash;
 using Content.Shared.SpaceStories.Shadowling;
 
@@ -8,6 +9,7 @@ public sealed class ShadowlingGlareSystem : EntitySystem
 {
     [Dependency] private readonly FlashSystem _flash = default!;
     [Dependency] private readonly ShadowlingSystem _shadowling = default!;
+    [Dependency] private readonly StunSystem _stun = default!;
 
     public override void Initialize()
     {
@@ -24,6 +26,7 @@ public sealed class ShadowlingGlareSystem : EntitySystem
         {
             var flashable = Comp<FlashableComponent>(entity);
             _flash.Flash(entity, uid, uid, 15, 0.8f, false, flashable);
+            _stun.TryStun(entity, TimeSpan.FromSeconds(1), false);
         }
     }
 }

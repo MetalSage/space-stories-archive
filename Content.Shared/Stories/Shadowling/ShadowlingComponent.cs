@@ -2,6 +2,7 @@ using Content.Shared.Actions;
 using Content.Shared.Body.Prototypes;
 using Content.Shared.Chemistry.Reagent;
 using Content.Shared.DoAfter;
+using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
@@ -29,25 +30,25 @@ public sealed partial class ShadowlingComponent : Component
     /// Когда теневой шаг окончится
     /// </summary>
     [ViewVariables(VVAccess.ReadOnly), DataField("shadowWalkEndsAt", customTypeSerializer: typeof(TimeOffsetSerializer))]
-    public TimeSpan ShadowWalkEndsAt = default!;
+    public TimeSpan ShadowWalkEndsAt = TimeSpan.Zero;
 
     /// <summary>
     /// Через сколько теневой шаг окончится отсчитывая от активации
     /// </summary>
     [ViewVariables(VVAccess.ReadOnly), DataField("shadowWalkEndsIn", customTypeSerializer: typeof(TimeOffsetSerializer))]
-    public TimeSpan ShadowWalkEndsIn = TimeSpan.FromSeconds(5);
+    public TimeSpan ShadowWalkEndsIn = TimeSpan.FromSeconds(3);
 
     /// <summary>
     /// Когда теневой покров кончится
     /// </summary>
     [ViewVariables(VVAccess.ReadOnly), DataField("guiseEndsAt", customTypeSerializer: typeof(TimeOffsetSerializer))]
-    public TimeSpan GuiseEndsAt = default!;
+    public TimeSpan GuiseEndsAt = TimeSpan.Zero;
 
     /// <summary>
     /// Через сколько теневой покров окончится отсчитывая от активации
     /// </summary>
     [ViewVariables(VVAccess.ReadOnly), DataField("guiseEndsIn", customTypeSerializer: typeof(TimeOffsetSerializer))]
-    public TimeSpan GuiseEndsIn = TimeSpan.FromSeconds(5);
+    public TimeSpan GuiseEndsIn = TimeSpan.FromSeconds(4);
 
     [ViewVariables(VVAccess.ReadOnly)]
     [DataField("icyVeinsReagentId", customTypeSerializer: typeof(PrototypeIdSerializer<ReagentPrototype>))]
@@ -68,7 +69,7 @@ public sealed partial class ShadowlingComponent : Component
             _entityManager.EventBus.RaiseLocalEvent(Owner, ref ev, true);
         }
     }
-    private ShadowlingStage _stage = ShadowlingStage.Ascended;
+    private ShadowlingStage _stage = ShadowlingStage.Start;
 
     [ViewVariables(VVAccess.ReadWrite), DataField("enthrallablePrototypes", customTypeSerializer: typeof(PrototypeIdListSerializer<BodyPrototype>))]
     public List<string> EnthrallablePrototypes = new()
@@ -80,6 +81,16 @@ public sealed partial class ShadowlingComponent : Component
         "Moth",
         "Reptilian",
         "Slime"
+    };
+
+    [ViewVariables(VVAccess.ReadWrite), DataField("veilBlacklist", customTypeSerializer: typeof(PrototypeIdListSerializer<EntityPrototype>))]
+    public List<string> VeilBlacklist = new()
+    {
+        "APCConstructed",
+        "APCBasic",
+        "APCHighCapacity",
+        "APCHyperCapacity",
+        "APCSuperCapacity"
     };
 
     /// <summary>
@@ -309,9 +320,5 @@ public sealed partial class ShadowlingAscendanceEvent : InstantActionEvent
 /// </summary>
 [Serializable, NetSerializable]
 public sealed partial class ShadowlingAscendanceDoAfterEvent : SimpleDoAfterEvent
-{
-}
-
-public sealed partial class ShadowlingNightVisionEvent : InstantActionEvent
 {
 }

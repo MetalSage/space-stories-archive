@@ -6,7 +6,6 @@ using Content.Shared.Mind.Components;
 using Content.Shared.Mindshield.Components;
 using Content.Shared.Popups;
 using Content.Shared.Stealth;
-using Content.Shared.Stealth.Components;
 using Robust.Shared.Serialization;
 
 namespace Content.Shared.SpaceStories.Shadowling;
@@ -119,6 +118,9 @@ public sealed class SharedShadowlingEnthrallSystem : EntitySystem
         if (ev.Target is not { } target)
             return;
 
+        if (ev.Cancelled)
+            return;
+
         _popup.PopupEntity("Ваш разум поглощён тенями", target, target);
         _popup.PopupEntity("Вы стали чуть сильнее", ev.User, ev.User);
         _stamina.TakeStaminaDamage(target, 100);
@@ -126,7 +128,6 @@ public sealed class SharedShadowlingEnthrallSystem : EntitySystem
         shadowling.Slaves.Add(target);
         var slave = _entity.AddComponent<ShadowlingComponent>(target);
         _shadowling.SetStage(target, slave, ShadowlingStage.Thrall);
-        _entity.AddComponent<StealthComponent>(target);
         _stealth.SetEnabled(target, false);
         Dirty(ev.User, shadowling);
     }

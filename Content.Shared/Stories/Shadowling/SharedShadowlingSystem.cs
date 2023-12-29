@@ -1,5 +1,5 @@
 namespace Content.Shared.SpaceStories.Shadowling;
-public abstract class SharedShadowlingSystem : EntitySystem
+public sealed class SharedShadowlingSystem : EntitySystem
 {
     public bool IsShadowlingSlave(ShadowlingComponent component)
     {
@@ -16,7 +16,8 @@ public abstract class SharedShadowlingSystem : EntitySystem
         };
     }
 
-    public void SetStage(EntityUid uid, ShadowlingComponent component, ShadowlingStage stage) {
+    public void SetStage(EntityUid uid, ShadowlingComponent component, ShadowlingStage stage)
+    {
         component.Stage = stage;
         Dirty(uid, component);
     }

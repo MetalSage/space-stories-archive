@@ -12,7 +12,7 @@ public sealed class ShadowlingHatchSystem : EntitySystem
     [Dependency] private readonly SmokeSystem _smoke = default!;
     [Dependency] private readonly StandingStateSystem _standing = default!;
     [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly ShadowlingSystem _shadowling = default!;
+    [Dependency] private readonly SharedShadowlingSystem _shadowling = default!;
     [Dependency] private readonly DamageableSystem _damageable = default!;
 
     public override void Initialize()

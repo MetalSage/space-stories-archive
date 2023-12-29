@@ -8,7 +8,7 @@ namespace Content.Server.SpaceStories.Shadowling;
 public sealed class ShadowlingBlackRecuperationSystem : EntitySystem
 {
     [Dependency] private readonly DamageableSystem _damageable = default!;
-    [Dependency] private readonly ShadowlingSystem _shadowling = default!;
+    [Dependency] private readonly SharedShadowlingSystem _shadowling = default!;
     [Dependency] private readonly PopupSystem _popup = default!;
 
     public override void Initialize()

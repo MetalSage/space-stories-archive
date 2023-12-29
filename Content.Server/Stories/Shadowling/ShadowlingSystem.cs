@@ -8,12 +8,13 @@ using Content.Shared.SpaceStories.Mindshield;
 using Content.Shared.SpaceStories.Shadowling;
 
 namespace Content.Server.SpaceStories.Shadowling;
-public sealed class ShadowlingSystem : SharedShadowlingSystem
+public sealed class ShadowlingSystem : EntitySystem
 {
     [Dependency] private readonly EntityLookupSystem _entityLookup = default!;
     [Dependency] private readonly PopupSystem _popup = default!;
     [Dependency] private readonly StunSystem _stun = default!;
     [Dependency] private readonly ActionsSystem _actions = default!;
+    [Dependency] private readonly SharedShadowlingSystem _shared = default!;
 
     public override void Initialize()
     {
@@ -103,7 +104,7 @@ public sealed class ShadowlingSystem : SharedShadowlingSystem
         if (!TryComp<ShadowlingComponent>(uid, out var shadowling))
             return;
 
-        if (!IsShadowlingSlave(shadowling) || shadowling.Stage == ShadowlingStage.Lower)
+        if (!_shared.IsShadowlingSlave(shadowling) || shadowling.Stage == ShadowlingStage.Lower)
         {
             RemCompDeferred<MindShieldComponent>(uid);
             return;

@@ -1,5 +1,6 @@
 using Content.Server.Stealth;
 using Content.Shared.SpaceStories.Shadowling;
+using Content.Shared.Stealth.Components;
 using Robust.Shared.Timing;
 
 namespace Content.Server.SpaceStories.Shadowling;
@@ -18,9 +19,15 @@ public sealed class ShadowlingGuiseSystem : EntitySystem
 
     private void OnGuise(EntityUid uid, ShadowlingComponent component, ref ShadowlingGuiseEvent ev)
     {
+        var stealth = EnsureComp<StealthComponent>(uid);
+
+        _stealth.SetVisibility(uid, stealth.MinVisibility, stealth);
+        _stealth.SetEnabled(uid, true, stealth);
+
         var curTime = _timing.CurTime;
         component.GuiseEndsAt = curTime.Add(component.GuiseEndsIn);
-        _stealth.SetEnabled(uid, true);
+        Dirty(uid, component);
+        ev.Handled = true;
     }
 
     public override void Update(float frameTime)
@@ -29,12 +36,13 @@ public sealed class ShadowlingGuiseSystem : EntitySystem
 
         var curTime = _timing.CurTime;
 
-        var query = EntityQueryEnumerator<ShadowlingComponent>();
-        while (query.MoveNext(out var uid, out var comp))
+        var query = EntityQueryEnumerator<ShadowlingComponent, StealthComponent>();
+        while (query.MoveNext(out var uid, out var comp, out var stealth))
         {
-            if (comp.GuiseEndsAt > curTime)
+            if (comp.GuiseEndsAt < curTime && stealth.Enabled)
             {
-                _stealth.SetEnabled(uid, false);
+                _stealth.SetVisibility(uid, stealth.MaxVisibility, stealth);
+                _stealth.SetEnabled(uid, false, stealth);
             }
         }
     }
