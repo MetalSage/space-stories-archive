@@ -1,3 +1,4 @@
+using Content.Server.Chat.Systems;
 using Content.Server.Fluids.EntitySystems;
 using Content.Server.Inventory;
 using Content.Server.Mind;
@@ -30,6 +31,7 @@ public sealed class ShadowlingAscendanceSystem : EntitySystem
     [Dependency] private readonly AudioSystem _audio = default!;
     [Dependency] private readonly RoundEndSystem _roundEnd = default!;
     [Dependency] private readonly StunSystem _stun = default!;
+    [Dependency] private readonly ChatSystem _chat = default!;
 
     public readonly string AscendedPrototype = "MobAscendance";
 
@@ -90,6 +92,9 @@ public sealed class ShadowlingAscendanceSystem : EntitySystem
             _mind.TransferTo(mindId, newUid, mind: mind);
 
         QueueDel(uid);
+        var announcementString = "Станция, говорит Центральное Командование. Сканерами дальнего действия было зафиксировано превознесение тенеморфа, к вам будет отправлен экстренный эвакуационный шаттл. Станция, держитесь!";
+        _chat.DispatchGlobalAnnouncement(announcementString, playSound: false, colorOverride: Color.FromName("red"));
+
         var audioParams = new AudioParams(-5f, 1, "Master", SharedAudioSystem.DefaultSoundRange, 1, 1, false, 0f);
         _audio.PlayGlobal("/Audio/Stories/Misc/tear_of_veil.ogg", Filter.Broadcast(), true, audioParams);
         _roundEnd.RequestRoundEnd(TimeSpan.FromMinutes(3), newUid, false);

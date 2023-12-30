@@ -88,7 +88,10 @@ public sealed class SharedShadowlingEnthrallSystem : EntitySystem
             return;
         // You cannot enthrall someone without mind
         if (!TryComp<MindContainerComponent>(ev.Target, out var mind) || !mind.HasMind)
+        {
+            _popup.PopupEntity("Вы можете порабощать существ только в сознании", uid, uid);
             return;
+        }
 
         // You cannot enthrall someone or something not biological (borgs for example)
         if (!TryComp<DamageableComponent>(ev.Target, out var damage) || damage.DamageContainerID != "Biological")

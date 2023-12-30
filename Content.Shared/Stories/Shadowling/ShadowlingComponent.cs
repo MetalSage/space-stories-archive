@@ -115,7 +115,7 @@ public sealed partial class ShadowlingComponent : Component
                 "ActionShadowlingIcyVeins", // Стынущие жилы, вводит ледяное масло
                 "ActionShadowlingCollectiveMind", // Узнать количество рабов, если их достаточно, то повысить уровень
                 "ActionShadowlingRapidReHatch", // Позволяет тенеморфу восстановится
-                "ActionShadowlingDestroyEngines", // Принести в жертву члена экипажа для задержания эвака на 10 минут
+                // "ActionShadowlingDestroyEngines", // Принести в жертву члена экипажа для задержания эвака на 10 минут
             }
         },
         {
@@ -128,7 +128,7 @@ public sealed partial class ShadowlingComponent : Component
                 "ActionShadowlingIcyVeins", // Стынущие жилы, вводит ледяное масло
                 "ActionShadowlingCollectiveMind", // Узнать количество рабов, если их достаточно, то повысить уровень
                 "ActionShadowlingRapidReHatch", // Позволяет тенеморфу восстановится
-                "ActionShadowlingDestroyEngines", // Принести в жертву члена экипажа для задержания эвака на 10 минут
+                // "ActionShadowlingDestroyEngines", // Принести в жертву члена экипажа для задержания эвака на 10 минут
                 "ActionShadowlingSonicScreech", // Оглушает всех в округе, выбивает окна
             }
         },
@@ -142,7 +142,7 @@ public sealed partial class ShadowlingComponent : Component
                 "ActionShadowlingIcyVeins", // Стынущие жилы, вводит ледяное масло
                 "ActionShadowlingCollectiveMind", // Узнать количество рабов, если их достаточно, то повысить уровень
                 "ActionShadowlingRapidReHatch", // Позволяет тенеморфу восстановится
-                "ActionShadowlingDestroyEngines", // Принести в жертву члена экипажа для задержания эвака на 10 минут
+                // "ActionShadowlingDestroyEngines", // Принести в жертву члена экипажа для задержания эвака на 10 минут
                 "ActionShadowlingSonicScreech", // Оглушает всех в округе, выбивает окна
                 "ActionShadowlingBlindnessSmoke", // Непроглядный чёрный дым, позволяет тенеморфам и треллам регенировать
             }
@@ -157,7 +157,7 @@ public sealed partial class ShadowlingComponent : Component
                 "ActionShadowlingIcyVeins", // Стынущие жилы, вводит ледяное масло
                 "ActionShadowlingCollectiveMind", // Узнать количество рабов, если их достаточно, то повысить уровень
                 "ActionShadowlingRapidReHatch", // Позволяет тенеморфу восстановится
-                "ActionShadowlingDestroyEngines", // Принести в жертву члена экипажа для задержания эвака на 10 минут
+                // "ActionShadowlingDestroyEngines", // Принести в жертву члена экипажа для задержания эвака на 10 минут
                 "ActionShadowlingSonicScreech", // Оглушает всех в округе, выбивает окна
                 "ActionShadowlingBlindnessSmoke", // Непроглядный чёрный дым, позволяет тенеморфам и треллам регенировать
                 "ActionShadowlingBlackRecuperation", // Чёрная медицина, воскрешает раба, если тот в крите/мёртв, делает живого раба низшим тенелингом
@@ -173,7 +173,7 @@ public sealed partial class ShadowlingComponent : Component
                 "ActionShadowlingIcyVeins", // Стынущие жилы, вводит ледяное масло
                 "ActionShadowlingCollectiveMind", // Узнать количество рабов, если их достаточно, то повысить уровень
                 "ActionShadowlingRapidReHatch", // Позволяет тенеморфу восстановится
-                "ActionShadowlingDestroyEngines", // Принести в жертву члена экипажа для задержания эвака на 10 минут
+                // "ActionShadowlingDestroyEngines", // Принести в жертву члена экипажа для задержания эвака на 10 минут
                 "ActionShadowlingSonicScreech", // Оглушает всех в округе, выбивает окна
                 "ActionShadowlingBlindnessSmoke", // Непроглядный чёрный дым, позволяет тенеморфам и треллам регенировать
                 "ActionShadowlingBlackRecuperation", // Чёрная медицина, воскрешает раба, если тот в крите/мёртв, делает живого раба низшим тенелингом
@@ -190,7 +190,7 @@ public sealed partial class ShadowlingComponent : Component
                 "ActionShadowlingIcyVeins", // Стынущие жилы, вводит ледяное масло
                 "ActionShadowlingCollectiveMind", // Узнать количество рабов, если их достаточно, то повысить уровень
                 "ActionShadowlingRapidReHatch", // Позволяет тенеморфу восстановится
-                "ActionShadowlingDestroyEngines", // Принести в жертву члена экипажа для задержания эвака на 10 минут
+                // "ActionShadowlingDestroyEngines", // Принести в жертву члена экипажа для задержания эвака на 10 минут
                 "ActionShadowlingSonicScreech", // Оглушает всех в округе, выбивает окна
                 "ActionShadowlingBlindnessSmoke", // Непроглядный чёрный дым, позволяет тенеморфам и треллам регенировать
                 "ActionShadowlingBlackRecuperation", // Чёрная медицина, воскрешает раба, если тот в крите/мёртв, делает живого раба низшим тенелингом

@@ -47,6 +47,7 @@ public sealed class ShadowlingBlackRecuperationSystem : EntitySystem
         else
         {
             _damageable.SetAllDamage(ev.Target, slaveDamageable, 0);
+            _mobState.ChangeMobState(ev.Target, MobState.Alive);
             _popup.PopupClient("Ваши раны покрываются тенью и затягиваются...", ev.Target, ev.Target);
         }
     }
