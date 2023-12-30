@@ -40,9 +40,9 @@ public sealed class ShadowlingShadowWalkSystem : EntitySystem
         ev.Handled = true;
 
         if (!component.InShadowWalk)
-            BeginShadowWalk(uid, component, fixtures);
+            BeginPlaneShift(uid, component, fixtures);
         else
-            EndShadowWalk(uid, component, fixtures);
+            EndPlaneShift(uid, component, fixtures);
     }
 
     public override void Update(float frameTime)
@@ -84,6 +84,33 @@ public sealed class ShadowlingShadowWalkSystem : EntitySystem
         var fixture = fixtures.Fixtures.First();
         _physics.SetCollisionMask(uid, fixture.Key, fixture.Value, (int) CollisionGroup.MobMask, fixtures);
         _physics.SetCollisionLayer(uid, fixture.Key, fixture.Value, (int) CollisionGroup.MobLayer, fixtures);
+        shadowling.InShadowWalk = false;
+        Dirty(uid, shadowling);
+    }
+
+    private void BeginPlaneShift(EntityUid uid, ShadowlingComponent shadowling, FixturesComponent fixtures)
+    {
+        _speed.ChangeBaseSpeed(uid, 5, 8.5f, 20);
+
+        var fixture = fixtures.Fixtures.First();
+
+        _physics.SetCollisionMask(uid, fixture.Key, fixture.Value, (int) CollisionGroup.None, fixtures);
+        _physics.SetCollisionLayer(uid, fixture.Key, fixture.Value, (int) CollisionGroup.Opaque, fixtures);
+
+        var curTime = _timing.CurTime;
+
+        shadowling.ShadowWalkEndsAt = curTime.Add(shadowling.ShadowWalkEndsIn);
+        shadowling.InShadowWalk = true;
+
+        Dirty(uid, shadowling);
+    }
+
+    private void EndPlaneShift(EntityUid uid, ShadowlingComponent shadowling, FixturesComponent fixtures)
+    {
+        _speed.ChangeBaseSpeed(uid, 2.5f, 4.5f, 20);
+        var fixture = fixtures.Fixtures.First();
+        _physics.SetCollisionMask(uid, fixture.Key, fixture.Value, (int) CollisionGroup.FlyingMobMask, fixtures);
+        _physics.SetCollisionLayer(uid, fixture.Key, fixture.Value, (int) CollisionGroup.FlyingMobLayer, fixtures);
         shadowling.InShadowWalk = false;
         Dirty(uid, shadowling);
     }

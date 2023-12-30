@@ -69,7 +69,7 @@ public sealed partial class ShadowlingComponent : Component
             _entityManager.EventBus.RaiseLocalEvent(Owner, ref ev, true);
         }
     }
-    private ShadowlingStage _stage = ShadowlingStage.Start;
+    private ShadowlingStage _stage = ShadowlingStage.Beginning;
 
     [ViewVariables(VVAccess.ReadWrite), DataField("enthrallablePrototypes", customTypeSerializer: typeof(PrototypeIdListSerializer<BodyPrototype>))]
     public List<string> EnthrallablePrototypes = new()

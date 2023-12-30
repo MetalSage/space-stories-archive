@@ -5,7 +5,7 @@ using Robust.Shared.Player;
 
 namespace Content.Client.SpaceStories.Shadowling;
 
-public sealed class ShadowlingSystem : EntitySystem
+public sealed class ShadowlingSystem : SharedShadowlingSystem
 {
     [Dependency] private readonly IPlayerManager _player = default!;
     [Dependency] private readonly ILightManager _light = default!;
@@ -21,7 +21,6 @@ public sealed class ShadowlingSystem : EntitySystem
 
     private void OnStartup(EntityUid uid, ShadowlingComponent component, ref ComponentStartup ev)
     {
-        Log.Debug("OnStartup; Loc ent: {0}; Ent: {1}; Stage: {2}", _player.LocalEntity, uid, component.Stage);
         if (_player.LocalEntity != uid || component.Stage == ShadowlingStage.Beginning)
             return;
 
@@ -30,7 +29,6 @@ public sealed class ShadowlingSystem : EntitySystem
 
     private void OnPlayerAttached(EntityUid uid, ShadowlingComponent component, ref PlayerAttachedEvent ev)
     {
-        Log.Debug("OnAttached; Loc ent: {0}; Ent: {1}; Stage: {2}", _player.LocalEntity, uid, component.Stage);
         if (_player.LocalEntity != uid || component.Stage == ShadowlingStage.Beginning)
             return;
 
@@ -39,7 +37,6 @@ public sealed class ShadowlingSystem : EntitySystem
 
     private void OnPlayerDetached(EntityUid uid, ShadowlingComponent component, ref PlayerDetachedEvent ev)
     {
-        Log.Debug("OnDetached; Loc ent: {0}; Ent: {1}; Stage: {2}", _player.LocalEntity, uid, component.Stage);
         if (_player.LocalEntity != uid || component.Stage == ShadowlingStage.Beginning)
             return;
 

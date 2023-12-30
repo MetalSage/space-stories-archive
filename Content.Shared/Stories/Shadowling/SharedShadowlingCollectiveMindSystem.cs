@@ -1,3 +1,5 @@
+using Content.Shared.Mobs;
+using Content.Shared.Mobs.Components;
 using Content.Shared.Popups;
 
 namespace Content.Shared.SpaceStories.Shadowling;
@@ -13,26 +15,27 @@ public sealed class SharedShadowlingCollectiveMindSystem : EntitySystem
 
     private void OnCollectiveEvent(EntityUid uid, ShadowlingComponent component, ref ShadowlingCollectiveMindEvent ev)
     {
-        _popup.PopupEntity(string.Format("У вас {0} порабощённых", component.Slaves.Count), uid, uid);
+        var slaves = GetSlavesCount(uid, component);
+        _popup.PopupEntity(string.Format("У вас {0} порабощённых", slaves), uid, uid);
 
         ShadowlingStage? nextPhase = null;
 
         switch (component.Stage)
         {
             case ShadowlingStage.Start:
-                if (component.Slaves.Count >= 3)
+                if (slaves >= 3)
                     nextPhase = ShadowlingStage.Basic;
                 break;
             case ShadowlingStage.Basic:
-                if (component.Slaves.Count >= 5)
+                if (slaves >= 5)
                     nextPhase = ShadowlingStage.Medium;
                 break;
             case ShadowlingStage.Medium:
-                if (component.Slaves.Count >= 9)
+                if (slaves >= 9)
                     nextPhase = ShadowlingStage.High;
                 break;
             case ShadowlingStage.High:
-                if (component.Slaves.Count >= 15)
+                if (slaves >= 15)
                     nextPhase = ShadowlingStage.Final;
                 break;
         }
@@ -43,5 +46,22 @@ public sealed class SharedShadowlingCollectiveMindSystem : EntitySystem
         _popup.PopupEntity("Новые способности разблокированы", uid, uid);
         component.Stage = notNullNextPhase;
         Dirty(uid, component);
+    }
+
+    private int GetSlavesCount(EntityUid uid, ShadowlingComponent component)
+    {
+        var counter = 0;
+
+        foreach (var slave in component.Slaves)
+        {
+            var state = Comp<MobStateComponent>(slave);
+
+            if (state.CurrentState == MobState.Alive)
+            {
+                counter++;
+            }
+        }
+
+        return counter;
     }
 }

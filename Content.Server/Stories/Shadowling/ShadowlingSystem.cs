@@ -8,7 +8,7 @@ using Content.Shared.SpaceStories.Mindshield;
 using Content.Shared.SpaceStories.Shadowling;
 
 namespace Content.Server.SpaceStories.Shadowling;
-public sealed class ShadowlingSystem : EntitySystem
+public sealed class ShadowlingSystem : SharedShadowlingSystem
 {
     [Dependency] private readonly EntityLookupSystem _entityLookup = default!;
     [Dependency] private readonly PopupSystem _popup = default!;

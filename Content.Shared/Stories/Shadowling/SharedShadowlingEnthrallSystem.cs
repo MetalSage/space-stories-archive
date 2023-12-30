@@ -17,7 +17,6 @@ public sealed class SharedShadowlingEnthrallSystem : EntitySystem
     [Dependency] private readonly SharedTransformSystem _transform = default!;
     [Dependency] private readonly IEntityManager _entity = default!;
     [Dependency] private readonly SharedShadowlingSystem _shadowling = default!;
-    [Dependency] private readonly SharedStealthSystem _stealth = default!;
 
     public override void Initialize()
     {
@@ -37,8 +36,11 @@ public sealed class SharedShadowlingEnthrallSystem : EntitySystem
         if (!TryComp<BodyComponent>(ev.Target, out var body) || body.Prototype == null || !component.EnthrallablePrototypes.Contains(body.Prototype.Value.Id))
             return;
         // You cannot enthrall someone without mind
-        // if (!TryComp<MindContainerComponent>(ev.Target, out var mind) || !mind.HasMind)
-        //     return;
+        if (!TryComp<MindContainerComponent>(ev.Target, out var mind) || !mind.HasMind)
+        {
+            _popup.PopupEntity("Вы можете порабощать существ только в сознании", uid, uid);
+            return;
+        }
         // You cannot enthrall someone or something not biological (borgs for example)
         if (!TryComp<DamageableComponent>(ev.Target, out var damage) || damage.DamageContainerID != "Biological")
             return;
@@ -93,9 +95,6 @@ public sealed class SharedShadowlingEnthrallSystem : EntitySystem
         var coords = _transform.GetWorldPosition(ev.Target);
         var distance = (_transform.GetWorldPosition(uid) - coords).Length();
 
-        if (distance > 2)
-            return;
-
         ev.Handled = true;
 
         if (TryComp<MindShieldComponent>(ev.Target, out var _))
@@ -126,9 +125,8 @@ public sealed class SharedShadowlingEnthrallSystem : EntitySystem
         _stamina.TakeStaminaDamage(target, 100);
 
         shadowling.Slaves.Add(target);
-        var slave = _entity.AddComponent<ShadowlingComponent>(target);
+        var slave = _entity.EnsureComponent<ShadowlingComponent>(target);
         _shadowling.SetStage(target, slave, ShadowlingStage.Thrall);
-        _stealth.SetEnabled(target, false);
         Dirty(ev.User, shadowling);
     }
 }

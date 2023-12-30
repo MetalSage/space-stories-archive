@@ -1,5 +1,5 @@
 namespace Content.Shared.SpaceStories.Shadowling;
-public sealed class SharedShadowlingSystem : EntitySystem
+public abstract class SharedShadowlingSystem : EntitySystem
 {
     public bool IsShadowlingSlave(ShadowlingComponent component)
     {
