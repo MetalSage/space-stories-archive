@@ -2,6 +2,7 @@ using Content.Server.Popups;
 using Content.Shared.Damage;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
+using Content.Shared.Mobs.Systems;
 using Content.Shared.SpaceStories.Shadowling;
 
 namespace Content.Server.SpaceStories.Shadowling;
@@ -10,6 +11,7 @@ public sealed class ShadowlingBlackRecuperationSystem : EntitySystem
     [Dependency] private readonly DamageableSystem _damageable = default!;
     [Dependency] private readonly SharedShadowlingSystem _shadowling = default!;
     [Dependency] private readonly PopupSystem _popup = default!;
+    [Dependency] private readonly MobStateSystem _mobState = default!;
 
     public override void Initialize()
     {
@@ -37,7 +39,7 @@ public sealed class ShadowlingBlackRecuperationSystem : EntitySystem
 
         ev.Handled = true;
 
-        if (slaveState.CurrentState == MobState.Dead && shadowlingSlave.Stage != ShadowlingStage.Lower)
+        if (slaveState.CurrentState != MobState.Dead && shadowlingSlave.Stage == ShadowlingStage.Lower)
         {
             _shadowling.SetStage(ev.Target, shadowlingSlave, ShadowlingStage.Lower);
             _popup.PopupClient("Ваше тело сливается с тенью...", ev.Target, ev.Target);

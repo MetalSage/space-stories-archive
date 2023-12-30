@@ -24,7 +24,7 @@ public sealed class ShadowlingVeilSystem : EntitySystem
         {
             var meta = Comp<MetaDataComponent>(entity);
 
-            if (meta.EntityPrototype == null || !component.VeilBlacklist.Contains(meta.EntityPrototype.ID))
+            if (meta.EntityPrototype == null || component.VeilBlacklist.Contains(meta.EntityPrototype.ID))
                 continue;
 
             _emp.DoEmpEffects(entity, 50000, 60);

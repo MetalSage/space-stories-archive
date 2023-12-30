@@ -4,7 +4,7 @@
   parent:
   - BaseMob
   - MobDamageable
-  description: If you see him, you better run
+  description: Если вы его видите, то вам следует бежать
   components:
   - type: Shadowling
   - type: Insulated
@@ -89,3 +89,11 @@
   - type: MovementSpeedModifier
     baseWalkSpeed : 8
     baseSprintSpeed : 8
+  - type: IntrinsicRadioReceiver
+  - type: IntrinsicRadioTransmitter
+    channels:
+    - ShadowlingMind
+  - type: ActiveRadio
+    channels:
+    - ShadowlingMind
+    globalReceive: true

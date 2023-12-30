@@ -15,6 +15,10 @@ public sealed class SharedShadowlingCollectiveMindSystem : EntitySystem
 
     private void OnCollectiveEvent(EntityUid uid, ShadowlingComponent component, ref ShadowlingCollectiveMindEvent ev)
     {
+        if (ev.Handled)
+            return;
+        ev.Handled = true;
+
         var slaves = GetSlavesCount(uid, component);
         _popup.PopupEntity(string.Format("У вас {0} порабощённых", slaves), uid, uid);
 

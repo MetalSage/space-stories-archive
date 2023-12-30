@@ -28,7 +28,9 @@ public sealed class SharedShadowlingEnthrallSystem : EntitySystem
 
     private void OnEnthrallEvent(EntityUid uid, ShadowlingComponent component, ref ShadowlingEnthrallEvent ev)
     {
-        ev.Handled = false;
+        if (ev.Handled)
+            return;
+
         if (TryComp<ShadowlingComponent>(ev.Target, out _))
             return;
 

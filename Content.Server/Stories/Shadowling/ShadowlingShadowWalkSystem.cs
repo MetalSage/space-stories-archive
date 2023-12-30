@@ -23,7 +23,7 @@ public sealed class ShadowlingShadowWalkSystem : EntitySystem
 
     private void OnShadowWalkEvent(EntityUid uid, ShadowlingComponent component, ref ShadowlingShadowWalkEvent ev)
     {
-        if (!TryComp<FixturesComponent>(uid, out var fixtures))
+        if (!TryComp<FixturesComponent>(uid, out var fixtures) || ev.Handled)
             return;
         ev.Handled = true;
 
@@ -35,7 +35,7 @@ public sealed class ShadowlingShadowWalkSystem : EntitySystem
 
     private void OnPlaneShiftEvent(EntityUid uid, ShadowlingComponent component, ref ShadowlingPlaneShiftEvent ev)
     {
-        if (!TryComp<FixturesComponent>(uid, out var fixtures))
+        if (!TryComp<FixturesComponent>(uid, out var fixtures) || ev.Handled)
             return;
         ev.Handled = true;
 
@@ -90,7 +90,7 @@ public sealed class ShadowlingShadowWalkSystem : EntitySystem
 
     private void BeginPlaneShift(EntityUid uid, ShadowlingComponent shadowling, FixturesComponent fixtures)
     {
-        _speed.ChangeBaseSpeed(uid, 5, 8.5f, 20);
+        _speed.ChangeBaseSpeed(uid, 10, 10, 20);
 
         var fixture = fixtures.Fixtures.First();
 
@@ -107,7 +107,7 @@ public sealed class ShadowlingShadowWalkSystem : EntitySystem
 
     private void EndPlaneShift(EntityUid uid, ShadowlingComponent shadowling, FixturesComponent fixtures)
     {
-        _speed.ChangeBaseSpeed(uid, 2.5f, 4.5f, 20);
+        _speed.ChangeBaseSpeed(uid, 8, 8, 20);
         var fixture = fixtures.Fixtures.First();
         _physics.SetCollisionMask(uid, fixture.Key, fixture.Value, (int) CollisionGroup.FlyingMobMask, fixtures);
         _physics.SetCollisionLayer(uid, fixture.Key, fixture.Value, (int) CollisionGroup.FlyingMobLayer, fixtures);

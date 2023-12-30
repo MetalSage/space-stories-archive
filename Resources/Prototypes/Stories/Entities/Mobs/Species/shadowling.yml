@@ -121,5 +121,5 @@
   name: chat-radio-shadowling
   frequency: 98767
   keycode: 'ш'
-  color: "#300a07"
+  color: "#8b0000"
   longRange: true

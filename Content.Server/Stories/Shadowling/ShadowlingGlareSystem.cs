@@ -25,7 +25,7 @@ public sealed class ShadowlingGlareSystem : EntitySystem
         foreach (var entity in entities)
         {
             var flashable = Comp<FlashableComponent>(entity);
-            _flash.Flash(entity, uid, uid, 15, 0.8f, false, flashable);
+            _flash.Flash(entity, uid, null, 15000, 0.8f, false, flashable);
             _stun.TryStun(entity, TimeSpan.FromSeconds(1), false);
         }
     }

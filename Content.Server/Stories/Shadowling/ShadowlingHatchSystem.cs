@@ -54,7 +54,7 @@ public sealed class ShadowlingHatchSystem : EntitySystem
         {
             if (slot.ContainedEntity is not { } contained) continue;
 
-            _transform.DropNextTo(uid, contained);
+            _transform.DropNextTo(contained, uid);
         }
         var doAfter = new DoAfterArgs(EntityManager, uid, 30, new ShadowlingHatchDoAfterEvent(), uid)
         {
