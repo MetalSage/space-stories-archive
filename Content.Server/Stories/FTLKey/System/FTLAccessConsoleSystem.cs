@@ -2,7 +2,7 @@ using Content.Shared.Containers.ItemSlots;
 using Robust.Shared.Containers;
 using Content.Shared.Tag;
 using Content.Server.Shuttles.Systems;
-
+using Content.Shared.Stories.ConsoleLock;
 
 namespace Content.Server.Stories.FTLKey
 {
@@ -24,6 +24,8 @@ namespace Content.Server.Stories.FTLKey
             SubscribeLocalEvent<FTLAccessConsoleComponent, EntRemovedFromContainerMessage>(OnItemRemoved);
             SubscribeLocalEvent<FTLAccessConsoleComponent, AnchorStateChangedEvent>(OnAnchorChange);
 
+            //Locking
+            SubscribeLocalEvent<FTLAccessConsoleComponent, ConsoleLockToggledEvent>(OnLockToggled);
         }
 
         private void OnComponentInit(EntityUid uid, FTLAccessConsoleComponent consl, ComponentInit args)
@@ -62,6 +64,21 @@ namespace Content.Server.Stories.FTLKey
             if (args.Anchored) UpdateAccess(uid, consl);
             else RemoveAccess(uid, consl);
         }
+
+        private void OnLockToggled(EntityUid uid, FTLAccessConsoleComponent consl, ConsoleLockToggledEvent args)
+        {
+            if (args.Locked)
+            {
+                _itemSlotsSystem.SetLock(uid, consl.FTLKeySlotA, true);
+                _itemSlotsSystem.SetLock(uid, consl.FTLKeySlotB, true);
+            }
+            else
+            {
+                _itemSlotsSystem.SetLock(uid, consl.FTLKeySlotA, false);
+                _itemSlotsSystem.SetLock(uid, consl.FTLKeySlotB, false);
+            }
+        }
+
 
         private void UpdateAccess(EntityUid uid, FTLAccessConsoleComponent consl, EntityUid? removing = null)
         {

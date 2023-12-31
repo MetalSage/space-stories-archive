@@ -69,6 +69,7 @@
       whitelist:
         tags:
           - FTLKey
+      locked: true
       swap: false
       ejectOnDeconstruct: true
       ejectOnBreak: true
@@ -76,9 +77,13 @@
       whitelist:
         tags:
           - FTLKey
+      locked: true
       swap: false
       ejectOnDeconstruct: true
       ejectOnBreak: true
+  - type: AccessReader
+    access: [["Engineering"]]
+  - type: ConsoleLock
   #Stories end
 
 - type: entity
