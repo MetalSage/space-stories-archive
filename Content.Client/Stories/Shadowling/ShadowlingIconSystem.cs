@@ -3,7 +3,7 @@ using Content.Shared.SpaceStories.Shadowling;
 using Content.Shared.StatusIcon.Components;
 
 namespace Content.Client.SpaceStories.Shadowling;
-public sealed class ShowShadowlingIconSystem : AntagStatusIconSystem<ShadowlingComponent>
+public sealed class ShadowlingIconSystem : AntagStatusIconSystem<ShadowlingComponent>
 {
     [Dependency] private readonly ShadowlingSystem _shadowling = default!;
 

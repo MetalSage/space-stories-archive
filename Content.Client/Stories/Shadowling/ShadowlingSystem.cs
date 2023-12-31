@@ -42,19 +42,4 @@ public sealed class ShadowlingSystem : SharedShadowlingSystem
 
         _light.DrawShadows = true;
     }
-
-    public bool IsShadowlingSlave(ShadowlingComponent component)
-    {
-        return component.Stage switch
-        {
-            ShadowlingStage.Thrall or ShadowlingStage.Lower => true,
-            ShadowlingStage.Start or
-            ShadowlingStage.Basic or
-            ShadowlingStage.Medium or
-            ShadowlingStage.High or
-            ShadowlingStage.Final or
-            ShadowlingStage.Ascended => false,
-            _ => false,
-        };
-    }
 }
