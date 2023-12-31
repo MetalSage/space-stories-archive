@@ -92,8 +92,11 @@ public sealed class ShadowlingAscendanceSystem : EntitySystem
             _mind.TransferTo(mindId, newUid, mind: mind);
 
         QueueDel(uid);
-        var announcementString = "Станция, говорит Центральное Командование. Сканерами дальнего действия было зафиксировано превознесение тенеморфа, к вам будет отправлен экстренный эвакуационный шаттл. Станция, держитесь!";
-        _chat.DispatchGlobalAnnouncement(announcementString, playSound: false, colorOverride: Color.FromName("red"));
+
+        var announcementString = "Тени одержали вверх, тенеморф превознёсся, вас уже ничего не спасёт...";
+        _chat.DispatchGlobalAnnouncement(announcementString, "Неизвестный голос", false, colorOverride: Color.FromName("red"));
+        var centComAnnouncementString = "Станция, говорит Центральное Командование. Сканерами дальнего действия было зафиксировано превознесение тенеморфа. К вам будет направлен экстренный эвакуационный шаттл. Станция, держитесь!";
+        _chat.DispatchGlobalAnnouncement(centComAnnouncementString);
 
         var audioParams = new AudioParams(-5f, 1, "Master", SharedAudioSystem.DefaultSoundRange, 1, 1, false, 0f);
         _audio.PlayGlobal("/Audio/Stories/Misc/tear_of_veil.ogg", Filter.Broadcast(), true, audioParams);

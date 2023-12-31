@@ -3,7 +3,7 @@ using Content.Shared.Mobs.Components;
 using Content.Shared.Popups;
 
 namespace Content.Shared.SpaceStories.Shadowling;
-public sealed class SharedShadowlingCollectiveMindSystem : EntitySystem
+public sealed class ShadowlingCollectiveMindSystem : EntitySystem
 {
     [Dependency] private readonly SharedPopupSystem _popup = default!;
 

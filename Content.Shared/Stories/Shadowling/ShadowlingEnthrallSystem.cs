@@ -1,15 +1,15 @@
 using Content.Shared.Body.Components;
+using Content.Shared.Chat;
 using Content.Shared.Damage;
 using Content.Shared.Damage.Systems;
 using Content.Shared.DoAfter;
 using Content.Shared.Mind.Components;
 using Content.Shared.Mindshield.Components;
 using Content.Shared.Popups;
-using Content.Shared.Stealth;
 using Robust.Shared.Serialization;
 
 namespace Content.Shared.SpaceStories.Shadowling;
-public sealed class SharedShadowlingEnthrallSystem : EntitySystem
+public sealed class ShadowlingEnthrallSystem : EntitySystem
 {
     [Dependency] private readonly StaminaSystem _stamina = default!;
     [Dependency] private readonly SharedPopupSystem _popup = default!;
