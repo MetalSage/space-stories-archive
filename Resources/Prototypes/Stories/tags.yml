@@ -33,6 +33,9 @@
 - type: Tag
   id: FTLDestinationAccessE
 
+- type: Tag
+  id: FTLKey
+
 # Tag for docking
 - type: Tag
   id: ArrivalDockOfCross

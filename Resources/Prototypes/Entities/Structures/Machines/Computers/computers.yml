@@ -65,6 +65,20 @@
     rotateWhileAnchored: true
   #Stories start
   - type: FTLAccessConsole
+    FTLKeySlotA:
+      whitelist:
+        tags:
+          - FTLKey
+      swap: false
+      ejectOnDeconstruct: true
+      ejectOnBreak: true
+    FTLKeySlotB:
+      whitelist:
+        tags:
+          - FTLKey
+      swap: false
+      ejectOnDeconstruct: true
+      ejectOnBreak: true
   #Stories end
 
 - type: entity
