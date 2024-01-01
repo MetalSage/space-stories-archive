@@ -41,6 +41,18 @@
 
 - type: entity
   parent: HeadOfSPIDCard
+  id: SpacePrisonMedicIDCard
+  name: space prison medic ID card
+  components:
+  - type: Sprite
+    layers:
+    - state: default
+    - state: idspmedic
+  - type: PresetIdCard
+    job: SpacePrisonMedic
+
+- type: entity
+  parent: HeadOfSPIDCard
   id: IAAIDCard
   name: internal affairs agent ID card
   components:
@@ -50,3 +62,19 @@
     - state: idiaa
   - type: PresetIdCard
     job: IAA
+
+- type: entity
+  parent: IDCardStandard
+  id: JediNtIDCard
+  name: ID карта стража клинка
+  description: Карта, необходимая для доступа в различные области станции.
+  components:
+  - type: Sprite
+    layers:
+    - state: silver
+    - state: idjedint
+      sprite: Stories/Objects/Misc/id_cards.rsi
+  - type: Item
+    heldPrefix: blue
+  - type: PresetIdCard
+    job: JediNt

@@ -1,0 +1,59 @@
+- type: entity
+  name: световой меч
+  parent: EnergySword
+  id: LightSaberJediNt
+  description: Особенное оружие, созданное сколь для элегантного боя, сколь и для церемонний, его работа связана с кайбер-кристаллом внутри.
+  components:
+  - type: BlockMeleeAttack
+    blockSound:
+      path: /Audio/Weapons/eblade1.ogg
+  - type: EnergySword
+    colorOptions:
+      - White
+  - type: Sprite
+    sprite: Objects/Weapons/Melee/e_sword.rsi
+    layers:
+      - state: e_sword
+      - state: e_sword_blade
+        color: "#FFFFFF"
+        visible: false
+        shader: unshaded
+        map: [ "blade" ]
+  - type: Reflect
+    enabled: false
+    reflectProb: 0.50
+    spread: 45
+    reflects:
+      - Energy
+  - type: ThrowingAngle
+    angle: 225
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          vertices:
+            - -0.40,-0.30
+            - -0.30,-0.40
+            - 0.40,0.30
+            - 0.30,0.40
+        density: 1
+        mask:
+        - ItemMask
+        layer:
+        - FlyingMobLayer
+        restitution: 0.3
+        friction: 0.2
+  - type: LightSaber
+  - type: DamageContacts
+    soundHit:
+      path: /Audio/Weapons/eblade1.ogg
+    onlyTethered: true
+    damage:
+      types:
+        Slash: -7.5
+        Heat: -7.5
+        Structural: -2
+        Blunt: 4.5
+    ignoreWhitelist:
+      components:
+      - ForceSensitive # Чувствительные к силе отражают это, так как иначе бы это было имбой против них.

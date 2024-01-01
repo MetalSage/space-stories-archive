@@ -16,10 +16,12 @@
   - type: ArrivalsBlacklist
   - type: WarpPoint
     follow: true
-    location: nuke disk
+    location: "! диск ядерной аунтефикации"
   - type: Tag
     tags:
     - HighRiskItem
+  - type: StealTarget
+    stealGroup: NukeDisk
 
 - type: entity
   name: nuclear authentication disk

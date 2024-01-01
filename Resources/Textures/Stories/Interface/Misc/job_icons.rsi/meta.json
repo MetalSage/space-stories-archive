@@ -14,7 +14,13 @@
             "name": "SpacePrisonSecurityOfficer"
         },
         {
+            "name": "JediNtSecurity"
+        },
+        {
             "name": "SpacePrisonEngineer"
+        },
+        {
+            "name": "SpacePrisonMedic"
         },
         {
             "name": "IAA"
