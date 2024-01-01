@@ -261,6 +261,7 @@
   - type: Computer
     board: PowerComputerCircuitboard
   - type: PowerMonitoringConsole
+  - type: PowerMonitoringCableNetworks
   - type: NodeContainer
     examinable: true
     nodes:
@@ -268,6 +269,7 @@
         !type:CableDeviceNode
         nodeGroupID: HVPower
   - type: ActivatableUI
+    singleUser: true
     key: enum.PowerMonitoringConsoleUiKey.Key
   - type: UserInterface
     interfaces:
@@ -341,7 +343,7 @@
     board: StationRecordsComputerCircuitboard
   - type: GuideHelp
     guides:
-    - DNA
+    - Forensics
 
 - type: entity
   parent: BaseComputer
