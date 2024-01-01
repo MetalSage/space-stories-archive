@@ -2,6 +2,11 @@
   id: BaseFTLKey
   parent: BaseItem
   abstract: true
+  components:
+  - type: Tag
+    tags:
+      - FTLKey
+
 
 - type: entity
   parent: BaseFTLKey
