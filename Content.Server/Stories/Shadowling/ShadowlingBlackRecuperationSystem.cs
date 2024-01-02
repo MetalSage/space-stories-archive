@@ -21,6 +21,9 @@ public sealed class ShadowlingBlackRecuperationSystem : EntitySystem
 
     private void OnBlackRecuperationEvent(EntityUid uid, ShadowlingComponent component, ShadowlingBlackRecuperationEvent ev)
     {
+        if (ev.Handled)
+            return;
+
         if (!TryComp<ShadowlingComponent>(ev.Performer, out var _))
             return;
 
@@ -39,16 +42,17 @@ public sealed class ShadowlingBlackRecuperationSystem : EntitySystem
 
         ev.Handled = true;
 
-        if (slaveState.CurrentState != MobState.Dead && shadowlingSlave.Stage == ShadowlingStage.Lower)
+        if (slaveState.CurrentState == MobState.Alive && shadowlingSlave.Stage != ShadowlingStage.Lower)
         {
+            _damageable.SetAllDamage(ev.Target, slaveDamageable, 0);
             _shadowling.SetStage(ev.Target, shadowlingSlave, ShadowlingStage.Lower);
-            _popup.PopupClient("Ваше тело сливается с тенью...", ev.Target, ev.Target);
+            _popup.PopupEntity("Ваше тело сливается с тенью...", ev.Target, ev.Target);
         }
         else
         {
             _damageable.SetAllDamage(ev.Target, slaveDamageable, 0);
             _mobState.ChangeMobState(ev.Target, MobState.Alive);
-            _popup.PopupClient("Ваши раны покрываются тенью и затягиваются...", ev.Target, ev.Target);
+            _popup.PopupEntity("Ваши раны покрываются тенью и затягиваются...", ev.Target, ev.Target);
         }
     }
 }
