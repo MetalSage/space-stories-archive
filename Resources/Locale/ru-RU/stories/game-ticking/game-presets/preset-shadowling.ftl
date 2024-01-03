@@ -18,7 +18,7 @@ shadowling-break-mindshield = Щит разума был уничтожен!
 
 roles-antag-thrall-name = Трелл
 roles-antag-thrall-objective = Ваша задача - защищать и выполнять приказы тенеморфа.
-threll-break-control =
+thrall-break-control =
     { $name } { $gender ->
         [male] вспомнил, кому он верен
         [female] вспомнила, кому она верна
