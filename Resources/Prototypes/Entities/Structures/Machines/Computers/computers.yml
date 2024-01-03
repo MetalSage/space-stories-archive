@@ -82,7 +82,8 @@
       ejectOnDeconstruct: true
       ejectOnBreak: true
   - type: AccessReader
-    access: [["Engineering"]]
+    access:
+    - [ Command ]
   - type: ConsoleLock
   #Stories end
 
