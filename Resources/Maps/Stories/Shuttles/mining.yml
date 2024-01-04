@@ -22,6 +22,7 @@ entities:
     - type: MovedGrids
     - type: Broadphase
     - type: OccluderTree
+    - type: LoadedMap
   - uid: 181
     components:
     - name: NT-Reclaimer
@@ -523,7 +524,8 @@ entities:
       type: GravityShake
     - type: GasTileOverlay
     - type: GridPathfinding
-    - tags: []
+    - tags:
+      - FTLDestinationAccessStation
       type: Tag
 - proto: AirlockCargoGlass
   entities:
@@ -541,11 +543,15 @@ entities:
   entities:
   - uid: 49
     components:
+    - flags: PvsPriority
+      type: MetaData
     - pos: -0.5,2.5
       parent: 181
       type: Transform
   - uid: 54
     components:
+    - flags: PvsPriority
+      type: MetaData
     - pos: -0.5,1.5
       parent: 181
       type: Transform
@@ -553,12 +559,16 @@ entities:
   entities:
   - uid: 4
     components:
+    - flags: PvsPriority
+      type: MetaData
     - rot: 1.5707963267948966 rad
       pos: 1.5,2.5
       parent: 181
       type: Transform
   - uid: 13
     components:
+    - flags: PvsPriority
+      type: MetaData
     - rot: 1.5707963267948966 rad
       pos: 1.5,1.5
       parent: 181
@@ -598,6 +608,8 @@ entities:
   entities:
   - uid: 37
     components:
+    - flags: PvsPriority
+      type: MetaData
     - pos: -5.5,-2.5
       parent: 181
       type: Transform
@@ -606,6 +618,8 @@ entities:
       type: DeviceLinkSink
   - uid: 47
     components:
+    - flags: PvsPriority
+      type: MetaData
     - pos: -5.5,-3.5
       parent: 181
       type: Transform
@@ -614,6 +628,8 @@ entities:
       type: DeviceLinkSink
   - uid: 69
     components:
+    - flags: PvsPriority
+      type: MetaData
     - pos: -5.5,-1.5
       parent: 181
       type: Transform
@@ -924,7 +940,7 @@ entities:
         ShuttleConsole-FTLKeySlotA: !type:ContainerSlot
           showEnts: False
           occludes: True
-          ent: null
+          ent: 133
         ShuttleConsole-FTLKeySlotB: !type:ContainerSlot
           showEnts: False
           occludes: True
@@ -935,9 +951,12 @@ entities:
   entities:
   - uid: 133
     components:
-    - pos: -1.3620509,5.4893513
-      parent: 181
+    - flags: InContainer
+      type: MetaData
+    - parent: 156
       type: Transform
+    - canCollide: False
+      type: Physics
 - proto: GasPort
   entities:
   - uid: 25
@@ -1185,126 +1204,176 @@ entities:
   entities:
   - uid: 30
     components:
+    - flags: PvsPriority
+      type: MetaData
     - pos: -3.5,0.5
       parent: 181
       type: Transform
   - uid: 85
     components:
+    - flags: PvsPriority
+      type: MetaData
     - pos: -4.5,-6.5
       parent: 181
       type: Transform
   - uid: 87
     components:
+    - flags: PvsPriority
+      type: MetaData
     - pos: -4.5,3.5
       parent: 181
       type: Transform
   - uid: 89
     components:
+    - flags: PvsPriority
+      type: MetaData
     - pos: 0.5,0.5
       parent: 181
       type: Transform
   - uid: 90
     components:
+    - flags: PvsPriority
+      type: MetaData
     - pos: -5.5,-5.5
       parent: 181
       type: Transform
   - uid: 91
     components:
+    - flags: PvsPriority
+      type: MetaData
     - pos: 1.5,3.5
       parent: 181
       type: Transform
   - uid: 93
     components:
+    - flags: PvsPriority
+      type: MetaData
     - pos: -6.5,1.5
       parent: 181
       type: Transform
   - uid: 97
     components:
+    - flags: PvsPriority
+      type: MetaData
     - pos: -0.5,-5.5
       parent: 181
       type: Transform
   - uid: 99
     components:
+    - flags: PvsPriority
+      type: MetaData
     - pos: 0.5,-4.5
       parent: 181
       type: Transform
   - uid: 103
     components:
+    - flags: PvsPriority
+      type: MetaData
     - pos: -6.5,3.5
       parent: 181
       type: Transform
   - uid: 104
     components:
+    - flags: PvsPriority
+      type: MetaData
     - pos: -0.5,3.5
       parent: 181
       type: Transform
   - uid: 106
     components:
+    - flags: PvsPriority
+      type: MetaData
     - pos: 0.5,-5.5
       parent: 181
       type: Transform
   - uid: 107
     components:
+    - flags: PvsPriority
+      type: MetaData
     - pos: -4.5,4.5
       parent: 181
       type: Transform
   - uid: 108
     components:
+    - flags: PvsPriority
+      type: MetaData
     - pos: -0.5,-6.5
       parent: 181
       type: Transform
   - uid: 109
     components:
+    - flags: PvsPriority
+      type: MetaData
     - pos: -0.5,-7.5
       parent: 181
       type: Transform
   - uid: 110
     components:
+    - flags: PvsPriority
+      type: MetaData
     - pos: -5.5,-4.5
       parent: 181
       type: Transform
   - uid: 111
     components:
+    - flags: PvsPriority
+      type: MetaData
     - pos: -5.5,3.5
       parent: 181
       type: Transform
   - uid: 114
     components:
+    - flags: PvsPriority
+      type: MetaData
     - pos: -5.5,0.5
       parent: 181
       type: Transform
   - uid: 116
     components:
+    - flags: PvsPriority
+      type: MetaData
     - pos: -4.5,-7.5
       parent: 181
       type: Transform
   - uid: 117
     components:
+    - flags: PvsPriority
+      type: MetaData
     - pos: 0.5,3.5
       parent: 181
       type: Transform
   - uid: 118
     components:
+    - flags: PvsPriority
+      type: MetaData
     - pos: -5.5,-0.5
       parent: 181
       type: Transform
   - uid: 122
     components:
+    - flags: PvsPriority
+      type: MetaData
     - pos: 0.5,-0.5
       parent: 181
       type: Transform
   - uid: 123
     components:
+    - flags: PvsPriority
+      type: MetaData
     - pos: 1.5,0.5
       parent: 181
       type: Transform
   - uid: 124
     components:
+    - flags: PvsPriority
+      type: MetaData
     - pos: -6.5,0.5
       parent: 181
       type: Transform
   - uid: 125
     components:
+    - flags: PvsPriority
+      type: MetaData
     - pos: 0.5,-2.5
       parent: 181
       type: Transform
@@ -1312,26 +1381,36 @@ entities:
   entities:
   - uid: 95
     components:
+    - flags: PvsPriority
+      type: MetaData
     - pos: -6.5,2.5
       parent: 181
       type: Transform
   - uid: 113
     components:
+    - flags: PvsPriority
+      type: MetaData
     - pos: -0.5,0.5
       parent: 181
       type: Transform
   - uid: 126
     components:
+    - flags: PvsPriority
+      type: MetaData
     - pos: -4.5,0.5
       parent: 181
       type: Transform
   - uid: 145
     components:
+    - flags: PvsPriority
+      type: MetaData
     - pos: -0.5,4.5
       parent: 181
       type: Transform
   - uid: 147
     components:
+    - flags: PvsPriority
+      type: MetaData
     - pos: -4.5,-5.5
       parent: 181
       type: Transform

@@ -30,3 +30,11 @@
   components:
   - type: FTLAccessConsole
     KeyA: FTLKeyCentcomm
+
+- type: entity
+  parent: ComputerShuttle
+  id: ComputerShuttleFTLKeysCargo
+  suffix: БС Ключ "Карго"
+  components:
+  - type: FTLAccessConsole
+    KeyB: FTLKeyCargo
