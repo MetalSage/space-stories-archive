@@ -253,7 +253,7 @@
         - id: BoxZiptie
         - id: CrowbarRed
         - id: MagazinePistol
-        - id: PinpointerNuclear
+        - id: PinpointerNuclear # Stories-Balance
 
 - type: entity
   noSpawn: true
@@ -269,7 +269,7 @@
         - id: BoxZiptie
         - id: CrowbarRed
         - id: MagazinePistol
-        - id: PinpointerNuclear
+        - id: PinpointerNuclear # Stories-Balance
 
 - type: entity
   noSpawn: true
