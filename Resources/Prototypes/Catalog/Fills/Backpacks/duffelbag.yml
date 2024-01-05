@@ -29,6 +29,7 @@
     - id: PillAmbuzolPlus
     - id: PillAmbuzol
       amount: 4
+    - id: CrowbarRed
 
 - type: entity
   parent: ClothingBackpackDuffelSyndicateMedicalBundle
