@@ -24,10 +24,7 @@ public sealed class ShadowlingBlackRecuperationSystem : EntitySystem
         if (ev.Handled)
             return;
 
-        if (!TryComp<ShadowlingComponent>(ev.Performer, out var _))
-            return;
-
-        if (!TryComp<ShadowlingComponent>(ev.Target, out var shadowlingSlave))
+        if (!TryComp<ShadowlingComponent>(ev.Performer, out _))
             return;
 
         if (!TryComp<DamageableComponent>(ev.Target, out var slaveDamageable))
@@ -37,22 +34,28 @@ public sealed class ShadowlingBlackRecuperationSystem : EntitySystem
             return;
 
         // you can't heal yourself!
-        if (shadowlingSlave.Stage != ShadowlingStage.Thrall && shadowlingSlave.Stage != ShadowlingStage.Lower)
+        if (uid == ev.Target)
             return;
 
         ev.Handled = true;
 
-        if (slaveState.CurrentState == MobState.Alive && shadowlingSlave.Stage != ShadowlingStage.Lower)
+        if (HasComp<ShadowlingThrallComponent>(ev.Target))
         {
-            _damageable.SetAllDamage(ev.Target, slaveDamageable, 0);
-            _shadowling.SetStage(ev.Target, shadowlingSlave, ShadowlingStage.Lower);
-            _popup.PopupEntity("Ваше тело сливается с тенью...", ev.Target, ev.Target);
+            if (slaveState.CurrentState == MobState.Alive)
+            {
+                _damageable.SetAllDamage(ev.Target, slaveDamageable, 0);
+                RemCompDeferred<ShadowlingThrallComponent>(ev.Target);
+                var lowerShadowling = EnsureComp<ShadowlingComponent>(ev.Target);
+                _shadowling.SetStage(ev.Target, lowerShadowling, ShadowlingStage.Lower);
+                _popup.PopupEntity("Ваше тело сливается с тенью...", ev.Target, ev.Target);
+            }
+            else
+            {
+                _damageable.SetAllDamage(ev.Target, slaveDamageable, 0);
+                _mobState.ChangeMobState(ev.Target, MobState.Alive);
+                _popup.PopupEntity("Ваши раны покрываются тенью и затягиваются...", ev.Target, ev.Target);
+            }
         }
-        else
-        {
-            _damageable.SetAllDamage(ev.Target, slaveDamageable, 0);
-            _mobState.ChangeMobState(ev.Target, MobState.Alive);
-            _popup.PopupEntity("Ваши раны покрываются тенью и затягиваются...", ev.Target, ev.Target);
-        }
+
     }
 }

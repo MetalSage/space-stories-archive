@@ -38,18 +38,6 @@ public sealed partial class ShadowlingComponent : Component
     [ViewVariables(VVAccess.ReadOnly), DataField("shadowWalkEndsIn", customTypeSerializer: typeof(TimeOffsetSerializer))]
     public TimeSpan ShadowWalkEndsIn = TimeSpan.FromSeconds(3);
 
-    /// <summary>
-    /// Когда теневой покров кончится
-    /// </summary>
-    [ViewVariables(VVAccess.ReadOnly), DataField("guiseEndsAt", customTypeSerializer: typeof(TimeOffsetSerializer))]
-    public TimeSpan GuiseEndsAt = TimeSpan.Zero;
-
-    /// <summary>
-    /// Через сколько теневой покров окончится отсчитывая от активации
-    /// </summary>
-    [ViewVariables(VVAccess.ReadOnly), DataField("guiseEndsIn", customTypeSerializer: typeof(TimeOffsetSerializer))]
-    public TimeSpan GuiseEndsIn = TimeSpan.FromSeconds(4);
-
     [ViewVariables(VVAccess.ReadOnly)]
     [DataField("icyVeinsReagentId", customTypeSerializer: typeof(PrototypeIdSerializer<ReagentPrototype>))]
     public string IcyVeinsReagentId = "IceOil";
@@ -199,12 +187,6 @@ public sealed partial class ShadowlingComponent : Component
             }
         },
         {
-            ShadowlingStage.Thrall,
-            new() {
-                "ActionShadowlingGuise", // Сокройте своё присутствие на короткий промежуток времени
-            }
-        },
-        {
             ShadowlingStage.Lower,
             new() {
                 "ActionShadowlingShadowWalk", // Теневой шаг, прямо как у истинного тенелинга
@@ -221,8 +203,7 @@ public sealed partial class ShadowlingComponent : Component
 
 public enum ShadowlingStage : byte
 {
-    Thrall, // You're just a slave
-    Lower, // You're gained with a little power of a true shadowling
+    Lower, // Slave with a little piece of power of a true shadowling
 
     Beginning, // You can only hatch yourself
     Start, // Almost all common powers

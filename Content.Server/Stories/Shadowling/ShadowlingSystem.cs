@@ -2,19 +2,13 @@ using Content.Server.Actions;
 using Content.Server.Popups;
 using Content.Server.Stunnable;
 using Content.Shared.Actions;
-using Content.Shared.IdentityManagement;
-using Content.Shared.Mindshield.Components;
-using Content.Shared.SpaceStories.Mindshield;
 using Content.Shared.SpaceStories.Shadowling;
 
 namespace Content.Server.SpaceStories.Shadowling;
 public sealed class ShadowlingSystem : SharedShadowlingSystem
 {
     [Dependency] private readonly EntityLookupSystem _entityLookup = default!;
-    [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly StunSystem _stun = default!;
     [Dependency] private readonly ActionsSystem _actions = default!;
-    [Dependency] private readonly SharedShadowlingSystem _shared = default!;
 
     public override void Initialize()
     {
@@ -22,7 +16,6 @@ public sealed class ShadowlingSystem : SharedShadowlingSystem
         SubscribeLocalEvent<ShadowlingComponent, ComponentStartup>(OnStartup);
         SubscribeLocalEvent<ShadowlingComponent, ComponentShutdown>(OnShutdown);
         SubscribeLocalEvent<ShadowlingComponent, ShadowlingStageChangeEvent>(OnStageChanged);
-        SubscribeLocalEvent<ShadowlingComponent, MindShieldImplantedEvent>(OnMindShieldImplanted);
     }
 
     private void OnStartup(EntityUid uid, ShadowlingComponent component, ComponentStartup args)
@@ -97,25 +90,5 @@ public sealed class ShadowlingSystem : SharedShadowlingSystem
         }
 
         Dirty(uid, component);
-    }
-
-    private void OnMindShieldImplanted(EntityUid uid, ShadowlingComponent comp, MindShieldImplantedEvent ev)
-    {
-        if (!TryComp<ShadowlingComponent>(uid, out var shadowling))
-            return;
-
-        if (!_shared.IsShadowlingSlave(shadowling) || shadowling.Stage == ShadowlingStage.Lower)
-        {
-            RemCompDeferred<MindShieldComponent>(uid);
-            return;
-        }
-        else
-        {
-            var stunTime = TimeSpan.FromSeconds(4);
-            var name = Identity.Entity(uid, EntityManager);
-            RemComp<ShadowlingComponent>(uid);
-            _stun.TryParalyze(uid, stunTime, true);
-            _popup.PopupEntity(Loc.GetString("thrall-break-control", ("name", name)), uid);
-        }
     }
 }
