@@ -46,7 +46,7 @@ public sealed class CrawlingController : SharedCrawlingController
     {
         var doAfterArgs = new DoAfterArgs(EntityManager, uid, crawl.LieDownDelay, new BeginCrawlingDoAfterEvent(), uid)
         {
-            CancelDuplicate = true,
+            BlockDuplicate = true,
         };
         _doAfter.TryStartDoAfter(doAfterArgs);
     }
@@ -55,19 +55,25 @@ public sealed class CrawlingController : SharedCrawlingController
     {
         var doAfterArgs = new DoAfterArgs(EntityManager, uid, crawl.GetUpDelay, new EndCrawlingDoAfterEvent(), uid)
         {
-            CancelDuplicate = true,
+            BlockDuplicate = true,
         };
         _doAfter.TryStartDoAfter(doAfterArgs);
     }
 
     private void OnBeginCrawlingDoAfterEvent(EntityUid uid, CrawlComponent crawl, ref BeginCrawlingDoAfterEvent ev)
     {
+        if (ev.Cancelled)
+            return;
+
         SetCrawling(uid, crawl, true);
         _standing.Down(uid);
     }
 
     private void OnEndCrawlingDoAfterEvent(EntityUid uid, CrawlComponent crawl, ref EndCrawlingDoAfterEvent ev)
     {
+        if (ev.Cancelled)
+            return;
+
         SetCrawling(uid, crawl, false);
         _standing.Stand(uid);
     }
