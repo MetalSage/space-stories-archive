@@ -85,6 +85,7 @@
     horizontalRotation: 90
   - type: HumanoidAppearance
     species: Human
+  - type: Crawl # Stories-Crawling
   - type: SlowOnDamage
     speedModifierThresholds:
       60: 0.7

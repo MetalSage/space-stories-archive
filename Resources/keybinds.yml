@@ -524,3 +524,6 @@ binds:
 - function: Hotbar9
   type: State
   key: Num9
+- function: ToggleCrawling
+  type: State
+  key: R

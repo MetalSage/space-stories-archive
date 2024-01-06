@@ -14,6 +14,10 @@ namespace Content.Shared.Standing
         [DataField, AutoNetworkedField]
         public bool Standing { get; set; } = true;
 
+        [ViewVariables(VVAccess.ReadWrite)]
+        [DataField]
+        public bool CanCrawl { get; set; } = false;
+
         /// <summary>
         ///     List of fixtures that had their collision mask changed when the entity was downed.
         ///     Required for re-adding the collision mask.

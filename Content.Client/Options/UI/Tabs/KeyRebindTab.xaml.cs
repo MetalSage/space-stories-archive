@@ -228,6 +228,7 @@ namespace Content.Client.Options.UI.Tabs
             AddButton(ContentKeyFunctions.TakeScreenshot);
             AddButton(ContentKeyFunctions.TakeScreenshotNoUI);
             AddButton(ContentKeyFunctions.ToggleFullscreen);
+            AddButton(ContentKeyFunctions.ToggleCrawling);
 
             AddHeader("ui-options-header-hotbar");
             foreach (var boundKey in ContentKeyFunctions.GetHotbarBoundKeys())
