@@ -159,6 +159,7 @@ namespace Content.Client.Options.UI.Tabs
             AddButton(EngineKeyFunctions.MoveLeft);
             AddButton(EngineKeyFunctions.MoveDown);
             AddButton(EngineKeyFunctions.MoveRight);
+            AddButton(ContentKeyFunctions.ToggleStanding); // Stories-Crawling
             AddButton(EngineKeyFunctions.Walk);
             AddCheckBox("ui-options-hotkey-toggle-walk", _cfg.GetCVar(CCVars.ToggleWalk), HandleToggleWalk);
             InitToggleWalk();
@@ -228,7 +229,6 @@ namespace Content.Client.Options.UI.Tabs
             AddButton(ContentKeyFunctions.TakeScreenshot);
             AddButton(ContentKeyFunctions.TakeScreenshotNoUI);
             AddButton(ContentKeyFunctions.ToggleFullscreen);
-            AddButton(ContentKeyFunctions.ToggleCrawling);
 
             AddHeader("ui-options-header-hotbar");
             foreach (var boundKey in ContentKeyFunctions.GetHotbarBoundKeys())

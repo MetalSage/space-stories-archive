@@ -10,6 +10,7 @@ using Content.Shared.Interaction.Events;
 using Content.Shared.Inventory.Events;
 using Content.Shared.Item;
 using Content.Shared.Mobs.Components;
+using Content.Shared.Movement.Components;
 using Content.Shared.Movement.Events;
 using Content.Shared.Movement.Systems;
 using Content.Shared.Pulling.Events;
@@ -85,7 +86,11 @@ public partial class MobStateSystem
         switch (state)
         {
             case MobState.Alive:
-                _standing.Stand(target);
+                // Stories-Crawling-Start
+                if (!_standing.CanCrawl(target))
+                    _standing.Stand(target);
+                // Stories-Crawling-End
+
                 _appearance.SetData(target, MobStateVisuals.State, MobState.Alive);
                 break;
             case MobState.Critical:
@@ -135,6 +140,10 @@ public partial class MobStateSystem
             RemCompDeferred<AllowNextCritSpeechComponent>(uid);
             return;
         }
+        // Stories-Crit-Speech-Start
+        if (component.CurrentState == MobState.Critical)
+            return;
+        // Stories-Crit-Speech-End
 
         CheckAct(uid, component, args);
     }
@@ -192,12 +201,18 @@ public partial class MobStateSystem
                 if (!TryComp<DamageableComponent>(uid, out var damageable))
                     return;
 
+                // Stories-Crawling-Start
+                if (!TryComp<MovementSpeedModifierComponent>(uid, out var speed))
+                    return;
+
                 if (!_mobThreshold.TryGetPercentageForState(uid, MobState.Dead, damageable.TotalDamage, out var percentage))
                     return;
 
-                var speedModifier = Math.Max(0.1f, (1f - (float) percentage) * 2 * 0.3f);
+                var sprintSpeedModifier = (1 - (float) percentage) * 2 * 0.15f * speed.BaseSprintSpeed;
+                var walkSpeedModifier = (1 - (float) percentage) * 2 * 0.15f * speed.BaseWalkSpeed;
 
-                ev.ModifySpeed(speedModifier, speedModifier);
+                ev.ModifySpeed(sprintSpeedModifier, walkSpeedModifier);
+                // Stories-Crawling-End
                 break;
         }
     }

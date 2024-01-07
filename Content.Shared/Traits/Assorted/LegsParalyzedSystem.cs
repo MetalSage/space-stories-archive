@@ -30,7 +30,11 @@ public sealed class LegsParalyzedSystem : EntitySystem
 
     private void OnShutdown(EntityUid uid, LegsParalyzedComponent component, ComponentShutdown args)
     {
-        _standingSystem.Stand(uid);
+        // Stories-Crawling-Start
+        if (!_standingSystem.CanCrawl(uid))
+            _standingSystem.Stand(uid);
+        // Stories-Crawling-End
+
         _bodySystem.UpdateMovementSpeed(uid);
     }
 
