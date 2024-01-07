@@ -61,8 +61,7 @@ namespace Content.Shared.Standing
             // Optional component.
             Resolve(uid, ref appearance, ref hands, false);
 
-            if (!standingState.Standing)
-                return true;
+            // Stories-Crawling lines deletion
 
             // This is just to avoid most callers doing this manually saving boilerplate
             // 99% of the time you'll want to drop items but in some scenarios (e.g. buckling) you don't want to.
@@ -72,6 +71,11 @@ namespace Content.Shared.Standing
             {
                 RaiseLocalEvent(uid, new DropHandItemsEvent(), false);
             }
+
+            // Stories-Crawling-Start
+            if (!standingState.Standing)
+                return true;
+            // Stories-Crawling-End
 
             var msg = new DownAttemptEvent();
             RaiseLocalEvent(uid, msg, false);

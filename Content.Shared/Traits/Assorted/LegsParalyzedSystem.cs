@@ -15,7 +15,7 @@ public sealed class LegsParalyzedSystem : EntitySystem
 
     public override void Initialize()
     {
-        // Stories-Crawling line deletion
+        SubscribeLocalEvent<LegsParalyzedComponent, ComponentStartup>(OnStartup);
         SubscribeLocalEvent<LegsParalyzedComponent, ComponentShutdown>(OnShutdown);
         SubscribeLocalEvent<LegsParalyzedComponent, BuckleChangeEvent>(OnBuckleChange);
         SubscribeLocalEvent<LegsParalyzedComponent, ThrowPushbackAttemptEvent>(OnThrowPushbackAttempt);
@@ -44,7 +44,11 @@ public sealed class LegsParalyzedSystem : EntitySystem
         }
     }
 
-    // Stories-Crawling method deletion
+    private void OnStartup(EntityUid uid, LegsParalyzedComponent component, ComponentStartup args)
+    {
+        // TODO: In future probably must be surgery related wound
+        _movementSpeedModifierSystem.ChangeBaseSpeed(uid, 0.7f, 0.7f, 20);
+    }
 
     private void OnThrowPushbackAttempt(EntityUid uid, LegsParalyzedComponent component, ThrowPushbackAttemptEvent args)
     {
