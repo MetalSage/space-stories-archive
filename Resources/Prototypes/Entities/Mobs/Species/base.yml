@@ -85,7 +85,6 @@
     horizontalRotation: 90
   - type: HumanoidAppearance
     species: Human
-  - type: Crawl # Stories-Crawling
   - type: SlowOnDamage
     speedModifierThresholds:
       60: 0.7
@@ -173,6 +172,7 @@
   - type: SleepEmitSound
   - type: SSDIndicator
   - type: StandingState
+    canCrawl: true # Stories-Crawling
   - type: Fingerprint
   - type: Dna
   - type: MindContainer
