@@ -15,12 +15,12 @@
   - StoriesOrigin
   - StoriesSaltern
 
-# Corvax Maps
-#  - StoriesAvrite
-#  - StoriesDelta
-#  - CorvaxGate
-#  - CorvaxGelta
-#  - CorvaxSpectrum
+  - StoriesAvrite
+  - StoriesDelta
+  - StoriesGate
+  - StoriesOutpost
+  - StoriesSpectrum
+  - StoriesSilly
 
 # Space Prison Maps
   - StoriesBox
