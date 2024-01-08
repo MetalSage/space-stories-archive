@@ -113,3 +113,29 @@ WarpPointBeaconNeutral: null
 WarpPointBeaconScience: null
 WarpPointBeaconSecurity: null
 WarpPointBeaconService: null
+
+# 2024-01-08 # Stories-Corvax-Maps-Compatibility
+ChairCarp: ChairPilotSeat
+ChairBrass: ChairPilotSeat
+BarSignAlcoholic: null
+ClothingNeckMantleHOSShoulder: null
+PottedPlantAlt1: PottedPlantRandom
+PottedPlantAlt2: PottedPlantRandom
+PottedPlantAlt3: PottedPlantRandom
+PottedPlantAlt4: PottedPlantRandom
+PottedPlantAlt5: PottedPlantRandom
+PottedPlantAlt6: PottedPlantRandom
+PottedPlantAlt7: PottedPlantRandom
+PottedPlantAlt8: PottedPlantRandom
+HeadVulpkanin: null
+RightArmVulpkanin: null
+ShippingContainerBlank: null
+ShippingContainerNanotrasen: null
+ShippingContainerGorlex: null
+ShippingContainerKosmologistika: null
+ShippingContainerNakamura: null
+ShippingContainerDeforest: null
+ShippingContainerVitezstvi: null
+SpawnMobGorillaLargo: null
+KvassTankFull: null
+BookStationsAndAgents: BookRandom
