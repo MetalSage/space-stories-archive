@@ -6,11 +6,11 @@ using Content.Shared.Chemistry.Components;
 using Content.Shared.Damage;
 using Content.Shared.DoAfter;
 using Content.Shared.Inventory;
-using Content.Shared.SpaceStories.Shadowling;
+using Content.Shared.Stories.Shadowling;
 using Content.Shared.Standing;
 using Robust.Server.GameObjects;
 
-namespace Content.Server.SpaceStories.Shadowling;
+namespace Content.Server.Stories.Shadowling;
 
 public sealed class ShadowlingHatchSystem : EntitySystem
 {

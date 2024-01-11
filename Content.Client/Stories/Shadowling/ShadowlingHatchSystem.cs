@@ -1,7 +1,7 @@
-using Content.Shared.SpaceStories.Shadowling;
+using Content.Shared.Stories.Shadowling;
 using Robust.Client.Graphics;
 
-namespace Content.Client.SpaceStories.Shadowling;
+namespace Content.Client.Stories.Shadowling;
 
 public sealed class ShadowlingHatchSystem : EntitySystem
 {

@@ -1,4 +1,4 @@
-namespace Content.Shared.SpaceStories.Shadowling;
+namespace Content.Shared.Stories.Shadowling;
 public abstract class SharedShadowlingSystem : EntitySystem
 {
     public bool IsShadowlingSlave(EntityUid uid)
@@ -10,5 +10,13 @@ public abstract class SharedShadowlingSystem : EntitySystem
     {
         component.Stage = stage;
         Dirty(uid, component);
+    }
+
+    public bool IsLowerShadowling(EntityUid uid, ShadowlingComponent? shadowling = null)
+    {
+        if (!Resolve(uid, ref shadowling, false))
+            return false;
+
+        return shadowling.Stage == ShadowlingStage.Lower;
     }
 }

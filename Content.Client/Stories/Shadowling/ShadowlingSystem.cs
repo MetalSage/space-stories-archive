@@ -1,9 +1,9 @@
-using Content.Shared.SpaceStories.Shadowling;
+using Content.Shared.Stories.Shadowling;
 using Robust.Client.Graphics;
 using Robust.Client.Player;
 using Robust.Shared.Player;
 
-namespace Content.Client.SpaceStories.Shadowling;
+namespace Content.Client.Stories.Shadowling;
 
 public sealed class ShadowlingSystem : SharedShadowlingSystem
 {

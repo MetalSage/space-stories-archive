@@ -3,7 +3,7 @@ using Content.Shared.IdentityManagement;
 using Content.Shared.Mindshield.Components;
 using Content.Shared.Popups;
 using Content.Shared.Revolutionary.Components;
-using Content.Shared.SpaceStories.Mindshield;
+using Content.Shared.Stories.Mindshield;
 using Content.Shared.Stunnable;
 
 namespace Content.Shared.Revolutionary;

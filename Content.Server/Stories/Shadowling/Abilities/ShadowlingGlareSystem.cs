@@ -1,9 +1,9 @@
 using Content.Server.Flash;
 using Content.Server.Stunnable;
 using Content.Shared.Flash;
-using Content.Shared.SpaceStories.Shadowling;
+using Content.Shared.Stories.Shadowling;
 
-namespace Content.Server.SpaceStories.Shadowling;
+namespace Content.Server.Stories.Shadowling;
 
 public sealed class ShadowlingGlareSystem : EntitySystem
 {

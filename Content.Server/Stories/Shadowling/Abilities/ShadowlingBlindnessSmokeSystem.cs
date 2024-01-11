@@ -1,8 +1,8 @@
 using Content.Server.Fluids.EntitySystems;
-using Content.Shared.SpaceStories.Shadowling;
+using Content.Shared.Stories.Shadowling;
 using Content.Shared.Chemistry.Components;
 
-namespace Content.Server.SpaceStories.Shadowling;
+namespace Content.Server.Stories.Shadowling;
 
 public sealed class ShadowlingBlindnessSmokeSystem : EntitySystem
 {

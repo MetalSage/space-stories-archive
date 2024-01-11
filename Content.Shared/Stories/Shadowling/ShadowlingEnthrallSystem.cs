@@ -1,7 +1,7 @@
 using Content.Shared.DoAfter;
 using Robust.Shared.Serialization;
 
-namespace Content.Shared.SpaceStories.Shadowling;
+namespace Content.Shared.Stories.Shadowling;
 
 /// <summary>
 /// Is relayed at the end of the sericulturing doafter.

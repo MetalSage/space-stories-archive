@@ -2,14 +2,15 @@ using Content.Shared.Actions;
 using Content.Shared.Body.Prototypes;
 using Content.Shared.Chemistry.Reagent;
 using Content.Shared.DoAfter;
+using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype.List;
 
-namespace Content.Shared.SpaceStories.Shadowling;
-[RegisterComponent]
+namespace Content.Shared.Stories.Shadowling;
+[RegisterComponent, NetworkedComponent]
 public sealed partial class ShadowlingComponent : Component
 {
     [Dependency] private readonly IEntityManager _entityManager = default!;
@@ -286,10 +287,6 @@ public sealed partial class ShadowlingLightningStormEvent : InstantActionEvent
 }
 
 public sealed partial class ShadowlingPlaneShiftEvent : InstantActionEvent
-{
-}
-
-public sealed partial class ShadowlingGuiseEvent : InstantActionEvent
 {
 }
 

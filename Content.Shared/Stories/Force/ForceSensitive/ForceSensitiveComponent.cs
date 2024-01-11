@@ -1,4 +1,4 @@
-namespace Content.Shared.SpaceStories.Force.ForceSensitive;
+namespace Content.Shared.Stories.Force.ForceSensitive;
 using Content.Shared.Actions;
 
 [RegisterComponent, AutoGenerateComponentState]

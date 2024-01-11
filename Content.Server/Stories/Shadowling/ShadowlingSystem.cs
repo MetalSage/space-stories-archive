@@ -1,11 +1,9 @@
 using Content.Server.Actions;
-using Content.Server.Popups;
-using Content.Server.Stunnable;
 using Content.Shared.Actions;
-using Content.Shared.SpaceStories.Shadowling;
+using Content.Shared.Stories.Shadowling;
 
-namespace Content.Server.SpaceStories.Shadowling;
-public sealed class ShadowlingSystem : SharedShadowlingSystem
+namespace Content.Server.Stories.Shadowling;
+public sealed partial class ShadowlingSystem : SharedShadowlingSystem
 {
     [Dependency] private readonly EntityLookupSystem _entityLookup = default!;
     [Dependency] private readonly ActionsSystem _actions = default!;
@@ -13,6 +11,14 @@ public sealed class ShadowlingSystem : SharedShadowlingSystem
     public override void Initialize()
     {
         base.Initialize();
+
+        InitializeBase();
+        InitializeRadio();
+        InitializeThralls();
+    }
+
+    public void InitializeBase()
+    {
         SubscribeLocalEvent<ShadowlingComponent, ComponentStartup>(OnStartup);
         SubscribeLocalEvent<ShadowlingComponent, ComponentShutdown>(OnShutdown);
         SubscribeLocalEvent<ShadowlingComponent, ShadowlingStageChangeEvent>(OnStageChanged);

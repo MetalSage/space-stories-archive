@@ -2,11 +2,11 @@ using Content.Server.Emp;
 using Content.Server.Lightning;
 using Content.Server.Power.Components;
 using Content.Shared.Mobs.Components;
-using Content.Shared.SpaceStories.Shadowling;
+using Content.Shared.Stories.Shadowling;
 using Robust.Server.GameObjects;
 using Robust.Shared.Random;
 
-namespace Content.Server.SpaceStories.Shadowling;
+namespace Content.Server.Stories.Shadowling;
 public sealed class ShadowlingLightningStormSystem : EntitySystem
 {
     [Dependency] private readonly EmpSystem _emp = default!;

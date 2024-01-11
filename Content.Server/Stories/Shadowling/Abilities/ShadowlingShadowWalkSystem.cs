@@ -1,12 +1,12 @@
 using System.Linq;
 using Content.Shared.Movement.Systems;
 using Content.Shared.Physics;
-using Content.Shared.SpaceStories.Shadowling;
+using Content.Shared.Stories.Shadowling;
 using Robust.Shared.Physics;
 using Robust.Shared.Physics.Systems;
 using Robust.Shared.Timing;
 
-namespace Content.Server.SpaceStories.Shadowling;
+namespace Content.Server.Stories.Shadowling;
 public sealed class ShadowlingShadowWalkSystem : EntitySystem
 {
     [Dependency] private readonly SharedPhysicsSystem _physics = default!;

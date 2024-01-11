@@ -2,16 +2,14 @@ using Content.Server.Popups;
 using Content.Shared.Damage;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
-using Content.Shared.Mobs.Systems;
-using Content.Shared.SpaceStories.Shadowling;
+using Content.Shared.Rejuvenate;
+using Content.Shared.Stories.Shadowling;
 
-namespace Content.Server.SpaceStories.Shadowling;
+namespace Content.Server.Stories.Shadowling;
 public sealed class ShadowlingBlackRecuperationSystem : EntitySystem
 {
-    [Dependency] private readonly DamageableSystem _damageable = default!;
-    [Dependency] private readonly SharedShadowlingSystem _shadowling = default!;
+    [Dependency] private readonly ShadowlingSystem _shadowling = default!;
     [Dependency] private readonly PopupSystem _popup = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
 
     public override void Initialize()
     {
@@ -41,21 +39,17 @@ public sealed class ShadowlingBlackRecuperationSystem : EntitySystem
 
         if (HasComp<ShadowlingThrallComponent>(ev.Target))
         {
-            if (slaveState.CurrentState == MobState.Alive)
+            var rejuvenate = new RejuvenateEvent();
+            RaiseLocalEvent(ev.Target, rejuvenate);
+
+            if (slaveState.CurrentState == MobState.Alive && !_shadowling.IsLowerShadowling(uid))
             {
-                _damageable.SetAllDamage(ev.Target, slaveDamageable, 0);
-                RemCompDeferred<ShadowlingThrallComponent>(ev.Target);
-                var lowerShadowling = EnsureComp<ShadowlingComponent>(ev.Target);
-                _shadowling.SetStage(ev.Target, lowerShadowling, ShadowlingStage.Lower);
-                _popup.PopupEntity("Ваше тело сливается с тенью...", ev.Target, ev.Target);
+                _shadowling.UpgradeThrallToLowerShadowling(ev.Target);
             }
             else
             {
-                _damageable.SetAllDamage(ev.Target, slaveDamageable, 0);
-                _mobState.ChangeMobState(ev.Target, MobState.Alive);
                 _popup.PopupEntity("Ваши раны покрываются тенью и затягиваются...", ev.Target, ev.Target);
             }
         }
-
     }
 }

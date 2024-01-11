@@ -2,14 +2,14 @@ using Content.Server.Chemistry.EntitySystems;
 using Content.Shared.Body.Components;
 using Content.Shared.Chemistry.Components;
 using Content.Shared.Chemistry.EntitySystems;
-using Content.Shared.SpaceStories.Shadowling;
+using Content.Shared.Stories.Shadowling;
 
-namespace Content.Server.SpaceStories.Shadowling;
+namespace Content.Server.Stories.Shadowling;
 
 public sealed class ShadowlingIcyVeinsSystem : EntitySystem
 {
     [Dependency] private readonly ShadowlingSystem _shadowling = default!;
-    [Dependency] private readonly SolutionContainerSystem _solution = default!;
+    [Dependency] private readonly SharedSolutionContainerSystem _solution = default!;
     [Dependency] private readonly ChemistrySystem _chemistry = default!;
 
     public override void Initialize()
@@ -27,10 +27,10 @@ public sealed class ShadowlingIcyVeinsSystem : EntitySystem
 
         foreach (var entity in bodies)
         {
-            if (!_solution.TryGetInjectableSolution(entity, out var targetSolution))
+            if (!_solution.TryGetInjectableSolution(entity, out var entitySolution, out _))
                 continue;
 
-            _solution.AddSolution(entity, targetSolution, solution);
+            _solution.AddSolution(entitySolution.Value, solution);
         }
     }
 }

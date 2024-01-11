@@ -1,7 +1,7 @@
 using Content.Shared.Rejuvenate;
-using Content.Shared.SpaceStories.Shadowling;
+using Content.Shared.Stories.Shadowling;
 
-namespace Content.Server.SpaceStories.Shadowling;
+namespace Content.Server.Stories.Shadowling;
 
 public sealed class ShadowlingRapidReHatchSystem : EntitySystem
 {

@@ -75,14 +75,9 @@
   - type: Body
     prototype: Shadowling
     requiredLegs: 2
-  - type: IntrinsicRadioReceiver
-  - type: IntrinsicRadioTransmitter
-    channels:
-    - ShadowlingMind
   - type: ActiveRadio
     channels:
     - ShadowlingMind
-    globalReceive: true
   - type: Vocal
     sounds:
       Male: UnsexedShadowling

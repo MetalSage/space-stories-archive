@@ -1,12 +1,13 @@
 using Content.Shared.Actions;
+using Robust.Shared.GameStates;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
 
-namespace Content.Shared.SpaceStories.Shadowling;
-[RegisterComponent]
+namespace Content.Shared.Stories.Shadowling;
+[RegisterComponent, NetworkedComponent]
 public sealed partial class ShadowlingThrallComponent : Component
 {
-    [DataField("master"), AutoNetworkedField]
-    public EntityUid? Master;
+    [DataField("master"), ViewVariables(VVAccess.ReadOnly)]
+    public EntityUid Master;
 
     /// <summary>
     /// Когда теневой покров кончится

@@ -1,6 +1,6 @@
 using Content.Shared.Mindshield.Components;
 
-namespace Content.Shared.SpaceStories.Mindshield;
+namespace Content.Shared.Stories.Mindshield;
 
 public sealed class SharedMindShieldSystem : EntitySystem
 {

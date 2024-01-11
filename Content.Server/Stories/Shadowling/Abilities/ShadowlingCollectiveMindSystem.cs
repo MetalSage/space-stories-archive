@@ -1,11 +1,12 @@
+using Content.Server.Popups;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
-using Content.Shared.Popups;
+using Content.Shared.Stories.Shadowling;
 
-namespace Content.Shared.SpaceStories.Shadowling;
+namespace Content.Server.Stories.Shadowling;
 public sealed class ShadowlingCollectiveMindSystem : EntitySystem
 {
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
+    [Dependency] private readonly PopupSystem _popup = default!;
 
     public override void Initialize()
     {

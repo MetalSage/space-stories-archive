@@ -1,21 +1,18 @@
 using Content.Server.Chat.Systems;
 using Content.Server.DoAfter;
 using Content.Server.Popups;
-using Content.Server.Radio.Components;
-using Content.Server.Stunnable;
 using Content.Shared.Body.Components;
+using Content.Shared.CCVar;
 using Content.Shared.Damage;
 using Content.Shared.Damage.Systems;
 using Content.Shared.DoAfter;
-using Content.Shared.IdentityManagement;
 using Content.Shared.Mind.Components;
 using Content.Shared.Mindshield.Components;
-using Content.Shared.SpaceStories.Mindshield;
-using Content.Shared.SpaceStories.Shadowling;
+using Content.Shared.Stories.Shadowling;
 using Robust.Server.GameObjects;
-using Robust.Shared.Serialization;
+using Robust.Shared.Configuration;
 
-namespace Content.Server.SpaceStories.Shadowling;
+namespace Content.Server.Stories.Shadowling;
 public sealed class ShadowlingEnthrallSystem : EntitySystem
 {
     [Dependency] private readonly StaminaSystem _stamina = default!;
@@ -24,7 +21,7 @@ public sealed class ShadowlingEnthrallSystem : EntitySystem
     [Dependency] private readonly TransformSystem _transform = default!;
     [Dependency] private readonly ShadowlingSystem _shadowling = default!;
     [Dependency] private readonly ChatSystem _chat = default!;
-    [Dependency] private readonly StunSystem _stun = default!;
+    [Dependency] private readonly IConfigurationManager _config = default!;
 
     public override void Initialize()
     {
@@ -32,7 +29,6 @@ public sealed class ShadowlingEnthrallSystem : EntitySystem
         SubscribeLocalEvent<ShadowlingComponent, ShadowlingEnthrallEvent>(OnEnthrallEvent);
         SubscribeLocalEvent<ShadowlingComponent, ShadowlingHypnosisEvent>(OnHypnosisEvent);
         SubscribeLocalEvent<ShadowlingComponent, EnthrallDoAfterEvent>(OnEnthrallDoAfterEvent);
-        SubscribeLocalEvent<ShadowlingThrallComponent, MindShieldImplantedEvent>(OnMindShieldImplanted);
     }
 
     private void OnEnthrallEvent(EntityUid uid, ShadowlingComponent component, ref ShadowlingEnthrallEvent ev)
@@ -47,7 +43,8 @@ public sealed class ShadowlingEnthrallSystem : EntitySystem
         if (!TryComp<BodyComponent>(ev.Target, out var body) || body.Prototype == null || !component.EnthrallablePrototypes.Contains(body.Prototype.Value.Id))
             return;
         // You cannot enthrall someone without mind
-        if (!TryComp<MindContainerComponent>(ev.Target, out var mind) || !mind.HasMind)
+        var shadowlingEnthrallRequireMindAvailability = _config.GetCVar(CCVars.ShadowlingEnthrallRequireMindAvailability);
+        if (shadowlingEnthrallRequireMindAvailability && (!TryComp<MindContainerComponent>(ev.Target, out var mind) || !mind.HasMind))
         {
             _popup.PopupEntity("Вы можете порабощать существ только в сознании", uid, uid);
             return;
@@ -95,8 +92,10 @@ public sealed class ShadowlingEnthrallSystem : EntitySystem
         // You cannot enthrall someone without body
         if (!TryComp<BodyComponent>(ev.Target, out _))
             return;
+
         // You cannot enthrall someone without mind
-        if (!TryComp<MindContainerComponent>(ev.Target, out var mind) || !mind.HasMind)
+        var shadowlingEnthrallRequireMindAvailability = _config.GetCVar(CCVars.ShadowlingEnthrallRequireMindAvailability);
+        if (shadowlingEnthrallRequireMindAvailability && (!TryComp<MindContainerComponent>(ev.Target, out var mind) || !mind.HasMind))
         {
             _popup.PopupEntity("Вы можете порабощать существ только в сознании", uid, uid);
             return;
@@ -135,79 +134,9 @@ public sealed class ShadowlingEnthrallSystem : EntitySystem
         _popup.PopupEntity("Вы стали чуть сильнее", ev.User, ev.User);
         _stamina.TakeStaminaDamage(target, 100);
 
-        Enthrall(target, uid, shadowling);
+        _shadowling.Enthrall(target, uid);
 
         var announcementString = "Станция, говорит Центральное Командование. Сканерами дальнего действия обнаружена большая концентрация психической блюспейс-энергии. Событие вознесения тенеморфов неизбежно. Предотвратите это любой ценой!";
         _chat.DispatchGlobalAnnouncement(announcementString, colorOverride: Color.FromName("red"));
     }
-
-    /// <summary>
-    /// Make someone a thrall, set up all needed components (shadowling component, shadowling mind radio)
-    /// </summary>
-    private void Enthrall(EntityUid target, EntityUid shadowling, ShadowlingComponent component)
-    {
-        component.Slaves.Add(target);
-        var slave = EnsureComp<ShadowlingThrallComponent>(target);
-        slave.Master = shadowling;
-        Dirty(target, slave);
-        Dirty(shadowling, component);
-
-        EnsureComp<IntrinsicRadioReceiverComponent>(target);
-
-        var intrinsicRadioTransmitter = EnsureComp<IntrinsicRadioTransmitterComponent>(target);
-        intrinsicRadioTransmitter.Channels.Add("ShadowlingMind");
-        Dirty(target, intrinsicRadioTransmitter);
-
-        var activeRadio = EnsureComp<ActiveRadioComponent>(target);
-        activeRadio.GlobalReceive = true;
-        activeRadio.Channels.Add("ShadowlingMind");
-        Dirty(target, activeRadio);
-    }
-
-    private void Unthrall(EntityUid target, EntityUid shadowling, ShadowlingComponent component)
-    {
-        component.Slaves.Remove(target);
-        Dirty(shadowling, component);
-
-        var intrinsicRadioTransmitter = Comp<IntrinsicRadioTransmitterComponent>(target);
-        intrinsicRadioTransmitter.Channels.Remove("ShadowlingMind");
-        Dirty(target, intrinsicRadioTransmitter);
-
-        var activeRadio = Comp<ActiveRadioComponent>(target);
-        activeRadio.GlobalReceive = false;
-        activeRadio.Channels.Remove("ShadowlingMind");
-        Dirty(target, activeRadio);
-    }
-
-    private void OnMindShieldImplanted(EntityUid uid, ShadowlingThrallComponent comp, MindShieldImplantedEvent ev)
-    {
-        if (!TryComp<ShadowlingComponent>(uid, out var shadowling))
-            return;
-
-        if (!_shadowling.IsShadowlingSlave(uid) || shadowling.Stage == ShadowlingStage.Lower)
-        {
-            RemCompDeferred<MindShieldComponent>(uid);
-            _popup.PopupEntity(Loc.GetString("shadowling-break-mindshield"), uid);
-            return;
-        }
-
-        var stunTime = TimeSpan.FromSeconds(4);
-        var name = Identity.Entity(uid, EntityManager);
-        var thrallComponent = Comp<ShadowlingThrallComponent>(uid);
-        if (thrallComponent.Master is { } master)
-        {
-            var shadowlingComponent = Comp<ShadowlingComponent>(master);
-            Unthrall(uid, master, shadowlingComponent);
-        }
-        _stun.TryParalyze(uid, stunTime, true);
-        _popup.PopupEntity(Loc.GetString("thrall-break-control", ("name", name)), uid);
-    }
-}
-
-/// <summary>
-/// Is relayed at the end of the sericulturing doafter.
-/// </summary>
-[Serializable, NetSerializable]
-public sealed partial class EnthrallDoAfterEvent : SimpleDoAfterEvent
-{
 }

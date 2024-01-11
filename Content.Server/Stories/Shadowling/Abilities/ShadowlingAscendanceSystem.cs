@@ -3,12 +3,11 @@ using Content.Server.Fluids.EntitySystems;
 using Content.Server.Inventory;
 using Content.Server.Mind;
 using Content.Server.RoundEnd;
-using Content.Server.Shuttles.Systems;
 using Content.Server.Stunnable;
 using Content.Shared.Chemistry.Components;
 using Content.Shared.DoAfter;
 using Content.Shared.Inventory;
-using Content.Shared.SpaceStories.Shadowling;
+using Content.Shared.Stories.Shadowling;
 using Content.Shared.Standing;
 using Robust.Server.Audio;
 using Robust.Server.GameObjects;
@@ -16,7 +15,7 @@ using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Player;
 
-namespace Content.Server.SpaceStories.Shadowling;
+namespace Content.Server.Stories.Shadowling;
 
 public sealed class ShadowlingAscendanceSystem : EntitySystem
 {

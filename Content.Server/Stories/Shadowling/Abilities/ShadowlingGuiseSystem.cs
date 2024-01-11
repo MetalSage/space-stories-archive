@@ -1,9 +1,9 @@
 using Content.Server.Stealth;
-using Content.Shared.SpaceStories.Shadowling;
+using Content.Shared.Stories.Shadowling;
 using Content.Shared.Stealth.Components;
 using Robust.Shared.Timing;
 
-namespace Content.Server.SpaceStories.Shadowling;
+namespace Content.Server.Stories.Shadowling;
 
 public sealed class ShadowlingGuiseSystem : EntitySystem
 {
@@ -14,10 +14,10 @@ public sealed class ShadowlingGuiseSystem : EntitySystem
     {
         base.Initialize();
 
-        SubscribeLocalEvent<ShadowlingComponent, ShadowlingGuiseEvent>(OnGuise);
+        SubscribeLocalEvent<ShadowlingThrallComponent, ShadowlingGuiseEvent>(OnGuise);
     }
 
-    private void OnGuise(EntityUid uid, ShadowlingComponent component, ref ShadowlingGuiseEvent ev)
+    private void OnGuise(EntityUid uid, ShadowlingThrallComponent component, ref ShadowlingGuiseEvent ev)
     {
         var stealth = EnsureComp<StealthComponent>(uid);
 
@@ -36,7 +36,7 @@ public sealed class ShadowlingGuiseSystem : EntitySystem
 
         var curTime = _timing.CurTime;
 
-        var query = EntityQueryEnumerator<ShadowlingComponent, StealthComponent>();
+        var query = EntityQueryEnumerator<ShadowlingThrallComponent, StealthComponent>();
         while (query.MoveNext(out var uid, out var comp, out var stealth))
         {
             if (comp.GuiseEndsAt < curTime && stealth.Enabled)
