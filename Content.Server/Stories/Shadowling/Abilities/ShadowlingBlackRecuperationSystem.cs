@@ -39,16 +39,17 @@ public sealed class ShadowlingBlackRecuperationSystem : EntitySystem
 
         if (HasComp<ShadowlingThrallComponent>(ev.Target))
         {
-            var rejuvenate = new RejuvenateEvent();
-            RaiseLocalEvent(ev.Target, rejuvenate);
-
             if (slaveState.CurrentState == MobState.Alive && !_shadowling.IsLowerShadowling(uid))
             {
                 _shadowling.UpgradeThrallToLowerShadowling(ev.Target);
+                var rejuvenate = new RejuvenateEvent();
+                RaiseLocalEvent(ev.Target, rejuvenate);
             }
             else
             {
                 _popup.PopupEntity("Ваши раны покрываются тенью и затягиваются...", ev.Target, ev.Target);
+                var rejuvenate = new RejuvenateEvent();
+                RaiseLocalEvent(ev.Target, rejuvenate);
             }
         }
     }
