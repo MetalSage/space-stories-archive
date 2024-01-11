@@ -1,3 +1,4 @@
+using System.Linq;
 using Content.Server.Chat.Systems;
 using Content.Server.DoAfter;
 using Content.Server.Popups;
@@ -22,6 +23,7 @@ public sealed class ShadowlingEnthrallSystem : EntitySystem
     [Dependency] private readonly ShadowlingSystem _shadowling = default!;
     [Dependency] private readonly ChatSystem _chat = default!;
     [Dependency] private readonly IConfigurationManager _config = default!;
+    [Dependency] private readonly IEntityManager _entity = default!;
 
     public override void Initialize()
     {
@@ -134,9 +136,16 @@ public sealed class ShadowlingEnthrallSystem : EntitySystem
         _popup.PopupEntity("Вы стали чуть сильнее", ev.User, ev.User);
         _stamina.TakeStaminaDamage(target, 100);
 
+        var thralls = _entity.EntityQuery<ShadowlingThrallComponent>();
+        var thrallsCount = thralls.Count();
+
         _shadowling.Enthrall(target, uid);
 
-        var announcementString = "Станция, говорит Центральное Командование. Сканерами дальнего действия обнаружена большая концентрация психической блюспейс-энергии. Событие вознесения тенеморфов неизбежно. Предотвратите это любой ценой!";
-        _chat.DispatchGlobalAnnouncement(announcementString, colorOverride: Color.FromName("red"));
+
+        if (thrallsCount == 9)
+        {
+            var announcementString = "Станция, говорит Центральное Командование. Сканерами дальнего действия обнаружена большая концентрация психической блюспейс-энергии. Событие вознесения тенеморфов неизбежно. Предотвратите это любой ценой!";
+            _chat.DispatchGlobalAnnouncement(announcementString, colorOverride: Color.FromName("red"));
+        }
     }
 }

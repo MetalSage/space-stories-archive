@@ -1,6 +1,7 @@
 using Content.Server.Actions;
 using Content.Shared.Actions;
 using Content.Shared.Stories.Shadowling;
+using Content.Shared.Weapons.Ranged.Events;
 
 namespace Content.Server.Stories.Shadowling;
 public sealed partial class ShadowlingSystem : SharedShadowlingSystem
@@ -22,6 +23,7 @@ public sealed partial class ShadowlingSystem : SharedShadowlingSystem
         SubscribeLocalEvent<ShadowlingComponent, ComponentStartup>(OnStartup);
         SubscribeLocalEvent<ShadowlingComponent, ComponentShutdown>(OnShutdown);
         SubscribeLocalEvent<ShadowlingComponent, ShadowlingStageChangeEvent>(OnStageChanged);
+        SubscribeLocalEvent<ShadowlingComponent, ShotAttemptedEvent>(OnShotAttempted);
     }
 
     private void OnStartup(EntityUid uid, ShadowlingComponent component, ComponentStartup args)
@@ -43,7 +45,7 @@ public sealed partial class ShadowlingSystem : SharedShadowlingSystem
 
     private void OnShutdown(EntityUid uid, ShadowlingComponent component, ComponentShutdown args)
     {
-        if (!TryComp<ActionsComponent>(uid, out var action))
+        if (!TryComp<ActionsComponent>(uid, out _))
             return;
 
         foreach (var act in component.GrantedActions)
@@ -96,5 +98,11 @@ public sealed partial class ShadowlingSystem : SharedShadowlingSystem
         }
 
         Dirty(uid, component);
+    }
+
+    private void OnShotAttempted(EntityUid uid, ShadowlingComponent comp, ref ShotAttemptedEvent args)
+    {
+        _popup.PopupEntity(Loc.GetString("gun-disabled"), uid, uid);
+        args.Cancel();
     }
 }
