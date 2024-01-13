@@ -10,6 +10,8 @@
       sprite: Stories/Clothing/OuterClothing/Vests/jedi_nt.rsi
     - type: Clothing
       sprite: Stories/Clothing/OuterClothing/Vests/jedi_nt.rsi
+    - type: ToggleableClothing
+      clothingPrototype: ClothingHeadHatHoodJediNT
 
 - type: entity
   parent: ClothingOuterArmorBasic

@@ -250,3 +250,11 @@
   materials:
     Steel: 300
     Glass: 200
+    
+- type: latheRecipe
+  id: ClothingEyesGlassesMedical
+  result: ClothingEyesGlassesMedical
+  completetime: 2
+  materials:
+    Steel: 200
+    Glass: 300

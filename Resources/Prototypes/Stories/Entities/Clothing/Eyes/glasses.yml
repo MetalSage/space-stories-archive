@@ -15,3 +15,16 @@
     tags:
     - HamsterWearable
     - WhitelistChameleon
+    
+- type: entity
+  parent: ClothingEyesBase
+  id: ClothingEyesGlassesMedical
+  name: медицинские очки
+  description: Медицинские визор, но с собственным стилем.
+  components:
+  - type: Sprite
+    sprite: Stories/Clothing/Eyes/Glasses/medglasses.rsi
+  - type: Clothing
+    sprite: Stories/Clothing/Eyes/Glasses/medglasses.rsi
+  - type: ShowHealthIcons
+  - type: ShowHealthBar

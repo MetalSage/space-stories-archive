@@ -9,3 +9,26 @@
     sprite: Stories/Clothing/Head/Hoods/jedi.rsi
   - type: Clothing
     sprite: Stories/Clothing/Head/Hoods/jedi.rsi
+    
+- type: entity
+  parent: ClothingHeadBase
+  id: ClothingHeadHatHoodJediNT
+  name: бронированный капюшон стража
+  description: Капюшон сделанный из довольно прочной кевларовой ткани, защищающий носителя не хуже стандартного шлема.
+  components:
+  - type: Sprite
+    sprite: Stories/Clothing/Head/Hoods/jedint.rsi
+  - type: Clothing
+    equipSound: /Audio/Effects/rustle1.ogg
+    unequipSound: /Audio/Effects/rustle2.ogg
+    sprite: Stories/Clothing/Head/Hoods/jedint.rsi
+  - type: Armor
+    modifiers:
+      coefficients:
+        Blunt: 0.9
+        Slash: 0.9
+        Piercing: 0.9
+        Heat: 0.9
+  - type: Tag
+    tags:
+    - HidesHair
