@@ -3,7 +3,7 @@
   mapName: 'Bagel Station'
   mapPath: /Maps/Stories/bagel.yml
   minPlayers: 40
-  maxPlayers: 76
+  maxPlayers: 75
   stations:
     Bagel:
       stationProto: StandardNanotrasenStation

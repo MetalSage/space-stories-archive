@@ -3,18 +3,29 @@
   maps:
   - StoriesAspid
   - StoriesAtlas
+  - StoriesAvrite
   - StoriesBagel
   - StoriesBarratry
-  - StoriesBox      # Space Prison
+  - StoriesBox    # SP
   - StoriesCluster
   - StoriesCore
-  - StoriesFland    # Space Prison
+  - StoriesDelta
+# - StoriesEuropa
+  - StoriesFland  # SP
   - StoriesGemini
-  - StoriesKettle   # Space Prison
+  - StoriesKettle # SP
   - StoriesMarathon
   - StoriesMeta
   - StoriesOmega
   - StoriesOrigin
-  - StoriesSaltern
   - StoriesPacked
   - StoriesReach
+  - StoriesSaltern
+
+# Corvax Maps
+  - StoriesAvrite
+  - StoriesDelta
+  - StoriesGate
+  - StoriesOutpost
+  - StoriesSilly
+  - StoriesSpectrum
