@@ -2,7 +2,8 @@
   id: StoriesOutpost
   mapName: 'Outpost'
   mapPath: /Maps/Stories/outpost.yml
-  minPlayers: 10
+  minPlayers: 0
+  maxPlayers: 50
   stations:
     Outpost:
       stationProto: StandardNanotrasenStation

@@ -2,7 +2,7 @@
   id: StoriesSpectrum
   mapName: 'Spectrum Station'
   mapPath: /Maps/Stories/spectrum.yml
-  minPlayers: 40
+  minPlayers: 60
   stations:
     Spectrum:
       stationProto: StandardNanotrasenStation
