@@ -1,0 +1,36 @@
+# Tag for docking
+- type: Tag
+  id: EmergencyDockOfCentComm
+
+- type: Tag
+  id: ShuttleSummonTag1
+
+- type: Tag
+  id: ShuttleSummonTag2
+
+- type: Tag
+  id: ShuttleSummonTag3
+
+- type: Tag
+  id: ShuttleSummonTag4
+
+- type: Tag
+  id: ShuttleSummonTag5
+
+- type: Tag
+  id: ShuttleSummonTag7
+
+- type: Tag
+  id: ShuttleSummonTag8
+
+- type: Tag
+  id: ShuttleSummonTag9
+
+- type: Tag
+  id: ERTShuttleSummon
+
+- type: Tag
+  id: CBURNShuttleSummon
+
+- type: Tag
+  id: DeadSquadShuttleSummon

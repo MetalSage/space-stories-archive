@@ -1,0 +1,45 @@
+- type: entity
+  id: ShuttleSummonMarker
+  name: Shuttle summon point
+  parent: MarkerBase
+  components:
+  - type: MarkerShuttleSummon
+  - type: Sprite
+    sprite: Stories/Markers/plus.rsi
+    state: blue_shuttle
+
+- type: entity
+  id: ERTSummonMarker
+  name: Shuttle ERT summon point
+  parent: MarkerBase
+  components:
+  - type: MarkerShuttleERTDock
+  - type: Sprite
+    sprite: Stories/Markers/plus.rsi
+    layers:
+      - state: blue_shuttle
+      - state: e
+
+- type: entity
+  id: CBURNSummonMarker
+  name: Shuttle CBURN summon point
+  parent: MarkerBase
+  components:
+  - type: MarkerShuttleCBURNDock
+  - type: Sprite
+    sprite: Stories/Markers/plus.rsi
+    layers:
+      - state: blue_shuttle
+      - state: c
+
+- type: entity
+  id: DeadSquadSummonMarker
+  name: Shuttle Dead Squad summon point
+  parent: MarkerBase
+  components:
+  - type: MarkerShuttleDeadSquadDock
+  - type: Sprite
+    sprite: Stories/Markers/plus.rsi
+    layers:
+      - state: blue_shuttle
+      - state: d
