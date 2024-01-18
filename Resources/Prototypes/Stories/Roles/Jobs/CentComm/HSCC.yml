@@ -1,0 +1,41 @@
+- type: job
+  id: HSCC
+  name: job-name-head-of-staff-cent-comm
+  description: head-of-staff-cent-comm-desc
+  playTimeTracker: JobHSCC
+  requirements:
+    - !type:RoleTimeRequirement
+      role: JobDCC
+      time: 36000 # 10h
+    - !type:RoleTimeRequirement
+      role: JobOCC
+      time: 36000 # 10h
+    - !type:RoleTimeRequirement
+      role: JobMCC
+      time: 36000 # 10h
+  weight: 10
+  startingGear: HSCCGear
+  icon: "JobIconHSCC"
+  supervisors: job-supervisors-unknown-who
+  canBeAntag: false
+  accessGroups:
+    - AllAccess
+  access:
+    - CentralCommand
+  special:
+    - !type:AddImplantSpecial
+      implants: [ MindShieldImplant ]
+
+- type: startingGear
+  id: HSCCGear
+  equipment:
+    head: ClothingHeadHatCentcomcap
+    jumpsuit: ClothingUniformJumpsuitCentcomFormal
+    back: ClothingBackpackSatchelLeather
+    shoes: ClothingShoesBootsLaceup
+    id: CentcomPDA
+    eyes: ClothingEyesGlassesSunglasses
+    belt: BoxFolderCentComClipboard
+    ears: ClothingHeadsetAltCentCom
+    gloves: ClothingHandsGlovesColorWhite
+    pocket1: PenCentcom

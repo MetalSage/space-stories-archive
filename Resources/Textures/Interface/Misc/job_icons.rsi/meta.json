@@ -12,6 +12,30 @@
             "name": "Detective"
         },
         {
+            "name": "OCC"
+        },
+        {
+            "name": "DCC"
+        },
+        {
+            "name": "OfficerCC"
+        },
+        {
+            "name": "ECC"
+        },
+        {
+            "name": "MCC"
+        },
+        {
+            "name": "SCC"
+        },
+        {
+            "name": "NSCC"
+        },
+        {
+            "name": "IAA"
+        },
+        {
             "name": "QuarterMaster"
         },
         {
@@ -145,9 +169,6 @@
         },
         {
             "name": "SecurityCadet"
-        },
-        {
-            "name": "IAA"
         },
         {
             "name": "Zombie"

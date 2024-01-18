@@ -1,0 +1,36 @@
+- type: job
+  id: ECC
+  name: job-name-engineer-cent-comm
+  description: engineer-cent-comm-desc
+  playTimeTracker: JobECC
+  requirements:
+    - !type:RoleTimeRequirement
+      role: JobSCC
+      time: 36000 # 10h
+  weight: 10
+  startingGear: ECCGear
+  icon: "JobIconECC"
+  supervisors: job-supervisors-chief-of-staff
+  canBeAntag: false
+  accessGroups:
+    - AllAccess
+  access:
+    - CentralCommand
+  special:
+    - !type:AddImplantSpecial
+      implants: [ MindShieldImplant ]
+
+- type: startingGear
+  id: ECCGear
+  equipment:
+    head: ClothingHeadHatBeretEngineering
+    jumpsuit: ClothingUniformJumpsuitSeniorEngineer
+    back: ClothingBackpackEngineeringFilled
+    shoes: ClothingShoesBootsWork
+    id: CentcomPDA
+    eyes: ClothingEyesGlassesMeson
+    belt: ClothingBeltUtilityEngineering
+    ears: ClothingHeadsetCentCom
+  innerClothingSkirt: ClothingUniformJumpskirtSeniorEngineer
+  satchel: ClothingBackpackSatchelEngineeringFilled
+  duffelbag: ClothingBackpackDuffelEngineeringFilled

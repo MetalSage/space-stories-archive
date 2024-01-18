@@ -1,8 +1,11 @@
-﻿using Content.Server.GameTicking;
+using Content.Server.GameTicking;
 using Content.Server.Spawners.Components;
 using Content.Server.Station.Systems;
 using Robust.Shared.Map;
 using Robust.Shared.Random;
+using Content.Shared.Roles.Jobs;
+using Content.Shared.Roles;
+using Robust.Shared.Prototypes;
 
 namespace Content.Server.Spawners.EntitySystems;
 
@@ -12,6 +15,7 @@ public sealed class SpawnPointSystem : EntitySystem
     [Dependency] private readonly IRobustRandom _random = default!;
     [Dependency] private readonly StationSystem _stationSystem = default!;
     [Dependency] private readonly StationSpawningSystem _stationSpawning = default!;
+    [Dependency] private readonly IPrototypeManager _protoManager = default!;
 
     public override void Initialize()
     {
@@ -27,21 +31,47 @@ public sealed class SpawnPointSystem : EntitySystem
         var points = EntityQueryEnumerator<SpawnPointComponent, TransformComponent>();
         var possiblePositions = new List<EntityCoordinates>();
 
+        // This list is needed so that roles with this name are spawned not in the terminal, but at the central command station.
+        List<string?> CCJobsList = new List<string?>() { "operator-cent-comm", "officer-cent-comm", "delegat-cent-comm", "service-cent-comm", "engineer-cent-comm", "medic-cent-comm", "head-of-staff-cent-comm" };
+
         while ( points.MoveNext(out var uid, out var spawnPoint, out var xform))
         {
-            if (args.Station != null && _stationSystem.GetOwningStation(uid, xform) != args.Station)
-                continue;
+            _protoManager.TryIndex(args.Job?.Prototype ?? string.Empty, out JobPrototype? prototype); // Space Stories for CC jobs (late join)
 
-            if (_gameTicker.RunLevel == GameRunLevel.InRound && spawnPoint.SpawnType == SpawnPointType.LateJoin)
+            if (CCJobsList.Contains(prototype?.Name)) // We determine whether the role chosen by the player is a role from the list of Central Command professions
             {
-                possiblePositions.Add(xform.Coordinates);
-            }
+                if (_gameTicker.RunLevel == GameRunLevel.InRound &&
+                spawnPoint.SpawnType == SpawnPointType.CCJob) // If the joins are later, then we are looking for spawners marked "CCJob"
+                {
+                    possiblePositions.Add(xform.Coordinates);
+                }
 
-            if (_gameTicker.RunLevel != GameRunLevel.InRound &&
+                if (_gameTicker.RunLevel != GameRunLevel.InRound &&
+                spawnPoint.SpawnType == SpawnPointType.Job &&
+                (args.Job == null || spawnPoint.Job?.ID == args.Job.Prototype)) // If joining is a round-start, then we are looking for simple role spawners corresponding to the chosen profession
+                {
+                    possiblePositions.Add(xform.Coordinates);
+                }
+
+            }
+            else
+            {
+                if (args.Station != null && _stationSystem.GetOwningStation(uid, xform) != args.Station)
+                    continue;
+
+
+                if (_gameTicker.RunLevel == GameRunLevel.InRound && spawnPoint.SpawnType == SpawnPointType.LateJoin)
+                {
+                    possiblePositions.Add(xform.Coordinates);
+                }
+
+
+                if (_gameTicker.RunLevel != GameRunLevel.InRound &&
                 spawnPoint.SpawnType == SpawnPointType.Job &&
                 (args.Job == null || spawnPoint.Job?.ID == args.Job.Prototype))
-            {
-                possiblePositions.Add(xform.Coordinates);
+                {
+                    possiblePositions.Add(xform.Coordinates);
+                }
             }
         }
 

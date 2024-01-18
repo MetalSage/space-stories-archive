@@ -45,6 +45,7 @@
   - HeadOfSecurity
   - ResearchDirector
   - Quartermaster
+  primary: false
 
 - type: department
   id: Engineering
@@ -53,7 +54,7 @@
   roles:
   - AtmosphericTechnician
   - ChiefEngineer
-  - SeniorEngineer
+  - SeniorEngineer # Stories-Seniors
   - StationEngineer
   - TechnicalAssistant
 
@@ -68,7 +69,7 @@
   - MedicalIntern
   - Psychologist
   - Paramedic
-  - SeniorPhysician
+  - SeniorPhysician # Stories-Seniors
 
 - type: department
   id: Security
@@ -78,7 +79,7 @@
   - HeadOfSecurity
   - SecurityCadet
   - SecurityOfficer
-  - SeniorOfficer
+  - SeniorOfficer # Stories-Seniors
   - Detective
   - Warden
   - JediNt # Stories-Jedi
@@ -89,8 +90,8 @@
   color: "#D381C9"
   roles:
   - ResearchDirector
-  - SeniorResearcher
   - Scientist
+  - SeniorResearcher # Stories-Seniors
   - ResearchAssistant
 
 - type: department
@@ -102,3 +103,4 @@
   - Reporter
   - Zookeeper
   - Psychologist
+  primary: false

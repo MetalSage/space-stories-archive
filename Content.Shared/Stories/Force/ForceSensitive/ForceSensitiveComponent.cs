@@ -1,7 +1,7 @@
 namespace Content.Shared.SpaceStories.Force.ForceSensitive;
 using Content.Shared.Actions;
 
-[RegisterComponent]
+[RegisterComponent, AutoGenerateComponentState]
 public sealed partial class ForceSensitiveComponent : Component
 {
     [Dependency] private IEntityManager _entityManager;
@@ -39,7 +39,7 @@ public sealed partial class ForceSensitiveComponent : Component
     public Dictionary<ForceType, List<string>> Actions = new()
     {
 // {ForceType.Jedi, new() {"ActionRecallLightSaber", "ActionProtectiveBubble", "ActionTelekinesis", "ActionStaminaPush"}},
-{ForceType.Jedi, new() {"ActionRecallLightSaber", "ActionTelekinesis", "ActionPushBall", "ActionCreateProtectiveBubble"}} // "ActionTelekinesis", "ActionStaminaPush"
+{ForceType.Jedi, new() {"ActionRecallLightSaber", "ActionPushBall", "ActionCreateProtectiveBubble"}} // "ActionTelekinesis", "ActionStaminaPush"
     };
 
     /// <summary>

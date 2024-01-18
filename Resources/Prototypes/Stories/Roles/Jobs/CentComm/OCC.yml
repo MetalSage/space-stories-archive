@@ -1,0 +1,34 @@
+- type: job
+  id: OCC
+  name: job-name-operator-cent-comm
+  description: operator-cent-comm-desc
+  playTimeTracker: JobOCC
+  requirements:
+    - !type:RoleTimeRequirement
+      role: JobSCC
+      time: 36000 # 10h
+  weight: 10
+  startingGear: OCCGear
+  icon: "JobIconOCC"
+  supervisors: job-supervisors-chief-of-staff
+  canBeAntag: false
+  accessGroups:
+  - AllAccess
+  access:
+  - CentralCommand
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant ]
+
+- type: startingGear
+  id: OCCGear
+  equipment:
+    head: ClothingHeadHatCentcom
+    jumpsuit: ClothingUniformJumpsuitCentcomOfficial
+    back: ClothingBackpackSatchelLeather
+    shoes: ClothingShoesBootsJack
+    id: CentcomPDA
+    ears: ClothingHeadsetCentCom
+    belt: BoxFolderCentComClipboard
+    pocket1: PenCentcom
+    pocket2: RubberStampCentcom

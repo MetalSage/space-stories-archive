@@ -124,6 +124,22 @@
     event: !type:ActivateImplantEvent
 
 - type: entity
+  id: ActionActivateScramImplant
+  name: SCRAM!
+  description: Randomly teleports you within a large distance.
+  noSpawn: true
+  components:
+  - type: InstantAction
+    charges: 2
+    useDelay: 5
+    itemIconStyle: BigAction
+    priority: -20
+    icon:
+      sprite: Structures/Specific/anomaly.rsi
+      state: anom4
+    event: !type:UseScramImplantEvent
+
+- type: entity
   id: ActionActivateDnaScramblerImplant
   name: Scramble DNA
   description:  Randomly changes your name and appearance.
@@ -181,7 +197,7 @@
   noSpawn: true
   components:
   - type: InstantAction
-    icon: Interface/Actions/scream.png # somebody else can figure out a better icon for this
+    icon: { sprite: Interface/Actions/voice-mask.rsi, state: icon }
     event: !type:VoiceMaskSetNameEvent
 
 - type: entity
@@ -276,133 +292,39 @@
     useDelay: 1
 
 - type: entity
-  id: ActionSpafStealth
-  name: "[color=limegreen]Transition to invisibility[/color]"
-  description: Spend 15 units food to disguise yourself
+  id: ActionFireStarter
+  name: Ignite
+  description: Ignites enemies in a radius around you.
+  noSpawn: true
+  components:
+  - type: InstantAction
+    priority: -1
+    useDelay: 30
+    icon: Interface/Actions/firestarter.png
+    event: !type:FireStarterActionEvent
+
+- type: entity
+  id: ActionToggleEyes
+  name: Open/Close eyes
+  description: Close your eyes to protect your peepers, or open your eyes to enjoy the pretty lights.
+  noSpawn: true
+  components:
+  - type: InstantAction
+    icon: Interface/Actions/eyeopen.png
+    iconOn: Interface/Actions/eyeclose.png
+    event: !type:ToggleEyesActionEvent
+    useDelay: 1 # so u cant give yourself and observers eyestrain by rapidly spamming the action
+    checkCanInteract: false
+
+- type: entity
+  id: ActionToggleWagging
+  name: action-name-toggle-wagging
+  description: action-description-toggle-wagging
   noSpawn: true
   components:
     - type: InstantAction
-      useDelay: 6
-      icon: Stories/Actions/spaf.rsi/spaf_stealth.png
-      event: !type:SpafStealthEvent
-
-- type: entity
-  id: ActionSpafLight
-  name: "[color=orange]Creating a luminous essence[/color]"
-  description: Extract the glowing essence from your body
-  noSpawn: true
-  components:
-    - type: InstantAction
-      useDelay: 1
-      icon: Stories/Actions/spaf.rsi/spaf_light.png
-      event: !type:SpafLightEvent
-
-- type: entity
-  id: ActionSpafLube
-  name: "[color=purple]Mucus secretion[/color]"
-  description: Spend 10 meals to isolate a very slippery mucus
-  noSpawn: true
-  components:
-    - type: InstantAction
-      useDelay: 9
-      icon: Stories/Actions/spaf.rsi/spaf_lube.png
-      event: !type:SpafLubeEvent
-
-- type: entity
-  id: ActionSpafMine
-  name: "[color=rosybrown]Organic Trap[/color]"
-  description: Spend 20 meals to create the top masterpiece of evolution - an organism that explodes at the touch and stuns
-  noSpawn: true
-  components:
-    - type: InstantAction
-      useDelay: 5
-      icon: Stories/Actions/spaf.rsi/spaf_mine.png
-      event: !type:SpafMineEvent
-
-- type: entity
-  id: ActionSpafFood
-  name: "[color=lightseagreen]Mysterious Awareness[/color]"
-  description: Inexplicably for science, you will find out the exact fullness of your stomach
-  noSpawn: true
-  components:
-    - type: InstantAction
-      useDelay: 1
-      icon: Stories/Actions/spaf.rsi/spaf_food.png
-      event: !type:SpafFoodEvent
-
-- type: entity
-  id: ActionSpafGlue
-  name: "[color=darkslateblue]Sticky waste[/color]"
-  description: Spend 10 meals to dump waste from your body that will slow down your victims
-  noSpawn: true
-  components:
-    - type: InstantAction
-      useDelay: 9
-      icon: Stories/Actions/spaf.rsi/spaf_glue.png
-      event: !type:SpafGlueEvent
-
-- type: entity
-  id: ActionSpafEgg
-  name: "[color=orange]A new life[/color]"
-  description: Spend 50 meals to leave a cocoon with a little self
-  noSpawn: true
-  components:
-    - type: InstantAction
-      useDelay: 60
-      icon: Stories/Actions/spaf.rsi/spaf_egg.png
-      event: !type:SpafEggEvent
-
-- type: entity
-  id: ActionSpafEvolf
-  name: "[color=green]Evolution[/color]"
-  description: Turn into something more
-  noSpawn: true
-  components:
-    - type: InstantAction
-      useDelay: 60
-      icon: Stories/Actions/spaf.rsi/spaf_evol.png
-      event: !type:SpafEvolfEvent
-
-- type: entity
-  id: ActionSpafEvols
-  name: "[color=blue]Evolution[/color]"
-  description: Spend 70 meals to evolve into something bigger
-  noSpawn: true
-  components:
-    - type: InstantAction
-      useDelay: 60
-      icon: Stories/Actions/spaf.rsi/spaf_evol.png
-      event: !type:SpafEvolsEvent
-
-- type: entity
-  id: ActionSpafEvolm
-  name: "[color=blue]Evolution[/color]"
-  description: Spend 0 meals to evolve into something bigger
-  noSpawn: true
-  components:
-    - type: InstantAction
-      useDelay: 60
-      icon: Stories/Actions/spaf.rsi/spaf_evol.png
-      event: !type:SpafEvolmEvent
-
-- type: entity
-  id: ActionSpafHeal
-  name: "[color=blue]Evolution[/color]"
-  description: Spend 10 meals to create a healing lump of mucus
-  noSpawn: true
-  components:
-    - type: InstantAction
-      useDelay: 15
-      icon: Stories/Actions/spaf.rsi/spaf_heal.png
-      event: !type:SpafHealEvent
-
-- type: entity
-  id: ActionSpafDevour
-  name: "[color=lime]Devourment[/color]"
-  description: Devour your prey to get 50 food and restore your health
-  noSpawn: true
-  components:
-    - type: EntityTargetAction
-      icon: Stories/Actions/spaf.rsi/spaf_devour.png
-      iconOn: Stories/Actions/spaf.rsi/spaf_devour_on.png
-      event: !type:SpafDevourActionEvent
+      icon: { sprite: Mobs/Customization/reptilian_parts.rsi, state: tail_smooth_behind }
+      iconOn: { sprite: Mobs/Customization/reptilian_parts.rsi, state: tail_smooth_behind }
+      itemIconStyle: NoItem
+      useDelay: 1 # emote spam
+      event: !type:ToggleActionEvent
