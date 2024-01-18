@@ -334,7 +334,7 @@ public sealed class ArrivalsSystem : EntitySystem
             var possiblePositions = new List<EntityCoordinates>();
 
             // This list is needed so that roles with this name are spawned not in the terminal, but at the central command station.
-            List<string?> CCJobsList = new List<string?>() { "operator-cent-comm", "officer-cent-comm", "delegat-cent-comm", "service-cent-comm", "engineer-cent-comm", "medic-cent-comm", "head-of-staff-cent-comm" };
+            List<string?> CCJobsList = new List<string?>() { "job-name-operator-cent-comm", "job-name-officer-cent-comm", "job-name-delegat-cent-comm", "job-name-service-cent-comm", "job-name-engineer-cent-comm", "job-name-medic-cent-comm", "job-name-head-of-staff-cent-comm" };
 
 
             while (points.MoveNext(out var uid, out var spawnPoint, out var xform))
