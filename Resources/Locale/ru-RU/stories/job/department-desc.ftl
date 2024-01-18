@@ -1,1 +1,2 @@
 department-SpacePrison-description = Содержите заключенных и охраняйте тюрьму.
+department-CentralCommand-description = Отдавайте приказы станции, следите за порядком на ней и заставьте ее персонал выполнить цель... Слава НТ!

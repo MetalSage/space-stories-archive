@@ -39,3 +39,55 @@
   icon:
     sprite: Stories/Interface/Misc/job_icons.rsi
     state: IAA
+
+# CC Jobs start
+- type: statusIcon
+  parent: JobIcon
+  id: JobIconOCC # Central Command operator
+  icon:
+    sprite: Interface/Misc/job_icons.rsi
+    state: OCC
+
+- type: statusIcon
+  parent: JobIcon
+  id: JobIconDCC # Central Command delegate
+  icon:
+    sprite: Interface/Misc/job_icons.rsi
+    state: DCC
+
+- type: statusIcon
+  parent: JobIcon
+  id: JobIconOfficerCC # SB Officer (Central Command)
+  icon:
+    sprite: Interface/Misc/job_icons.rsi
+    state: OfficerCC
+
+- type: statusIcon
+  parent: JobIcon
+  id: JobIconECC # Engineer of the Central Command
+  icon:
+    sprite: Interface/Misc/job_icons.rsi
+    state: ECC
+
+- type: statusIcon
+  parent: JobIcon
+  id: JobIconMCC # Medic of the Central Command
+  icon:
+    sprite: Interface/Misc/job_icons.rsi
+    state: MCC
+
+- type: statusIcon
+  parent: JobIcon
+  id: JobIconSCC # Service employee of the Central Command
+  icon:
+    sprite: Interface/Misc/job_icons.rsi
+    state: SCC
+
+- type: statusIcon
+  parent: JobIcon
+  id: JobIconHSCC # Head of the Central Command Staff
+  icon:
+    sprite: Interface/Misc/job_icons.rsi
+    state: NSCC
+# P.S. If you don't like my abbreviations, then feel free to change them (BeatusCrow)
+# CC Jobs end

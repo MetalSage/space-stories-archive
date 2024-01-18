@@ -1,0 +1,38 @@
+- type: job
+  id: OfficerCC
+  name: job-name-officer-cent-comm
+  description: officer-cent-comm-desc
+  playTimeTracker: JobOfficerCC
+  requirements:
+    - !type:RoleTimeRequirement
+      role: JobOCC
+      time: 36000 # 10h
+  weight: 10
+  startingGear: OfficerCCGear
+  icon: "JobIconOfficerCC"
+  supervisors: job-supervisors-chief-of-staff
+  canBeAntag: false
+  accessGroups:
+  - AllAccess
+  access:
+  - CentralCommand
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant ]
+
+- type: startingGear
+  id: OfficerCCGear
+  equipment:
+    head: ClothingHeadHatBeretSecurity
+    jumpsuit: ClothingUniformJumpsuitSecGrey
+    mask: ClothingMaskGasSecurity
+    back: ClothingBackpackSecurity
+    shoes: ClothingShoesBootsJack
+    gloves: ClothingHandsGlovesCombat
+    id: CentcomPDA
+    ears: ClothingHeadsetCentCom
+    eyes: ClothingEyesGlassesSecurity
+    outerClothing: ClothingOuterArmorBulletproof
+    belt: ClothingBeltSecurityFilled
+    pocket1: WeaponPistolViper
+    pocket2: MagazinePistolRubber
