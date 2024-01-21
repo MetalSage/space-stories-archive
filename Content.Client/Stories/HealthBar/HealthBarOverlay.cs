@@ -1,5 +1,6 @@
 using System.Linq;
 using System.Numerics;
+using Content.Client.StatusIcon;
 using Content.Shared.Damage;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
@@ -24,6 +25,7 @@ namespace Content.Client.HealthOverlay
         [Dependency] private readonly IPrototypeManager _prototype = default!;
         [Dependency] private readonly IResourceCache _resourceCache = default!;
         [Dependency] private readonly IGameTiming _timing = default!;
+        [Dependency] private readonly StatusIconSystem _statusIcon = default!;
 
         private readonly TransformSystem _transform;
         private readonly HealthBarSystem _healthbar;
@@ -75,6 +77,8 @@ namespace Content.Client.HealthOverlay
                 if (!_entity.TryGetComponent<MobThresholdsComponent>(entity, out _))
                     continue;
                 if (!_mobThreshold.TryGetThresholdForState(entity, MobState.Dead, out var deadThreshold))
+                    continue;
+                if (!_statusIcon.IsVisible(entity))
                     continue;
                 if (!_mobThreshold.TryGetThresholdForState(entity, MobState.Critical, out var critThreshold))
                     critThreshold = deadThreshold;
