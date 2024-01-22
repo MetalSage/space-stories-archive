@@ -29,31 +29,6 @@
           Quantity: 5
 
 - type: entity
-  id: PuddleLube #for spaf
-  parent: PuddleTemporary
-  components:
-    - type: SolutionContainerManager
-      solutions:
-        puddle:
-          maxVol: 1000
-          reagents:
-            - ReagentId: SpaceLube
-              Quantity: 12
-
-- type: entity
-  id: PuddleGlue #for spaf
-  parent: PuddleTemporary
-  components:
-    - type: SolutionContainerManager
-      solutions:
-        puddle:
-          maxVol: 1000
-          reagents:
-            - ReagentId: Slime
-              Quantity: 12
-
-
-- type: entity
   id: PuddleEgg
   parent: PuddleTemporary
   suffix: Egg
@@ -111,7 +86,7 @@
 
 - type: entity
   id: PuddleSparkle
-  name: Sparkle
+  name: sparkle
   placement:
     mode: SnapgridCenter
   components:
@@ -186,4 +161,7 @@
     examinable: false
   - type: ExaminableSolution
     solution: puddle
+  - type: DrawableSolution
+    solution: puddle
   - type: BadDrink
+  - type: IgnoresFingerprints
