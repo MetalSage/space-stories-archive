@@ -25,13 +25,13 @@ namespace Content.Client.HealthOverlay
         [Dependency] private readonly IPrototypeManager _prototype = default!;
         [Dependency] private readonly IResourceCache _resourceCache = default!;
         [Dependency] private readonly IGameTiming _timing = default!;
-        [Dependency] private readonly StatusIconSystem _statusIcon = default!;
 
         private readonly TransformSystem _transform;
         private readonly HealthBarSystem _healthbar;
-        private readonly ShaderInstance _shader;
         private readonly MobThresholdSystem _mobThreshold;
         private readonly SpriteSystem _sprite = default!;
+        private readonly StatusIconSystem _statusIcon = default!;
+        private readonly ShaderInstance _shader;
 
         public override OverlaySpace Space => OverlaySpace.WorldSpaceBelowFOV;
 
@@ -43,7 +43,8 @@ namespace Content.Client.HealthOverlay
             _healthbar = _entity.System<HealthBarSystem>();
             _mobThreshold = _entity.System<MobThresholdSystem>();
             _sprite = _entity.System<SpriteSystem>();
-
+            _statusIcon = _entity.System<StatusIconSystem>();
+            
             _shader = _prototype.Index<ShaderPrototype>("unshaded").Instance();
         }
 
