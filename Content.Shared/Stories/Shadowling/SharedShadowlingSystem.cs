@@ -1,22 +1,15 @@
 namespace Content.Shared.Stories.Shadowling;
-public abstract class SharedShadowlingSystem : EntitySystem
+public abstract class SharedShadowlingSystem<TThrallComponent, TShadowlingComponent> : EntitySystem
+    where TThrallComponent : SharedShadowlingThrallComponent
+    where TShadowlingComponent : SharedShadowlingComponent
 {
-    public bool IsShadowlingSlave(EntityUid uid)
+    public bool IsThrall(EntityUid uid)
     {
-        return HasComp<ShadowlingThrallComponent>(uid);
+        return HasComp<TThrallComponent>(uid);
     }
 
-    public void SetStage(EntityUid uid, ShadowlingComponent component, ShadowlingStage stage)
+    public bool IsShadowling(EntityUid uid)
     {
-        component.Stage = stage;
-        Dirty(uid, component);
-    }
-
-    public bool IsLowerShadowling(EntityUid uid, ShadowlingComponent? shadowling = null)
-    {
-        if (!Resolve(uid, ref shadowling, false))
-            return false;
-
-        return shadowling.Stage == ShadowlingStage.Lower;
+        return HasComp<TShadowlingComponent>(uid);
     }
 }

@@ -28,10 +28,11 @@
   description: Блик — базовый прием для оглушения целей.
   noSpawn: true
   components:
-  - type: InstantAction
+  - type: EntityTargetAction
     useDelay: 30
     icon: { sprite: Stories/Actions/shadowling.rsi, state: glare }
     itemIconStyle: NoItem
+    range: 10
     priority: -11
     event: !type:ShadowlingGlareEvent {}
 
@@ -101,18 +102,6 @@
     event: !type:ShadowlingRapidReHatchEvent {}
 
 - type: entity
-  id: ActionShadowlingDestroyEngines
-  name: Уничтожение двигателей
-  description: Одноразовая способность, позволяющая вам принести члена экипажа в жертву (не из числа рабов), чтобы задержать прибытие шаттла на 10 минут
-  noSpawn: true
-  components:
-  - type: EntityTargetAction
-    icon: { sprite: Stories/Actions/shadowling.rsi, state: destroy_engines }
-    itemIconStyle: NoItem
-    priority: -11
-    event: !type:ShadowlingDestroyEnginesEvent {}
-
-- type: entity
   id: ActionShadowlingSonicScreech
   name: Волна визга
   description: Временно делает гуманоидов глухими, оглушает и наносит урон боргам, выбивает окна, действует по области
@@ -173,6 +162,7 @@
     useDelay: 45
     icon: { sprite: Stories/Actions/shadowling.rsi, state: hypnosis }
     itemIconStyle: NoItem
+    range: 10
     priority: -11
     event: !type:ShadowlingHypnosisEvent {}
 
@@ -186,6 +176,7 @@
     useDelay: 30
     icon: { sprite: Stories/Actions/shadowling.rsi, state: annihilate }
     itemIconStyle: NoItem
+    range: 10
     priority: -11
     event: !type:ShadowlingAnnihilateEvent {}
 
@@ -213,16 +204,3 @@
     itemIconStyle: NoItem
     priority: -11
     event: !type:ShadowlingLightningStormEvent {}
-
-- type: entity
-  id: ActionShadowlingGuise
-  name: Покров
-  description: Окутывает вас тенью, из-за чего вас сложнее заметить.
-  noSpawn: true
-  components:
-  - type: InstantAction
-    useDelay: 120
-    icon: { sprite: Stories/Actions/shadowling.rsi, state: shadow_walk }
-    itemIconStyle: NoItem
-    priority: -11
-    event: !type:ShadowlingGuiseEvent {}

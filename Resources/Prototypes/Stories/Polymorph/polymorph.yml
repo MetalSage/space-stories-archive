@@ -1,0 +1,11 @@
+- type: polymorph
+  id: Shadowling
+  entity: MobShadowling
+  forced: true
+  inventory: Drop
+
+- type: polymorph
+  id: Ascended
+  entity: MobAscended
+  forced: true
+  inventory: Drop

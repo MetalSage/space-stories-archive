@@ -1,12 +1,10 @@
-using Content.Server.Emp;
+using Content.Server.Stories.Lib.TemporalLightOff;
 using Content.Shared.Stories.Shadowling;
-using Robust.Server.GameObjects;
 
 namespace Content.Server.Stories.Shadowling;
 public sealed class ShadowlingVeilSystem : EntitySystem
 {
-    [Dependency] private readonly ShadowlingSystem _shadowling = default!;
-    [Dependency] private readonly EmpSystem _emp = default!;
+    [Dependency] private readonly TemporalLightOffSystem _temporalLightOff = default!;
 
     public override void Initialize()
     {
@@ -17,17 +15,6 @@ public sealed class ShadowlingVeilSystem : EntitySystem
     private void OnVeilEvent(EntityUid performer, ShadowlingComponent component, ref ShadowlingVeilEvent ev)
     {
         ev.Handled = true;
-
-        var lights = _shadowling.GetEntitiesAroundShadowling<PointLightComponent>(performer, 15);
-
-        foreach (var entity in lights)
-        {
-            var meta = Comp<MetaDataComponent>(entity);
-
-            if (meta.EntityPrototype == null || component.VeilBlacklist.Contains(meta.EntityPrototype.ID))
-                continue;
-
-            _emp.DoEmpEffects(entity, 50000, 60);
-        }
+        _temporalLightOff.DisableLightsInRange(performer, 5f, TimeSpan.FromMinutes(2));
     }
 }

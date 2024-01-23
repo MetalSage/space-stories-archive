@@ -24,18 +24,16 @@ public sealed class ShadowlingLightningStormSystem : EntitySystem
     private void OnLightningStormEvent(EntityUid uid, ShadowlingComponent component, ref ShadowlingLightningStormEvent ev)
     {
         ev.Handled = true;
-        var poweredQuery = GetEntityQuery<ApcPowerReceiverComponent>();
-        var mobQuery = GetEntityQuery<MobThresholdsComponent>();
         var validEnts = new HashSet<EntityUid>();
         foreach (var ent in _lookup.GetEntitiesInRange(uid, 9))
         {
             if (TryComp<ShadowlingComponent>(ent, out var _))
                 continue;
 
-            if (mobQuery.HasComponent(ent))
+            if (HasComp<MobStateComponent>(ent))
                 validEnts.Add(ent);
 
-            if (_random.Prob(0.01f) && poweredQuery.HasComponent(ent))
+            if (_random.Prob(0.01f) && HasComp<ApcPowerReceiverComponent>(ent))
                 validEnts.Add(ent);
         }
 
@@ -44,8 +42,6 @@ public sealed class ShadowlingLightningStormSystem : EntitySystem
             _lightning.ShootLightning(uid, ent);
         }
 
-        var empRange = 12;
-
-        _emp.EmpPulse(_transform.GetMapCoordinates(Transform(uid)), empRange, 10000, 30);
+        _emp.EmpPulse(_transform.GetMapCoordinates(Transform(uid)), 12, 10000, 30);
     }
 }

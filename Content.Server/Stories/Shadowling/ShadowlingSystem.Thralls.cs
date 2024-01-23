@@ -1,20 +1,22 @@
-
+using System.Linq;
 using Content.Server.Popups;
 using Content.Server.Radio.Components;
+using Content.Server.Stories.Lib;
 using Content.Server.Stunnable;
 using Content.Shared.IdentityManagement;
 using Content.Shared.Mindshield.Components;
 using Content.Shared.Stories.Mindshield;
-using Content.Shared.Stories.Shadowling;
 
 namespace Content.Server.Stories.Shadowling;
 public sealed partial class ShadowlingSystem
 {
     [Dependency] private readonly PopupSystem _popup = default!;
     [Dependency] private readonly StunSystem _stun = default!;
+    [Dependency] private readonly StoriesUtilsSystem _utils = default!;
 
     public void InitializeThralls()
     {
+        SubscribeLocalEvent<ShadowlingComponent, MindShieldImplantedEvent>(OnMindShieldImplanted);
         SubscribeLocalEvent<ShadowlingThrallComponent, MindShieldImplantedEvent>(OnMindShieldImplanted);
     }
 
@@ -31,6 +33,7 @@ public sealed partial class ShadowlingSystem
         Dirty(shadowling, mastersComponent);
         var radio = EnsureComp<ActiveRadioComponent>(target);
         radio.Channels.Add(ShadowlingMindRadioPrototype);
+        EnsureComp<ShadowlingThrallRoleComponent>(target);
     }
 
     public void Unthrall(EntityUid target, EntityUid shadowling)
@@ -39,35 +42,31 @@ public sealed partial class ShadowlingSystem
         mastersComponent.Slaves.Remove(target);
         Dirty(shadowling, mastersComponent);
         RemCompDeferred<ShadowlingThrallComponent>(target);
-        RemCompDeferred<ActiveRadioComponent>(target);
+        RemCompDeferred<ShadowlingThrallRoleComponent>(target);
+        var radio = Comp<ActiveRadioComponent>(target);
+        radio.Channels.Remove(ShadowlingMindRadioPrototype);
     }
 
+    private void OnMindShieldImplanted(EntityUid uid, ShadowlingComponent comp, MindShieldImplantedEvent ev)
+    {
+        RemCompDeferred<MindShieldComponent>(uid);
+        _popup.PopupEntity(Loc.GetString("shadowling-break-mindshield"), uid);
+    }
     private void OnMindShieldImplanted(EntityUid uid, ShadowlingThrallComponent comp, MindShieldImplantedEvent ev)
     {
-        if (!TryComp<ShadowlingComponent>(uid, out var shadowling))
-            return;
-
-        if (!IsShadowlingSlave(uid) || shadowling.Stage == ShadowlingStage.Lower)
-        {
-            RemCompDeferred<MindShieldComponent>(uid);
-            _popup.PopupEntity(Loc.GetString("shadowling-break-mindshield"), uid);
-            return;
-        }
-
         var stunTime = TimeSpan.FromSeconds(4);
         var name = Identity.Entity(uid, EntityManager);
-        var thrallComponent = Comp<ShadowlingThrallComponent>(uid);
 
+        var thrallComponent = Comp<ShadowlingThrallComponent>(uid);
         Unthrall(uid, thrallComponent.Master);
 
         _stun.TryParalyze(uid, stunTime, true);
         _popup.PopupEntity(Loc.GetString("thrall-break-control", ("name", name)), uid);
     }
 
-    public void UpgradeThrallToLowerShadowling(EntityUid thrall)
+    public IEnumerable<EntityUid> GetThralls()
     {
-        var lowerShadowling = EnsureComp<ShadowlingComponent>(thrall);
-        SetStage(thrall, lowerShadowling, ShadowlingStage.Lower);
-        _popup.PopupEntity("Ваше тело сливается с тенью...", thrall, thrall);
+        var mobs = _utils.GetAliveMobList();
+        return mobs.Where(IsThrall);
     }
 }

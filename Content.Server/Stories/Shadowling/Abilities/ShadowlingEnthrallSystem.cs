@@ -1,16 +1,13 @@
-using System.Linq;
 using Content.Server.Chat.Systems;
 using Content.Server.DoAfter;
 using Content.Server.Popups;
+using Content.Server.Stories.Lib;
 using Content.Shared.Body.Components;
 using Content.Shared.CCVar;
-using Content.Shared.Damage;
 using Content.Shared.Damage.Systems;
 using Content.Shared.DoAfter;
-using Content.Shared.Mind.Components;
 using Content.Shared.Mindshield.Components;
 using Content.Shared.Stories.Shadowling;
-using Robust.Server.GameObjects;
 using Robust.Shared.Configuration;
 
 namespace Content.Server.Stories.Shadowling;
@@ -19,12 +16,22 @@ public sealed class ShadowlingEnthrallSystem : EntitySystem
     [Dependency] private readonly StaminaSystem _stamina = default!;
     [Dependency] private readonly PopupSystem _popup = default!;
     [Dependency] private readonly DoAfterSystem _doAfter = default!;
-    [Dependency] private readonly TransformSystem _transform = default!;
     [Dependency] private readonly ShadowlingSystem _shadowling = default!;
     [Dependency] private readonly ChatSystem _chat = default!;
     [Dependency] private readonly IConfigurationManager _config = default!;
-    [Dependency] private readonly IEntityManager _entity = default!;
+    [Dependency] private readonly StoriesUtilsSystem _utils = default!;
 
+    private readonly List<string> _enthrallablePrototypes = new()
+    {
+        "Arachnid",
+        "Diona",
+        "Dwarf",
+        "Human",
+        "Moth",
+        "Reptilian",
+        "Slime",
+        "Kidan"
+    };
     public override void Initialize()
     {
         base.Initialize();
@@ -38,28 +45,25 @@ public sealed class ShadowlingEnthrallSystem : EntitySystem
         if (ev.Handled)
             return;
 
-        if (TryComp<ShadowlingComponent>(ev.Target, out _))
+        if (_shadowling.IsShadowling(uid) || _shadowling.IsThrall(uid))
+        {
+            _popup.PopupEntity("Вы не можете порабощать своих союзников", uid, uid);
             return;
+        }
 
         // You cannot enthrall someone with wrong body
-        if (!TryComp<BodyComponent>(ev.Target, out var body) || body.Prototype == null || !component.EnthrallablePrototypes.Contains(body.Prototype.Value.Id))
+        if (!TryComp<BodyComponent>(ev.Target, out var body) || body.Prototype == null || !_enthrallablePrototypes.Contains(body.Prototype.Value.Id))
             return;
         // You cannot enthrall someone without mind
         var shadowlingEnthrallRequireMindAvailability = _config.GetCVar(CCVars.ShadowlingEnthrallRequireMindAvailability);
-        if (shadowlingEnthrallRequireMindAvailability && (!TryComp<MindContainerComponent>(ev.Target, out var mind) || !mind.HasMind))
+        if (
+            shadowlingEnthrallRequireMindAvailability &&
+            _utils.IsInConsciousness(ev.Target)
+        )
         {
             _popup.PopupEntity("Вы можете порабощать существ только в сознании", uid, uid);
             return;
         }
-        // You cannot enthrall someone or something not biological (borgs for example)
-        if (!TryComp<DamageableComponent>(ev.Target, out var damage) || damage.DamageContainerID != "Biological")
-            return;
-
-        var coords = _transform.GetWorldPosition(ev.Target);
-        var distance = (_transform.GetWorldPosition(uid) - coords).Length();
-
-        if (distance > 2)
-            return;
 
         ev.Handled = true;
 
@@ -94,18 +98,16 @@ public sealed class ShadowlingEnthrallSystem : EntitySystem
         // You cannot enthrall someone without body
         if (!TryComp<BodyComponent>(ev.Target, out _))
             return;
-
         // You cannot enthrall someone without mind
         var shadowlingEnthrallRequireMindAvailability = _config.GetCVar(CCVars.ShadowlingEnthrallRequireMindAvailability);
-        if (shadowlingEnthrallRequireMindAvailability && (!TryComp<MindContainerComponent>(ev.Target, out var mind) || !mind.HasMind))
+        if (
+            shadowlingEnthrallRequireMindAvailability &&
+            _utils.IsInConsciousness(ev.Target)
+        )
         {
             _popup.PopupEntity("Вы можете порабощать существ только в сознании", uid, uid);
             return;
         }
-
-        // You cannot enthrall someone or something not biological (borgs for example)
-        if (!TryComp<DamageableComponent>(ev.Target, out var damage) || damage.DamageContainerID != "Biological")
-            return;
 
         ev.Handled = true;
 
@@ -116,7 +118,7 @@ public sealed class ShadowlingEnthrallSystem : EntitySystem
             return;
         }
 
-        var doAfter = new DoAfterArgs(EntityManager, ev.Performer, 1, new EnthrallDoAfterEvent(), ev.Target)
+        var doAfter = new DoAfterArgs(EntityManager, ev.Performer, 0, new EnthrallDoAfterEvent(), ev.Target)
         {
             BlockDuplicate = true
         };
@@ -136,16 +138,6 @@ public sealed class ShadowlingEnthrallSystem : EntitySystem
         _popup.PopupEntity("Вы стали чуть сильнее", ev.User, ev.User);
         _stamina.TakeStaminaDamage(target, 100);
 
-        var thralls = _entity.EntityQuery<ShadowlingThrallComponent>();
-        var thrallsCount = thralls.Count();
-
         _shadowling.Enthrall(target, uid);
-
-
-        if (thrallsCount == 9)
-        {
-            var announcementString = "Станция, говорит Центральное Командование. Сканерами дальнего действия обнаружена большая концентрация психической блюспейс-энергии. Событие вознесения тенеморфов неизбежно. Предотвратите это любой ценой!";
-            _chat.DispatchGlobalAnnouncement(announcementString, colorOverride: Color.FromName("red"));
-        }
     }
 }

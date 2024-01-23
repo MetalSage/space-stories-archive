@@ -44,25 +44,21 @@ public sealed class ShadowlingSonicScreechSystem : EntitySystem
             if (!_prototype.TryIndex<DamageTypePrototype>("Structural", out var structural))
                 continue;
 
-            _damageable.TryChangeDamage(entity, new(structural, 100), true);
+            _damageable.TryChangeDamage(entity, new(structural, 25));
         }
 
         var bodies = _shadowling.GetEntitiesAroundShadowling<BodyComponent>(uid, 15);
 
         foreach (var body in bodies)
         {
-            if (TryComp<StaminaComponent>(body, out var _))
+            if (TryComp<StaminaComponent>(body, out _))
             {
-                _stamina.TakeStaminaDamage(body, 70);
-                _popup.PopupClient("Волна визга оглушает вас, ваши уши кровоточат!", body, body);
+                _stamina.TakeStaminaDamage(body, 100);
+                _popup.PopupClient("Волна визга оглушает вас!", body, body);
                 continue;
             }
             if (TryComp<BorgChassisComponent>(uid, out var borg))
             {
-                if (!_prototype.TryIndex<DamageTypePrototype>("Shock", out var shock))
-                    continue;
-
-                _damageable.TryChangeDamage(body, new(shock, 60), true);
                 _emp.DoEmpEffects(body, 50_000, 15);
                 _popup.PopupClient("Волна визга выводит вашу электронику из строя", body, body);
             }

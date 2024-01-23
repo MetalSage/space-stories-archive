@@ -1,17 +1,12 @@
-using System.Linq;
-using Content.Shared.Movement.Systems;
-using Content.Shared.Physics;
+using Content.Server.Stories.Lib.Incorporeal;
 using Content.Shared.Stories.Shadowling;
-using Robust.Shared.Physics;
-using Robust.Shared.Physics.Systems;
 using Robust.Shared.Timing;
 
 namespace Content.Server.Stories.Shadowling;
 public sealed class ShadowlingShadowWalkSystem : EntitySystem
 {
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly MovementSpeedModifierSystem _speed = default!;
+    [Dependency] private readonly IncorporealSystem _incorporeal = default!;
 
     public override void Initialize()
     {
@@ -23,26 +18,26 @@ public sealed class ShadowlingShadowWalkSystem : EntitySystem
 
     private void OnShadowWalkEvent(EntityUid uid, ShadowlingComponent component, ref ShadowlingShadowWalkEvent ev)
     {
-        if (!TryComp<FixturesComponent>(uid, out var fixtures) || ev.Handled)
+        if (ev.Handled)
             return;
         ev.Handled = true;
 
         if (!component.InShadowWalk)
-            BeginShadowWalk(uid, component, fixtures);
+            BeginShadowWalk(uid, component);
         else
-            EndShadowWalk(uid, component, fixtures);
+            EndShadowWalk(uid, component);
     }
 
     private void OnPlaneShiftEvent(EntityUid uid, ShadowlingComponent component, ref ShadowlingPlaneShiftEvent ev)
     {
-        if (!TryComp<FixturesComponent>(uid, out var fixtures) || ev.Handled)
+        if (ev.Handled)
             return;
         ev.Handled = true;
 
         if (!component.InShadowWalk)
-            BeginPlaneShift(uid, component, fixtures);
+            BeginPlaneShift(uid);
         else
-            EndPlaneShift(uid, component, fixtures);
+            EndPlaneShift(uid);
     }
 
     public override void Update(float frameTime)
@@ -50,68 +45,42 @@ public sealed class ShadowlingShadowWalkSystem : EntitySystem
         base.Update(frameTime);
 
         var curTime = _timing.CurTime;
-        var query = EntityQueryEnumerator<ShadowlingComponent, FixturesComponent>();
+        var query = EntityQueryEnumerator<ShadowlingComponent>();
 
-        while (query.MoveNext(out var uid, out var comp, out var fixtures))
+        while (query.MoveNext(out var uid, out var comp))
         {
-            if (comp.InShadowWalk && comp.Stage != ShadowlingStage.Ascended && curTime > comp.ShadowWalkEndsAt)
+            if (comp.InShadowWalk && curTime > comp.ShadowWalkEndsAt)
             {
-                EndShadowWalk(uid, comp, fixtures);
+                EndShadowWalk(uid, comp);
             }
         }
     }
 
-    private void BeginShadowWalk(EntityUid uid, ShadowlingComponent shadowling, FixturesComponent fixtures)
+    private void BeginShadowWalk(EntityUid uid, ShadowlingComponent shadowling)
     {
-        _speed.ChangeBaseSpeed(uid, 5, 8.5f, 20);
-
-        var fixture = fixtures.Fixtures.First();
-
-        _physics.SetCollisionMask(uid, fixture.Key, fixture.Value, (int) CollisionGroup.None, fixtures);
-        _physics.SetCollisionLayer(uid, fixture.Key, fixture.Value, (int) CollisionGroup.Opaque, fixtures);
-
         var curTime = _timing.CurTime;
-
         shadowling.ShadowWalkEndsAt = curTime.Add(shadowling.ShadowWalkEndsIn);
         shadowling.InShadowWalk = true;
-
         Dirty(uid, shadowling);
+
+        _incorporeal.MakeIncorporeal(uid);
     }
 
-    private void EndShadowWalk(EntityUid uid, ShadowlingComponent shadowling, FixturesComponent fixtures)
+    private void EndShadowWalk(EntityUid uid, ShadowlingComponent shadowling)
     {
-        _speed.ChangeBaseSpeed(uid, 2.5f, 4.5f, 20);
-        var fixture = fixtures.Fixtures.First();
-        _physics.SetCollisionMask(uid, fixture.Key, fixture.Value, (int) CollisionGroup.MobMask, fixtures);
-        _physics.SetCollisionLayer(uid, fixture.Key, fixture.Value, (int) CollisionGroup.MobLayer, fixtures);
         shadowling.InShadowWalk = false;
         Dirty(uid, shadowling);
+
+        _incorporeal.MakeCorporeal(uid);
     }
 
-    private void BeginPlaneShift(EntityUid uid, ShadowlingComponent shadowling, FixturesComponent fixtures)
+    private void BeginPlaneShift(EntityUid uid)
     {
-        _speed.ChangeBaseSpeed(uid, 10, 10, 20);
-
-        var fixture = fixtures.Fixtures.First();
-
-        _physics.SetCollisionMask(uid, fixture.Key, fixture.Value, (int) CollisionGroup.None, fixtures);
-        _physics.SetCollisionLayer(uid, fixture.Key, fixture.Value, (int) CollisionGroup.Opaque, fixtures);
-
-        var curTime = _timing.CurTime;
-
-        shadowling.ShadowWalkEndsAt = curTime.Add(shadowling.ShadowWalkEndsIn);
-        shadowling.InShadowWalk = true;
-
-        Dirty(uid, shadowling);
+        _incorporeal.MakeIncorporeal(uid);
     }
 
-    private void EndPlaneShift(EntityUid uid, ShadowlingComponent shadowling, FixturesComponent fixtures)
+    private void EndPlaneShift(EntityUid uid)
     {
-        _speed.ChangeBaseSpeed(uid, 8, 8, 20);
-        var fixture = fixtures.Fixtures.First();
-        _physics.SetCollisionMask(uid, fixture.Key, fixture.Value, (int) CollisionGroup.FlyingMobMask, fixtures);
-        _physics.SetCollisionLayer(uid, fixture.Key, fixture.Value, (int) CollisionGroup.FlyingMobLayer, fixtures);
-        shadowling.InShadowWalk = false;
-        Dirty(uid, shadowling);
+        _incorporeal.MakeCorporeal(uid);
     }
 }

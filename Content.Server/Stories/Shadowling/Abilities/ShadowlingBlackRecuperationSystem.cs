@@ -1,15 +1,14 @@
 using Content.Server.Popups;
-using Content.Shared.Damage;
-using Content.Shared.Mobs;
-using Content.Shared.Mobs.Components;
-using Content.Shared.Rejuvenate;
+using Content.Server.Stories.Lib;
+using Content.Shared.Mobs.Systems;
 using Content.Shared.Stories.Shadowling;
 
 namespace Content.Server.Stories.Shadowling;
 public sealed class ShadowlingBlackRecuperationSystem : EntitySystem
 {
-    [Dependency] private readonly ShadowlingSystem _shadowling = default!;
+    [Dependency] private readonly StoriesUtilsSystem _utils = default!;
     [Dependency] private readonly PopupSystem _popup = default!;
+    [Dependency] private readonly MobStateSystem _mobState = default!;
 
     public override void Initialize()
     {
@@ -22,35 +21,25 @@ public sealed class ShadowlingBlackRecuperationSystem : EntitySystem
         if (ev.Handled)
             return;
 
-        if (!TryComp<ShadowlingComponent>(ev.Performer, out _))
-            return;
-
-        if (!TryComp<DamageableComponent>(ev.Target, out var slaveDamageable))
-            return;
-
-        if (!TryComp<MobStateComponent>(ev.Target, out var slaveState))
-            return;
-
         // you can't heal yourself!
         if (uid == ev.Target)
             return;
 
+        if (!HasComp<ShadowlingThrallComponent>(ev.Target))
+        {
+            _popup.PopupEntity("Он не является траллом!", uid, uid);
+            return;
+        }
+
+        if (!_mobState.IsIncapacitated(ev.Target))
+        {
+            _popup.PopupEntity("Выбранный раб уже живой", uid, uid);
+            return;
+        }
+
         ev.Handled = true;
 
-        if (HasComp<ShadowlingThrallComponent>(ev.Target))
-        {
-            if (slaveState.CurrentState == MobState.Alive && !_shadowling.IsLowerShadowling(uid))
-            {
-                _shadowling.UpgradeThrallToLowerShadowling(ev.Target);
-                var rejuvenate = new RejuvenateEvent();
-                RaiseLocalEvent(ev.Target, rejuvenate);
-            }
-            else
-            {
-                _popup.PopupEntity("Ваши раны покрываются тенью и затягиваются...", ev.Target, ev.Target);
-                var rejuvenate = new RejuvenateEvent();
-                RaiseLocalEvent(ev.Target, rejuvenate);
-            }
-        }
+        _popup.PopupEntity("Ваши раны покрываются тенью и затягиваются...", ev.Target, ev.Target);
+        _utils.Rejuvenate(ev.Target);
     }
 }

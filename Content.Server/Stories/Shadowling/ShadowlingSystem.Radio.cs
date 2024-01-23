@@ -2,7 +2,6 @@ using Content.Server.Chat.Systems;
 using Content.Server.Radio;
 using Content.Server.Radio.EntitySystems;
 using Content.Shared.Radio;
-using Content.Shared.Stories.Shadowling;
 using Robust.Shared.Network;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;

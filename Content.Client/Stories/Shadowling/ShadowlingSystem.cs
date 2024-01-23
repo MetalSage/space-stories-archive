@@ -5,10 +5,11 @@ using Robust.Shared.Player;
 
 namespace Content.Client.Stories.Shadowling;
 
-public sealed class ShadowlingSystem : SharedShadowlingSystem
+public sealed class ShadowlingSystem : SharedShadowlingSystem<ShadowlingThrallComponent, ShadowlingComponent>
 {
     [Dependency] private readonly IPlayerManager _player = default!;
     [Dependency] private readonly ILightManager _light = default!;
+    [Dependency] private readonly IEyeManager _eye = default!;
 
     public override void Initialize()
     {
@@ -17,29 +18,42 @@ public sealed class ShadowlingSystem : SharedShadowlingSystem
         SubscribeLocalEvent<ShadowlingComponent, ComponentStartup>(OnStartup);
         SubscribeLocalEvent<ShadowlingComponent, PlayerAttachedEvent>(OnPlayerAttached);
         SubscribeLocalEvent<ShadowlingComponent, PlayerDetachedEvent>(OnPlayerDetached);
+        SubscribeLocalEvent<ShadowlingComponent, ComponentShutdown>(OnShutdown);
     }
 
     private void OnStartup(EntityUid uid, ShadowlingComponent component, ref ComponentStartup ev)
     {
-        if (_player.LocalEntity != uid || component.Stage == ShadowlingStage.Beginning)
+        if (_player.LocalEntity != uid)
             return;
 
         _light.DrawShadows = false;
+        _eye.CurrentEye.DrawFov = false;
     }
 
     private void OnPlayerAttached(EntityUid uid, ShadowlingComponent component, ref PlayerAttachedEvent ev)
     {
-        if (_player.LocalEntity != uid || component.Stage == ShadowlingStage.Beginning)
+        if (_player.LocalEntity != uid)
             return;
 
         _light.DrawShadows = false;
+        _eye.CurrentEye.DrawFov = false;
     }
 
     private void OnPlayerDetached(EntityUid uid, ShadowlingComponent component, ref PlayerDetachedEvent ev)
     {
-        if (_player.LocalEntity != uid || component.Stage == ShadowlingStage.Beginning)
+        if (_player.LocalEntity != uid)
             return;
 
         _light.DrawShadows = true;
+        _eye.CurrentEye.DrawFov = true;
+    }
+
+    private void OnShutdown(EntityUid uid, ShadowlingComponent component, ref ComponentShutdown ev)
+    {
+        if (_player.LocalEntity != uid)
+            return;
+
+        _light.DrawShadows = true;
+        _eye.CurrentEye.DrawFov = true;
     }
 }

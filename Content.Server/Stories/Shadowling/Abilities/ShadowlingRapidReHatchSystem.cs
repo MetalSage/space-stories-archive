@@ -1,10 +1,12 @@
-using Content.Shared.Rejuvenate;
+using Content.Server.Stories.Lib;
 using Content.Shared.Stories.Shadowling;
 
 namespace Content.Server.Stories.Shadowling;
 
 public sealed class ShadowlingRapidReHatchSystem : EntitySystem
 {
+    [Dependency] private readonly StoriesUtilsSystem _utils = default!;
+
     public override void Initialize()
     {
         base.Initialize();
@@ -14,7 +16,6 @@ public sealed class ShadowlingRapidReHatchSystem : EntitySystem
     private void OnRapidReHatchEvent(EntityUid uid, ShadowlingComponent component, ref ShadowlingRapidReHatchEvent ev)
     {
         ev.Handled = true;
-        var rejuvenate = new RejuvenateEvent();
-        RaiseLocalEvent(uid, rejuvenate);
+        _utils.Rejuvenate(uid);
     }
 }

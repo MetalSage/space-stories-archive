@@ -1,19 +1,12 @@
-using Content.Server.Chat.Systems;
 using Content.Server.Fluids.EntitySystems;
-using Content.Server.Inventory;
-using Content.Server.Mind;
-using Content.Server.RoundEnd;
+using Content.Server.Polymorph.Systems;
 using Content.Server.Stunnable;
 using Content.Shared.Chemistry.Components;
 using Content.Shared.DoAfter;
-using Content.Shared.Inventory;
 using Content.Shared.Stories.Shadowling;
 using Content.Shared.Standing;
-using Robust.Server.Audio;
 using Robust.Server.GameObjects;
-using Robust.Shared.Audio;
-using Robust.Shared.Audio.Systems;
-using Robust.Shared.Player;
+using Robust.Shared.Physics;
 
 namespace Content.Server.Stories.Shadowling;
 
@@ -22,17 +15,11 @@ public sealed class ShadowlingAscendanceSystem : EntitySystem
     [Dependency] private readonly SmokeSystem _smoke = default!;
     [Dependency] private readonly StandingStateSystem _standing = default!;
     [Dependency] private readonly SharedDoAfterSystem _doAfter = default!;
-    [Dependency] private readonly ServerInventorySystem _inventory = default!;
-    [Dependency] private readonly TransformSystem _transform = default!;
-    [Dependency] private readonly MindSystem _mind = default!;
-    [Dependency] private readonly MetaDataSystem _meta = default!;
-    [Dependency] private readonly ShadowlingSystem _shadowling = default!;
-    [Dependency] private readonly AudioSystem _audio = default!;
-    [Dependency] private readonly RoundEndSystem _roundEnd = default!;
     [Dependency] private readonly StunSystem _stun = default!;
-    [Dependency] private readonly ChatSystem _chat = default!;
+    [Dependency] private readonly PolymorphSystem _polymorph = default!;
+    [Dependency] private readonly PhysicsSystem _physics = default!;
 
-    public readonly string AscendedPrototype = "MobAscendance";
+    public readonly string ShadowlingAscendedPolymorph = "Ascended";
 
     public override void Initialize()
     {
@@ -54,21 +41,19 @@ public sealed class ShadowlingAscendanceSystem : EntitySystem
 
         var smokeEnt = Spawn("Smoke", transform.Coordinates);
         _smoke.StartSmoke(smokeEnt, solution, 30, 12);
-        _standing.Down(uid);
 
-        _stun.TryStun(uid, TimeSpan.FromSeconds(30), true);
+        var newNullableUid = _polymorph.PolymorphEntity(uid, ShadowlingAscendedPolymorph);
 
-        var slots = _inventory.GetSlotEnumerator(uid, SlotFlags.All);
-        while (slots.MoveNext(out var slot))
-        {
-            if (slot.ContainedEntity is not { } contained) continue;
+        if (newNullableUid is not { } newUid)
+            return;
 
-            _transform.DropNextTo(contained, uid);
-        }
-        var doAfter = new DoAfterArgs(EntityManager, uid, 30, new ShadowlingAscendanceDoAfterEvent(), uid)
+        _stun.TryStun(newUid, TimeSpan.FromSeconds(30), true);
+        _standing.Down(newUid, dropHeldItems: false, canStandUp: false);
+        _physics.SetBodyType(newUid, BodyType.Static);
+
+        var doAfter = new DoAfterArgs(EntityManager, newUid, 30, new ShadowlingAscendanceDoAfterEvent(), newUid)
         {
             RequireCanInteract = false,
-            BlockDuplicate = true,
         };
         _doAfter.TryStartDoAfter(doAfter);
     }
@@ -76,29 +61,6 @@ public sealed class ShadowlingAscendanceSystem : EntitySystem
     private void OnAscendanceDoAfter(EntityUid uid, ShadowlingComponent component, ref ShadowlingAscendanceDoAfterEvent ev)
     {
         _standing.Stand(uid);
-
-        if (ev.Cancelled)
-            return;
-
-        var oldMeta = MetaData(uid);
-
-        var newUid = Spawn(AscendedPrototype, _transform.GetMapCoordinates(Transform(uid)));
-        var newShadowling = Comp<ShadowlingComponent>(newUid);
-        _meta.SetEntityName(newUid, oldMeta.EntityName);
-        _shadowling.SetStage(newUid, newShadowling, ShadowlingStage.Ascended);
-
-        if (_mind.TryGetMind(uid, out var mindId, out var mind))
-            _mind.TransferTo(mindId, newUid, mind: mind);
-
-        QueueDel(uid);
-
-        var announcementString = "Тени одержали вверх, тенеморф превознёсся, вас уже ничего не спасёт...";
-        _chat.DispatchGlobalAnnouncement(announcementString, "Неизвестный голос", false, colorOverride: Color.FromName("red"));
-        var centComAnnouncementString = "Станция, говорит Центральное Командование. Сканерами дальнего действия было зафиксировано превознесение тенеморфа. К вам будет направлен экстренный эвакуационный шаттл. Станция, держитесь!";
-        _chat.DispatchGlobalAnnouncement(centComAnnouncementString, colorOverride: Color.FromName("red"));
-
-        var audioParams = new AudioParams(-5f, 1, "Master", SharedAudioSystem.DefaultSoundRange, 1, 1, false, 0f);
-        _audio.PlayGlobal("/Audio/Stories/Misc/tear_of_veil.ogg", Filter.Broadcast(), true, audioParams);
-        _roundEnd.RequestRoundEnd(TimeSpan.FromMinutes(3), newUid, false);
+        _physics.SetBodyType(uid, BodyType.KinematicController);
     }
 }

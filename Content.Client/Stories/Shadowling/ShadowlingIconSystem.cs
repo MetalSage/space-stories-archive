@@ -1,4 +1,3 @@
-using Content.Shared.Stories.Shadowling;
 using Content.Shared.StatusIcon.Components;
 using Content.Shared.StatusIcon;
 using Robust.Shared.Prototypes;
@@ -20,14 +19,14 @@ public sealed class ShadowlingIconSystem : SharedStatusIconSystem
         SubscribeLocalEvent<ShadowlingThrallComponent, GetStatusIconsEvent>(OnGetStatusIconsEvent);
     }
 
-    private void OnGetStatusIconsEvent(EntityUid uid, ShadowlingThrallComponent shadowling, ref GetStatusIconsEvent args)
+    private void OnGetStatusIconsEvent(EntityUid uid, ShadowlingThrallComponent sharedShadowling, ref GetStatusIconsEvent args)
     {
-        if (_shadowling.IsShadowlingSlave(uid))
+        if (_shadowling.IsThrall(uid))
             GetStatusIcon("ShadowlingThrallFaction", ref args);
     }
     private void OnGetStatusIconsEvent(EntityUid uid, ShadowlingComponent shadowling, ref GetStatusIconsEvent args)
     {
-        if (!_shadowling.IsShadowlingSlave(uid))
+        if (!_shadowling.IsThrall(uid))
             GetStatusIcon("ShadowlingFaction", ref args);
     }
 
