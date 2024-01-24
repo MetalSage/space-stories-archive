@@ -3,10 +3,6 @@
   name: job-name-operator-cent-comm
   description: operator-cent-comm-desc
   playTimeTracker: JobOCC
-  requirements:
-    - !type:RoleTimeRequirement
-      role: JobSCC
-      time: 36000 # 10h
   weight: 10
   startingGear: OCCGear
   icon: "JobIconOCC"

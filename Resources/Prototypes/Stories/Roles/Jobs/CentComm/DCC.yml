@@ -3,10 +3,6 @@
   name: job-name-delegat-cent-comm
   description: delegat-cent-comm-desc
   playTimeTracker: JobDCC
-  requirements:
-    - !type:RoleTimeRequirement
-      role: JobOfficerCC
-      time: 36000 # 10h
   weight: 10
   startingGear: DCCGear
   icon: "JobIconDCC"

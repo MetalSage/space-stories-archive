@@ -3,10 +3,6 @@
   name: job-name-service-cent-comm
   description: service-cent-comm-desc
   playTimeTracker: JobSCC
-  requirements:
-    - !type:DepartmentTimeRequirement
-      department: CentralCommand
-      time: 60
   weight: 10
   startingGear: SCCGear
   icon: "JobIconSCC"

@@ -3,10 +3,6 @@
   name: job-name-engineer-cent-comm
   description: engineer-cent-comm-desc
   playTimeTracker: JobECC
-  requirements:
-    - !type:RoleTimeRequirement
-      role: JobSCC
-      time: 36000 # 10h
   weight: 10
   startingGear: ECCGear
   icon: "JobIconECC"

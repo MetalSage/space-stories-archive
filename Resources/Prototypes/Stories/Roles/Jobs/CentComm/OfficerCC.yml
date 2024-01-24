@@ -3,10 +3,6 @@
   name: job-name-officer-cent-comm
   description: officer-cent-comm-desc
   playTimeTracker: JobOfficerCC
-  requirements:
-    - !type:RoleTimeRequirement
-      role: JobOCC
-      time: 36000 # 10h
   weight: 10
   startingGear: OfficerCCGear
   icon: "JobIconOfficerCC"

@@ -3,10 +3,6 @@
   name: job-name-medic-cent-comm
   description: medic-cent-comm-desc
   playTimeTracker: JobMCC
-  requirements:
-    - !type:RoleTimeRequirement
-      role: JobSCC
-      time: 36000 # 10h
   weight: 10
   startingGear: MCCGear
   icon: "JobIconMCC"

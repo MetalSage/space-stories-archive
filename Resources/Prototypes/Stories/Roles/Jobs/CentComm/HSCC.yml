@@ -3,16 +3,6 @@
   name: job-name-head-of-staff-cent-comm
   description: head-of-staff-cent-comm-desc
   playTimeTracker: JobHSCC
-  requirements:
-    - !type:RoleTimeRequirement
-      role: JobDCC
-      time: 36000 # 10h
-    - !type:RoleTimeRequirement
-      role: JobOCC
-      time: 36000 # 10h
-    - !type:RoleTimeRequirement
-      role: JobMCC
-      time: 36000 # 10h
   weight: 10
   startingGear: HSCCGear
   icon: "JobIconHSCC"
