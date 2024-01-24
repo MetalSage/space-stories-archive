@@ -1,5 +1,5 @@
-using Content.Shared.Construction.Prototypes;
 using Content.Shared.DeviceLinking;
+using Content.Shared.Item;
 using Robust.Shared.Audio;
 using Robust.Shared.Containers;
 using Robust.Shared.Prototypes;
@@ -12,10 +12,6 @@ namespace Content.Server.Kitchen.Components
     {
         [DataField("cookTimeMultiplier"), ViewVariables(VVAccess.ReadWrite)]
         public float CookTimeMultiplier = 1;
-        [DataField("machinePartCookTimeMultiplier", customTypeSerializer: typeof(PrototypeIdSerializer<MachinePartPrototype>))]
-        public string MachinePartCookTimeMultiplier = "Capacitor";
-        [DataField("cookTimeScalingConstant")]
-        public float CookTimeScalingConstant = 0.5f;
         [DataField("baseHeatMultiplier"), ViewVariables(VVAccess.ReadWrite)]
         public float BaseHeatMultiplier = 100;
         [DataField("objectHeatMultiplier"), ViewVariables(VVAccess.ReadWrite)]
@@ -73,6 +69,9 @@ namespace Content.Server.Kitchen.Components
 
         [DataField, ViewVariables(VVAccess.ReadWrite)]
         public int Capacity = 10;
+
+        [DataField, ViewVariables(VVAccess.ReadWrite)]
+        public ProtoId<ItemSizePrototype> MaxItemSize = "Normal";
     }
 
     public sealed class BeingMicrowavedEvent : HandledEntityEventArgs
