@@ -1,0 +1,48 @@
+- type: entity
+  id: StoriesStandardNanotrasenStationPrison
+  parent:
+    - BaseStation
+    - BaseStationCargo
+    - BaseStationJobsSpawning
+    - BaseStationRecords
+    - BaseStationArrivals
+    - BaseStationGateway
+    - BaseStationCentcomm
+    - BaseStationEvacuation
+    - BaseStationAlertLevels
+    - BaseStationMagnet
+    - BaseStationExpeditions
+    - BaseStationSiliconLawCrewsimov
+    - BaseStationAllEventsEligible
+    - BaseStationNanotrasen
+
+    #Stories
+    - StoriesBaseStationPrison
+    - StoriesBaseStationShuttles
+  noSpawn: true
+  components:
+    - type: Transform
+
+- type: entity
+  id: StoriesStandardNanotrasenStation
+  parent:
+    - BaseStation
+    - BaseStationCargo
+    - BaseStationJobsSpawning
+    - BaseStationRecords
+    - BaseStationArrivals
+    - BaseStationGateway
+    - BaseStationCentcomm
+    - BaseStationEvacuation
+    - BaseStationAlertLevels
+    - BaseStationMagnet
+    - BaseStationExpeditions
+    - BaseStationSiliconLawCrewsimov
+    - BaseStationAllEventsEligible
+    - BaseStationNanotrasen
+
+    #Stories
+    - BaseStoriesStationShuttles
+  noSpawn: true
+  components:
+    - type: Transform

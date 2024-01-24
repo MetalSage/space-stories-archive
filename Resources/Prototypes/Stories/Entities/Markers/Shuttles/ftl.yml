@@ -1,0 +1,72 @@
+- type: entity
+  id: FTLPointDestinationStation
+  parent: FTLPoint
+  name: FTL point
+  suffix: Station
+  components:
+    - type: FTLDestination
+      whitelist:
+        tags:
+          - FTLDestinationAccessStation
+    - type: Sprite
+      state: blue
+
+- type: entity
+  id: FTLPointDestinationCargo
+  parent: FTLPoint
+  suffix: Cargo
+  components:
+    - type: FTLDestination
+      whitelist:
+        tags:
+          - FTLDestinationAccessCargo
+    - type: Sprite
+      state: blue
+
+- type: entity
+  id: FTLPointDestinationCentcomm
+  parent: FTLPoint
+  suffix: Centcomm
+  components:
+    - type: FTLDestination
+      whitelist:
+        tags:
+          - FTLDestinationAccessCentcomm
+    - type: Sprite
+      state: blue
+
+- type: entity
+  id: FTLPointDestinationPrison
+  parent: FTLPoint
+  suffix: Prison
+  components:
+    - type: FTLDestination
+      whitelist:
+        tags:
+          - FTLDestinationAccessPrison
+    - type: Sprite
+      state: blue
+
+- type: entity
+  id: FTLPointDestinationCross
+  parent: FTLPoint
+  suffix: Arrivals
+  components:
+    - type: FTLDestination
+      whitelist:
+        tags:
+          - FTLDestinationAccessCross
+    - type: Sprite
+      state: blue
+
+- type: entity
+  id: FTLPointDestinationNukeOps
+  parent: FTLPoint
+  suffix: NukeOps
+  components:
+    - type: FTLDestination
+      whitelist:
+        tags:
+          - FTLDestinationAccessNukeops
+    - type: Sprite
+      state: blue
