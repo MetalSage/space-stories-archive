@@ -221,6 +221,7 @@ public sealed partial class EmergencyShuttleSystem
             Timer.Spawn((int) (TransitTime * 1000) + _bufferTime.Milliseconds, () => _roundEnd.EndRound(), _roundEndCancelToken?.Token ?? default);
         }
 
+        /* FTL Keys Changes
         // All the others.
         if (_consoleAccumulator < minTime)
         {
@@ -235,6 +236,7 @@ public sealed partial class EmergencyShuttleSystem
                 _shuttle.AddFTLDestination(comp.Entity.Value, true);
             }
         }
+        */ // End FTL Keyes
     }
 
     private void OnEmergencyRepealAll(EntityUid uid, EmergencyShuttleConsoleComponent component, EmergencyShuttleRepealAllMessage args)

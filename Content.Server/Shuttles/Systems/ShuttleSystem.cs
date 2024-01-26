@@ -60,6 +60,8 @@ public sealed partial class ShuttleSystem : SharedShuttleSystem
         InitializeIFF();
         InitializeImpact();
 
+        InitializeMapSpawn(); // STORIES
+
         SubscribeLocalEvent<ShuttleComponent, ComponentStartup>(OnShuttleStartup);
         SubscribeLocalEvent<ShuttleComponent, ComponentShutdown>(OnShuttleShutdown);
 

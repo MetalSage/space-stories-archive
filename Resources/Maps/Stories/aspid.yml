@@ -8980,6 +8980,8 @@ entities:
     - type: SpreaderGrid
     - type: GridPathfinding
     - type: NavMap
+    - type: Tag
+      tags: []
   - uid: 17487
     components:
     - type: MetaData
@@ -9514,6 +9516,8 @@ entities:
           localAnchorA: -27,62.5
           damping: 1342.5576
           stiffness: 12050.77
+    - type: Tag
+      tags: []
   - uid: 17982
     components:
     - type: MetaData
@@ -17066,7 +17070,7 @@ entities:
       dockJointId: docking253410
       dockedWith: 17632
     - type: Door
-      secondsUntilStateChange: -1219.5212
+      secondsUntilStateChange: -1237.0879
       state: Opening
   - uid: 4975
     components:
@@ -17078,7 +17082,7 @@ entities:
       dockJointId: docking253411
       dockedWith: 17637
     - type: Door
-      secondsUntilStateChange: -1216.6545
+      secondsUntilStateChange: -1234.2212
       state: Opening
   - uid: 4977
     components:
@@ -17090,7 +17094,7 @@ entities:
       dockJointId: docking253412
       dockedWith: 17639
     - type: Door
-      secondsUntilStateChange: -1217.0879
+      secondsUntilStateChange: -1234.6545
       state: Opening
   - uid: 6198
     components:
@@ -17102,7 +17106,7 @@ entities:
       dockJointId: docking253413
       dockedWith: 17638
     - type: Door
-      secondsUntilStateChange: -1216.9211
+      secondsUntilStateChange: -1234.4878
       state: Opening
   - uid: 17631
     components:
@@ -17119,7 +17123,7 @@ entities:
       dockJointId: docking253411
       dockedWith: 4975
     - type: Door
-      secondsUntilStateChange: -1217.9879
+      secondsUntilStateChange: -1235.5546
       state: Opening
   - uid: 17638
     components:
@@ -17130,7 +17134,7 @@ entities:
       dockJointId: docking253413
       dockedWith: 6198
     - type: Door
-      secondsUntilStateChange: -1217.8212
+      secondsUntilStateChange: -1235.3878
       state: Opening
   - uid: 17639
     components:
@@ -17141,7 +17145,7 @@ entities:
       dockJointId: docking253412
       dockedWith: 4977
     - type: Door
-      secondsUntilStateChange: -1217.5212
+      secondsUntilStateChange: -1235.0879
       state: Opening
   - uid: 18049
     components:
@@ -17722,7 +17726,7 @@ entities:
       dockJointId: docking253410
       dockedWith: 2218
     - type: Door
-      secondsUntilStateChange: -1219.7212
+      secondsUntilStateChange: -1237.2878
       state: Opening
 - proto: AirlockHeadOfPersonnelGlassLocked
   entities:
@@ -77921,6 +77925,21 @@ entities:
     - type: Transform
       pos: -0.5,7.5
       parent: 17624
+    - type: ContainerContainer
+      containers:
+        board: !type:Container
+          showEnts: False
+          occludes: True
+          ents: []
+        ShuttleConsole-FTLKeySlotA: !type:ContainerSlot
+          showEnts: False
+          occludes: True
+          ent: null
+        ShuttleConsole-FTLKeySlotB: !type:ContainerSlot
+          showEnts: False
+          occludes: True
+          ent: null
+    - type: ItemSlots
 - proto: ComputerShuttleCargo
   entities:
   - uid: 7030
@@ -77929,6 +77948,21 @@ entities:
       rot: 1.5707963267948966 rad
       pos: -43.5,-0.5
       parent: 2
+    - type: ContainerContainer
+      containers:
+        board: !type:Container
+          showEnts: False
+          occludes: True
+          ents: []
+        ShuttleConsole-FTLKeySlotA: !type:ContainerSlot
+          showEnts: False
+          occludes: True
+          ent: null
+        ShuttleConsole-FTLKeySlotB: !type:ContainerSlot
+          showEnts: False
+          occludes: True
+          ent: null
+    - type: ItemSlots
 - proto: ComputerShuttleSalvage
   entities:
   - uid: 7031
@@ -77936,6 +77970,21 @@ entities:
     - type: Transform
       pos: -41.5,26.5
       parent: 2
+    - type: ContainerContainer
+      containers:
+        board: !type:Container
+          showEnts: False
+          occludes: True
+          ents: []
+        ShuttleConsole-FTLKeySlotA: !type:ContainerSlot
+          showEnts: False
+          occludes: True
+          ent: null
+        ShuttleConsole-FTLKeySlotB: !type:ContainerSlot
+          showEnts: False
+          occludes: True
+          ent: null
+    - type: ItemSlots
 - proto: ComputerSolarControl
   entities:
   - uid: 7032
@@ -88085,7 +88134,7 @@ entities:
       pos: 8.5,-11.5
       parent: 17982
     - type: Door
-      secondsUntilStateChange: -16803.736
+      secondsUntilStateChange: -16821.303
       state: Opening
   - uid: 22686
     components:
@@ -93565,6 +93614,13 @@ entities:
     - type: Transform
       rot: -1.5707963267948966 rad
       pos: 2.5293255,72.579636
+      parent: 2
+- proto: FTLPointDestinationStation
+  entities:
+  - uid: 28187
+    components:
+    - type: Transform
+      pos: -0.5,0.5
       parent: 2
 - proto: GasAnalyzer
   entities:
@@ -130731,7 +130787,7 @@ entities:
       pos: -2.5,-5.5
       parent: 17982
     - type: Door
-      secondsUntilStateChange: -46895.266
+      secondsUntilStateChange: -46912.832
       state: Opening
 - proto: HospitalCurtainsOpen
   entities:
