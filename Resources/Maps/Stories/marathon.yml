@@ -7647,6 +7647,12 @@ entities:
     - type: GasTileOverlay
     - type: SpreaderGrid
     - type: GridPathfinding
+    - type: Tag
+      tags: []
+    - type: FTLDestination
+      whitelist:
+        tags:
+        - FTLDestinationAccessStation
 - proto: AcousticGuitarInstrument
   entities:
   - uid: 3
@@ -54909,6 +54915,21 @@ entities:
     - type: Transform
       pos: 35.5,-4.5
       parent: 2
+    - type: ContainerContainer
+      containers:
+        board: !type:Container
+          showEnts: False
+          occludes: True
+          ents: []
+        ShuttleConsole-FTLKeySlotA: !type:ContainerSlot
+          showEnts: False
+          occludes: True
+          ent: null
+        ShuttleConsole-FTLKeySlotB: !type:ContainerSlot
+          showEnts: False
+          occludes: True
+          ent: null
+    - type: ItemSlots
 - proto: ComputerShuttleSalvage
   entities:
   - uid: 8418
@@ -54916,6 +54937,21 @@ entities:
     - type: Transform
       pos: 30.5,-9.5
       parent: 2
+    - type: ContainerContainer
+      containers:
+        board: !type:Container
+          showEnts: False
+          occludes: True
+          ents: []
+        ShuttleConsole-FTLKeySlotA: !type:ContainerSlot
+          showEnts: False
+          occludes: True
+          ent: null
+        ShuttleConsole-FTLKeySlotB: !type:ContainerSlot
+          showEnts: False
+          occludes: True
+          ent: null
+    - type: ItemSlots
 - proto: ComputerSolarControl
   entities:
   - uid: 8419
@@ -66635,6 +66671,13 @@ entities:
     components:
     - type: Transform
       pos: -14.547203,7.8102264
+      parent: 2
+- proto: FTLPointDestinationStation
+  entities:
+  - uid: 22422
+    components:
+    - type: Transform
+      pos: -2.5,3.5
       parent: 2
 - proto: GasAnalyzer
   entities:

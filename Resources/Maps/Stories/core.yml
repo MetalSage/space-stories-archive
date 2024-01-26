@@ -10880,6 +10880,12 @@ entities:
     - type: RadiationGridResistance
     - type: BecomesStation
       id: Core
+    - type: Tag
+      tags: []
+    - type: FTLDestination
+      whitelist:
+        tags:
+        - FTLDestinationAccessStation
   - uid: 21273
     components:
     - type: MetaData
@@ -14785,7 +14791,7 @@ entities:
       pos: -16.5,19.5
       parent: 2
     - type: Door
-      secondsUntilStateChange: -30276.504
+      secondsUntilStateChange: -30294.516
       state: Opening
   - uid: 301
     components:
@@ -59287,6 +59293,21 @@ entities:
     - type: Transform
       pos: 27.5,23.5
       parent: 2
+    - type: ContainerContainer
+      containers:
+        board: !type:Container
+          showEnts: False
+          occludes: True
+          ents: []
+        ShuttleConsole-FTLKeySlotA: !type:ContainerSlot
+          showEnts: False
+          occludes: True
+          ent: null
+        ShuttleConsole-FTLKeySlotB: !type:ContainerSlot
+          showEnts: False
+          occludes: True
+          ent: null
+    - type: ItemSlots
 - proto: ComputerShuttleSalvage
   entities:
   - uid: 8547
@@ -59295,6 +59316,21 @@ entities:
       rot: 3.141592653589793 rad
       pos: 34.5,17.5
       parent: 2
+    - type: ContainerContainer
+      containers:
+        board: !type:Container
+          showEnts: False
+          occludes: True
+          ents: []
+        ShuttleConsole-FTLKeySlotA: !type:ContainerSlot
+          showEnts: False
+          occludes: True
+          ent: null
+        ShuttleConsole-FTLKeySlotB: !type:ContainerSlot
+          showEnts: False
+          occludes: True
+          ent: null
+    - type: ItemSlots
 - proto: ComputerSolarControl
   entities:
   - uid: 8548
@@ -72326,6 +72362,13 @@ entities:
     components:
     - type: Transform
       pos: 58.667328,-29.495255
+      parent: 2
+- proto: FTLPointDestinationStation
+  entities:
+  - uid: 21465
+    components:
+    - type: Transform
+      pos: 1.5,0.5
       parent: 2
 - proto: FuelDispenser
   entities:

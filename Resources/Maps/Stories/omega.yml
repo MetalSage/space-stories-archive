@@ -4194,6 +4194,12 @@ entities:
     - type: GasTileOverlay
     - type: SpreaderGrid
     - type: GridPathfinding
+    - type: Tag
+      tags: []
+    - type: FTLDestination
+      whitelist:
+        tags:
+        - FTLDestinationAccessStation
 - proto: AcousticGuitarInstrument
   entities:
   - uid: 1755
@@ -29812,46 +29818,6 @@ entities:
       - Steel
       - Glass
       - Gold
-- proto: ClosetBase
-  entities:
-  - uid: 11811
-    components:
-    - type: Transform
-      pos: -15.5,0.5
-      parent: 4812
-    - type: EntityStorage
-      air:
-        volume: 200
-        immutable: False
-        temperature: 293.14957
-        moles:
-        - 1.6033952
-        - 6.031821
-        - 0
-        - 0
-        - 0
-        - 0
-        - 0
-        - 0
-        - 0
-        - 0
-        - 0
-        - 0
-    - type: ContainerContainer
-      containers:
-        EntityStorageComponent: !type:Container
-          showEnts: False
-          occludes: True
-          ents:
-          - 11812
-        entity_storage: !type:Container
-          showEnts: False
-          occludes: True
-          ents: []
-        paper_label: !type:ContainerSlot
-          showEnts: False
-          occludes: True
-          ent: null
 - proto: ClosetBombFilled
   entities:
   - uid: 6331
@@ -31403,6 +31369,46 @@ entities:
           showEnts: False
           occludes: True
           ents: []
+        entity_storage: !type:Container
+          showEnts: False
+          occludes: True
+          ents: []
+        paper_label: !type:ContainerSlot
+          showEnts: False
+          occludes: True
+          ent: null
+- proto: ClosetSteelBase
+  entities:
+  - uid: 11811
+    components:
+    - type: Transform
+      pos: -15.5,0.5
+      parent: 4812
+    - type: EntityStorage
+      air:
+        volume: 200
+        immutable: False
+        temperature: 293.14957
+        moles:
+        - 1.6033952
+        - 6.031821
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+        - 0
+    - type: ContainerContainer
+      containers:
+        EntityStorageComponent: !type:Container
+          showEnts: False
+          occludes: True
+          ents:
+          - 11812
         entity_storage: !type:Container
           showEnts: False
           occludes: True
@@ -33036,12 +33042,42 @@ entities:
     - type: Transform
       pos: 17.5,27.5
       parent: 4812
+    - type: ContainerContainer
+      containers:
+        board: !type:Container
+          showEnts: False
+          occludes: True
+          ents: []
+        ShuttleConsole-FTLKeySlotA: !type:ContainerSlot
+          showEnts: False
+          occludes: True
+          ent: null
+        ShuttleConsole-FTLKeySlotB: !type:ContainerSlot
+          showEnts: False
+          occludes: True
+          ent: null
+    - type: ItemSlots
   - uid: 3758
     components:
     - type: Transform
       rot: 3.141592653589793 rad
       pos: 17.5,29.5
       parent: 4812
+    - type: ContainerContainer
+      containers:
+        board: !type:Container
+          showEnts: False
+          occludes: True
+          ents: []
+        ShuttleConsole-FTLKeySlotA: !type:ContainerSlot
+          showEnts: False
+          occludes: True
+          ent: null
+        ShuttleConsole-FTLKeySlotB: !type:ContainerSlot
+          showEnts: False
+          occludes: True
+          ent: null
+    - type: ItemSlots
 - proto: ComputerShuttleSalvage
   entities:
   - uid: 7463
@@ -33049,6 +33085,21 @@ entities:
     - type: Transform
       pos: 26.5,15.5
       parent: 4812
+    - type: ContainerContainer
+      containers:
+        board: !type:Container
+          showEnts: False
+          occludes: True
+          ents: []
+        ShuttleConsole-FTLKeySlotA: !type:ContainerSlot
+          showEnts: False
+          occludes: True
+          ent: null
+        ShuttleConsole-FTLKeySlotB: !type:ContainerSlot
+          showEnts: False
+          occludes: True
+          ent: null
+    - type: ItemSlots
 - proto: ComputerSolarControl
   entities:
   - uid: 2655
@@ -39735,6 +39786,13 @@ entities:
     components:
     - type: Transform
       pos: -2.6495848,-3.5494857
+      parent: 4812
+- proto: FTLPointDestinationStation
+  entities:
+  - uid: 10856
+    components:
+    - type: Transform
+      pos: -3.5,2.5
       parent: 4812
 - proto: GasAnalyzer
   entities:

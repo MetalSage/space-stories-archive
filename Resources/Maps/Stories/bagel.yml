@@ -9279,6 +9279,12 @@ entities:
     - type: GasTileOverlay
     - type: GridPathfinding
     - type: NavMap
+    - type: Tag
+      tags: []
+    - type: FTLDestination
+      whitelist:
+        tags:
+        - FTLDestinationAccessStation
   - uid: 24102
     components:
     - type: MetaData
@@ -60948,6 +60954,21 @@ entities:
     - type: Transform
       pos: 56.5,13.5
       parent: 2
+    - type: ContainerContainer
+      containers:
+        board: !type:Container
+          showEnts: False
+          occludes: True
+          ents: []
+        ShuttleConsole-FTLKeySlotA: !type:ContainerSlot
+          showEnts: False
+          occludes: True
+          ent: null
+        ShuttleConsole-FTLKeySlotB: !type:ContainerSlot
+          showEnts: False
+          occludes: True
+          ent: null
+    - type: ItemSlots
 - proto: ComputerShuttleSalvage
   entities:
   - uid: 9120
@@ -60955,6 +60976,21 @@ entities:
     - type: Transform
       pos: 48.5,1.5
       parent: 2
+    - type: ContainerContainer
+      containers:
+        board: !type:Container
+          showEnts: False
+          occludes: True
+          ents: []
+        ShuttleConsole-FTLKeySlotA: !type:ContainerSlot
+          showEnts: False
+          occludes: True
+          ent: null
+        ShuttleConsole-FTLKeySlotB: !type:ContainerSlot
+          showEnts: False
+          occludes: True
+          ent: null
+    - type: ItemSlots
 - proto: ComputerSolarControl
   entities:
   - uid: 9121
@@ -72849,6 +72885,13 @@ entities:
     components:
     - type: Transform
       pos: 21.138836,-26.476645
+      parent: 2
+- proto: FTLPointDestinationStation
+  entities:
+  - uid: 24434
+    components:
+    - type: Transform
+      pos: 0.5,0.5
       parent: 2
 - proto: FuelDispenser
   entities:

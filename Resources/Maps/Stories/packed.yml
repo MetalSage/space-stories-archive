@@ -5948,6 +5948,12 @@ entities:
     - type: GasTileOverlay
     - type: RadiationGridResistance
     - type: SpreaderGrid
+    - type: Tag
+      tags: []
+    - type: FTLDestination
+      whitelist:
+        tags:
+        - FTLDestinationAccessStation
 - proto: AccordionInstrument
   entities:
   - uid: 3
@@ -33917,6 +33923,21 @@ entities:
       rot: 1.5707963267948966 rad
       pos: 7.5,25.5
       parent: 2
+    - type: ContainerContainer
+      containers:
+        board: !type:Container
+          showEnts: False
+          occludes: True
+          ents: []
+        ShuttleConsole-FTLKeySlotA: !type:ContainerSlot
+          showEnts: False
+          occludes: True
+          ent: null
+        ShuttleConsole-FTLKeySlotB: !type:ContainerSlot
+          showEnts: False
+          occludes: True
+          ent: null
+    - type: ItemSlots
 - proto: ComputerShuttleSalvage
   entities:
   - uid: 5127
@@ -33924,6 +33945,21 @@ entities:
     - type: Transform
       pos: 7.5,18.5
       parent: 2
+    - type: ContainerContainer
+      containers:
+        board: !type:Container
+          showEnts: False
+          occludes: True
+          ents: []
+        ShuttleConsole-FTLKeySlotA: !type:ContainerSlot
+          showEnts: False
+          occludes: True
+          ent: null
+        ShuttleConsole-FTLKeySlotB: !type:ContainerSlot
+          showEnts: False
+          occludes: True
+          ent: null
+    - type: ItemSlots
 - proto: ComputerSolarControl
   entities:
   - uid: 5128
@@ -41123,6 +41159,13 @@ entities:
     components:
     - type: Transform
       pos: 33.59406,-4.5126047
+      parent: 2
+- proto: FTLPointDestinationStation
+  entities:
+  - uid: 13239
+    components:
+    - type: Transform
+      pos: -2.5,-0.5
       parent: 2
 - proto: GasFilterFlipped
   entities:
