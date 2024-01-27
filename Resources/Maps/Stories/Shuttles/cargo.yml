@@ -799,7 +799,7 @@ entities:
       pos: -2.5,7.5
       parent: 173
       type: Transform
-- proto: ComputerShuttle
+- proto: ComputerShuttleFTLKeysCargo
   entities:
   - uid: 78
     components:
@@ -811,14 +811,6 @@ entities:
           showEnts: False
           occludes: True
           ents: []
-        ShuttleConsole-FTLKeySlotA: !type:ContainerSlot
-          showEnts: False
-          occludes: True
-          ent: 175
-        ShuttleConsole-FTLKeySlotB: !type:ContainerSlot
-          showEnts: False
-          occludes: True
-          ent: 176
       type: ContainerContainer
     - type: ItemSlots
 - proto: ConveyorBelt
@@ -931,26 +923,6 @@ entities:
     - links:
       - 35
       type: DeviceLinkSink
-- proto: FTLKeyCargo
-  entities:
-  - uid: 176
-    components:
-    - flags: InContainer
-      type: MetaData
-    - parent: 78
-      type: Transform
-    - canCollide: False
-      type: Physics
-- proto: FTLKeyStation
-  entities:
-  - uid: 175
-    components:
-    - flags: InContainer
-      type: MetaData
-    - parent: 78
-      type: Transform
-    - canCollide: False
-      type: Physics
 - proto: GasPipeBend
   entities:
   - uid: 134

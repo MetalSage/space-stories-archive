@@ -925,7 +925,7 @@ entities:
       pos: -3.5,5.5
       parent: 181
       type: Transform
-- proto: ComputerShuttle
+- proto: ComputerShuttleFTLKeysStation
   entities:
   - uid: 156
     components:
@@ -937,26 +937,8 @@ entities:
           showEnts: False
           occludes: True
           ents: []
-        ShuttleConsole-FTLKeySlotA: !type:ContainerSlot
-          showEnts: False
-          occludes: True
-          ent: 133
-        ShuttleConsole-FTLKeySlotB: !type:ContainerSlot
-          showEnts: False
-          occludes: True
-          ent: null
       type: ContainerContainer
     - type: ItemSlots
-- proto: FTLKeyStation
-  entities:
-  - uid: 133
-    components:
-    - flags: InContainer
-      type: MetaData
-    - parent: 156
-      type: Transform
-    - canCollide: False
-      type: Physics
 - proto: GasPort
   entities:
   - uid: 25

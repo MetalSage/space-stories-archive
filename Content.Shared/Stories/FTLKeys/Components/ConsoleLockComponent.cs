@@ -44,6 +44,8 @@ public sealed partial class ConsoleLockComponent : Component
     [DataField("breakOnEmag")]
     [AutoNetworkedField]
     public bool BreakOnEmag = true;
+
+    public bool Emagged = false;
 }
 
 /// <summary>

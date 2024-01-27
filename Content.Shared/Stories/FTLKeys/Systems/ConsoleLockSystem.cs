@@ -37,17 +37,6 @@ public sealed class ConsoleLockSystem : EntitySystem
         SubscribeLocalEvent<ConsoleLockComponent, GotEmaggedEvent>(OnEmagged);
     }
 
-    private void OnStorageOpenAttempt(EntityUid uid, ConsoleLockComponent component, ref StorageOpenAttemptEvent args)
-    {
-        if (!component.Locked)
-            return;
-
-        if (!args.Silent)
-            _sharedPopupSystem.PopupClient(Loc.GetString("entity-storage-component-locked-message"), uid, args.User);
-
-        args.Cancelled = true;
-    }
-
     private void OnExamined(EntityUid uid, ConsoleLockComponent lockComp, ExaminedEvent args)
     {
         args.PushText(Loc.GetString(lockComp.Locked
@@ -71,19 +60,52 @@ public sealed class ConsoleLockSystem : EntitySystem
         if (!CanToggleLock(uid, user, quiet: false))
             return false;
 
-        if (!HasUserAccess(uid, user, quiet: false))
+        if (!HasUserAccess(uid, user) && !lockComp.Emagged)
+        {
+            _sharedPopupSystem.PopupClient(Loc.GetString("lock-comp-has-user-access-fail"), uid, user);
+            return false;
+        }
+
+        Lock(uid, user, lockComp);
+        return true;
+    }
+
+    public bool TryUnlock(EntityUid uid, EntityUid user, ConsoleLockComponent? lockComp = null)
+    {
+        if (!Resolve(uid, ref lockComp))
             return false;
 
-        _sharedPopupSystem.PopupClient(Loc.GetString("lock-comp-do-lock-success",
-                ("entityName", Identity.Name(uid, EntityManager))), uid, user);
-        _audio.PlayPredicted(lockComp.LockSound, uid, user);
+        if (!CanToggleLock(uid, user, quiet: false))
+            return false;
+
+        if (!HasUserAccess(uid, user) && !lockComp.Emagged)
+        {
+            _sharedPopupSystem.PopupClient(Loc.GetString("lock-comp-has-user-access-fail"), uid, user);
+            return false;
+        }
+
+        Unlock(uid, user, lockComp);
+        return true;
+    }
+
+
+    public void Lock(EntityUid uid, EntityUid? user, ConsoleLockComponent? lockComp = null)
+    {
+        if (!Resolve(uid, ref lockComp))
+            return;
+
+        if (user is { Valid: true })
+        {
+            _sharedPopupSystem.PopupClient(Loc.GetString("lock-comp-do-lock-success",
+                ("entityName", Identity.Name(uid, EntityManager))), uid, user.Value);
+            _audio.PlayPredicted(lockComp.LockSound, uid, user);
+        }
 
         lockComp.Locked = true;
         Dirty(uid, lockComp);
 
         var ev = new ConsoleLockToggledEvent(true);
         RaiseLocalEvent(uid, ref ev, true);
-        return true;
     }
 
     /// <summary>
@@ -120,20 +142,6 @@ public sealed class ConsoleLockSystem : EntitySystem
     /// <param name="user">The person trying to unlock it</param>
     /// <param name="lockComp"></param>
     /// <returns>If locking was successful</returns>
-    public bool TryUnlock(EntityUid uid, EntityUid user, ConsoleLockComponent? lockComp = null)
-    {
-        if (!Resolve(uid, ref lockComp))
-            return false;
-
-        if (!CanToggleLock(uid, user, quiet: false))
-            return false;
-
-        if (!HasUserAccess(uid, user, quiet: false))
-            return false;
-
-        Unlock(uid, user, lockComp);
-        return true;
-    }
 
     /// <summary>
     /// Raises an event for other components to check whether or not
@@ -149,7 +157,7 @@ public sealed class ConsoleLockSystem : EntitySystem
         return !ev.Cancelled;
     }
 
-    private bool HasUserAccess(EntityUid uid, EntityUid user, AccessReaderComponent? reader = null, bool quiet = true)
+    private bool HasUserAccess(EntityUid uid, EntityUid user, AccessReaderComponent? reader = null)
     {
         // Not having an AccessComponent means you get free access. woo!
         if (!Resolve(uid, ref reader, false))
@@ -158,8 +166,6 @@ public sealed class ConsoleLockSystem : EntitySystem
         if (_accessReader.IsAllowed(user, uid, reader))
             return true;
 
-        if (!quiet)
-            _sharedPopupSystem.PopupClient(Loc.GetString("lock-comp-has-user-access-fail"), uid, user);
         return false;
     }
 
@@ -187,7 +193,7 @@ public sealed class ConsoleLockSystem : EntitySystem
             return;
         _audio.PlayPredicted(component.UnlockSound, uid, null);
         Unlock(uid, null, null);
-        RemComp<ConsoleLockComponent>(uid); //Literally destroys the lock as a tell it was emagged
+        component.Emagged = true; //Literally destroys the lock as a tell it was emagged
         args.Handled = true;
     }
 }

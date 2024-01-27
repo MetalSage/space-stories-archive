@@ -37,7 +37,6 @@ public record struct MapSpawnGroup
     /// <summary>
     /// Should we set the metadata name of a grid. Useful for admin purposes.
     /// </summary>
-    public bool NameGrid = false;
 
     public MapSpawnGroup()
     {

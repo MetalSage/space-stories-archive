@@ -27,7 +27,6 @@ public sealed partial class ShuttleSystem
         }
 
         // Spawn a map for spawn grids
-        var valid = true;
         var paths = new List<ResPath>();
 
         foreach (var group in component.Groups.Values)
@@ -65,12 +64,6 @@ public sealed partial class ShuttleSystem
                         Dirty(ent[0], iffComp);
                     }
 
-                    if (group.NameGrid)
-                    {
-                        var name = path.FilenameWithoutExtension;
-                        _metadata.SetEntityName(ent[0], name);
-                    }
-
                     foreach (var compReg in group.AddComponents.Values)
                     {
                         var compType = compReg.Component.GetType();
@@ -83,11 +76,6 @@ public sealed partial class ShuttleSystem
                     }
                 }
                 else
-                {
-                    valid = false;
-                }
-
-                if (!valid)
                 {
                     Log.Error($"Error loading gridspawn for {ToPrettyString(uid)} / {path}");
                 }

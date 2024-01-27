@@ -30,13 +30,11 @@ namespace Content.Server.Stories.FTLKey
 
         private void OnComponentInit(EntityUid uid, FTLAccessConsoleComponent consl, ComponentInit args)
         {
-            if (consl.KeyA != null)
-                consl.FTLKeySlotA.StartingItem = consl.KeyA;
-            if (consl.KeyB != null)
-                consl.FTLKeySlotB.StartingItem = consl.KeyB;
 
-            _itemSlotsSystem.AddItemSlot(uid, FTLAccessConsoleComponent.ConsoleFTLKeySlotA, consl.FTLKeySlotA);
-            _itemSlotsSystem.AddItemSlot(uid, FTLAccessConsoleComponent.ConsoleFTLKeySlotB, consl.FTLKeySlotB);
+            foreach (var slot in consl.Slots)
+            {
+                _itemSlotsSystem.AddItemSlot(uid, slot.Key, slot.Value);
+            }
 
             UpdateAccess(uid, consl);
         }
@@ -45,18 +43,27 @@ namespace Content.Server.Stories.FTLKey
         {
             RemoveAccess(uid, consl);
 
-            _itemSlotsSystem.RemoveItemSlot(uid, consl.FTLKeySlotA);
-            _itemSlotsSystem.RemoveItemSlot(uid, consl.FTLKeySlotB);
+            foreach (var slot in consl.Slots.Values)
+            {
+                _itemSlotsSystem.RemoveItemSlot(uid, slot);
+            }
         }
 
         private void OnItemInserted(EntityUid uid, FTLAccessConsoleComponent consl, EntInsertedIntoContainerMessage args)
         {
+            var xform = Transform(uid);
+            if (!xform.Anchored) return;
+
             UpdateAccess(uid, consl);
         }
 
         private void OnItemRemoved(EntityUid uid, FTLAccessConsoleComponent consl, EntRemovedFromContainerMessage args)
         {
-            UpdateAccess(uid, consl, args.Entity);
+            var xform = Transform(uid);
+            if (!xform.Anchored) return;
+
+            RemoveCurrentAccess(uid, consl, args.Entity);
+            UpdateAccess(uid, consl);
         }
 
         private void OnAnchorChange(EntityUid uid, FTLAccessConsoleComponent consl, AnchorStateChangedEvent args)
@@ -69,92 +76,74 @@ namespace Content.Server.Stories.FTLKey
         {
             if (args.Locked)
             {
-                _itemSlotsSystem.SetLock(uid, consl.FTLKeySlotA, true);
-                _itemSlotsSystem.SetLock(uid, consl.FTLKeySlotB, true);
+                foreach (var slot in consl.Slots.Values)
+                {
+                    _itemSlotsSystem.SetLock(uid, slot, true);
+                }
             }
             else
             {
-                _itemSlotsSystem.SetLock(uid, consl.FTLKeySlotA, false);
-                _itemSlotsSystem.SetLock(uid, consl.FTLKeySlotB, false);
+                foreach (var slot in consl.Slots.Values)
+                {
+                    _itemSlotsSystem.SetLock(uid, slot, false);
+                }
             }
         }
 
-
-        private void UpdateAccess(EntityUid uid, FTLAccessConsoleComponent consl, EntityUid? removing = null)
+        /// <summary>
+        /// Sets Access from inserted Keys
+        /// </summary>
+        private void UpdateAccess(EntityUid uid, FTLAccessConsoleComponent consl)
         {
-            if (consl.FTLKeySlotA.ContainerSlot is not null && consl.FTLKeySlotA.ContainerSlot.ContainedEntity is not null)
-                consl.FTLKeyA = (EntityUid) consl.FTLKeySlotA.ContainerSlot.ContainedEntity;
-            else consl.FTLKeyA = EntityUid.Invalid;
-            if (consl.FTLKeySlotB.ContainerSlot is not null && consl.FTLKeySlotB.ContainerSlot.ContainedEntity is not null)
-                consl.FTLKeyB = (EntityUid) consl.FTLKeySlotB.ContainerSlot.ContainedEntity;
-            else consl.FTLKeyB = EntityUid.Invalid;
-
-            RemoveAccess(uid, consl);
-
-
-            // Getting tag component of shuttle
-            TryComp<TransformComponent>(uid, out var xform);
-
-            if (xform is null || xform.GridUid is null)
+            foreach (var slot in consl.Slots.Values)
             {
-                return;
-            }
-
-            var tagComponent = EnsureComp<TagComponent>((EntityUid) xform.GridUid);
-
-            if (tagComponent is null) return;
-
-            if (consl.FTLKeyA != EntityUid.Invalid)
-            {
-                TryComp<FTLKeyComponent>(consl.FTLKeyA, out var keyComp);
-                if (keyComp is null) return;
-                AddFTLTags(tagComponent, keyComp);
-            }
-
-            if (consl.FTLKeyB != EntityUid.Invalid)
-            {
-                TryComp<FTLKeyComponent>(consl.FTLKeyB, out var keyComp);
-                if (keyComp is null) return;
-                AddFTLTags(tagComponent, keyComp);
+                if (slot.ContainerSlot is not null && slot.ContainerSlot.ContainedEntity is not null)
+                    AddCurrentAccess(uid, consl, (EntityUid) slot.ContainerSlot.ContainedEntity);
             }
 
             UpdateConsole(uid);
         }
 
+        /// <summary>
+        /// Remove access of all inserted keys
+        /// </summary>
+
         private void RemoveAccess(EntityUid uid, FTLAccessConsoleComponent consl)
         {
-            TryComp<TransformComponent>(uid, out var xform);
-            if (xform is null || xform.GridUid is null)
+            foreach (var slot in consl.Slots.Values)
             {
-                return;
+                if (slot.ContainerSlot is not null && slot.ContainerSlot.ContainedEntity is not null)
+                    RemoveCurrentAccess(uid, consl, (EntityUid) slot.ContainerSlot.ContainedEntity);
             }
 
-            // Remake Tag Component
-            RemComp<TagComponent>((EntityUid) xform.GridUid);
-            EnsureComp<TagComponent>((EntityUid) xform.GridUid);
         }
 
-        private void AddFTLTags(TagComponent tagComponent, FTLKeyComponent keycomp)
+        /// <summary>
+        /// Add access of current Key
+        /// </summary>
+        private void AddCurrentAccess(EntityUid uid, FTLAccessConsoleComponent consl, EntityUid added)
         {
-            if (keycomp.FTLKeys is null) return;
-            _tagSystem.AddTags(tagComponent, keycomp.FTLKeys);
+            var xform = Transform(uid);
+            if (xform.GridUid is null) return;
+
+            var tagComp = EnsureComp<TagComponent>(uid);
+
+            if (!TryComp<FTLKeyComponent>(added, out var keyComp) || keyComp.FTLKeys is null) return;
+            _tagSystem.AddTags(tagComp, keyComp.FTLKeys);
         }
 
-        private void RemoveFTLTags(TagComponent tagComponent, FTLKeyComponent keycomp)
+        /// <summary>
+        /// Remove access of current Key
+        /// </summary>
+        private void RemoveCurrentAccess(EntityUid uid, FTLAccessConsoleComponent consl, EntityUid removed)
         {
-            if (keycomp.FTLKeys is null) return;
-            _tagSystem.RemoveTags(tagComponent, keycomp.FTLKeys);
-        }
+            var xform = Transform(uid);
+            if (xform.GridUid is null) return;
 
+            var tagComp = EnsureComp<TagComponent>(uid);
 
-        private TagComponent? GetTagComp(EntityUid uid)
-        {
-            TryComp<TransformComponent>(uid, out var xform);
-            if (xform is null || xform.GridUid is null)
-            {
-                return null;
-            }
-            return EnsureComp<TagComponent>((EntityUid) xform.GridUid);
+            if (!TryComp<FTLKeyComponent>(removed, out var keyComp) || keyComp.FTLKeys is null) return;
+            _tagSystem.RemoveTags(tagComp, keyComp.FTLKeys);
         }
 
         private void UpdateConsole(EntityUid uid)

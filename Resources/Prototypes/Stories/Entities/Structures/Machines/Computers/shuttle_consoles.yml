@@ -4,7 +4,24 @@
   suffix: БС Ключ "Станция"
   components:
   - type: FTLAccessConsole
-    KeyA: FTLKeyStation
+    slots:
+      first:
+        startingItem: FTLKeyStation
+        whitelist:
+          tags:
+            - FTLKey
+        locked: true
+        swap: false
+        ejectOnDeconstruct: true
+        ejectOnBreak: true
+      second:
+        whitelist:
+          tags:
+            - FTLKey
+        locked: true
+        swap: false
+        ejectOnDeconstruct: true
+        ejectOnBreak: true
 
 - type: entity
   parent: ComputerShuttle
@@ -12,8 +29,25 @@
   suffix: БС Ключ "Тюрьма"
   components:
   - type: FTLAccessConsole
-    KeyA: FTLKeyStation
-    KeyB: FTLKeyPrison
+    slots:
+      first:
+        startingItem: FTLKeyStation
+        whitelist:
+          tags:
+            - FTLKey
+        locked: true
+        swap: false
+        ejectOnDeconstruct: true
+        ejectOnBreak: true
+      second:
+        startingItem: FTLKeyPrison
+        whitelist:
+          tags:
+            - FTLKey
+        locked: true
+        swap: false
+        ejectOnDeconstruct: true
+        ejectOnBreak: true
 
 - type: entity
   parent: ComputerShuttle
@@ -21,7 +55,24 @@
   suffix: БС Ключ "Общий"
   components:
   - type: FTLAccessConsole
-    KeyA: FTLKeyGolden
+    slots:
+      first:
+        startingItem: FTLKeyGolden
+        whitelist:
+          tags:
+            - FTLKey
+        locked: true
+        swap: false
+        ejectOnDeconstruct: true
+        ejectOnBreak: true
+      second:
+        whitelist:
+          tags:
+            - FTLKey
+        locked: true
+        swap: false
+        ejectOnDeconstruct: true
+        ejectOnBreak: true
 
 - type: entity
   parent: ComputerShuttle
@@ -29,7 +80,24 @@
   suffix: БС Ключ "Центкомм"
   components:
   - type: FTLAccessConsole
-    KeyA: FTLKeyCentcomm
+    slots:
+      first:
+        startingItem: FTLKeyCentcomm
+        whitelist:
+          tags:
+            - FTLKey
+        locked: true
+        swap: false
+        ejectOnDeconstruct: true
+        ejectOnBreak: true
+      second:
+        whitelist:
+          tags:
+            - FTLKey
+        locked: true
+        swap: false
+        ejectOnDeconstruct: true
+        ejectOnBreak: true
 
 - type: entity
   parent: ComputerShuttle
@@ -37,4 +105,22 @@
   suffix: БС Ключ "Карго"
   components:
   - type: FTLAccessConsole
-    KeyB: FTLKeyCargo
+    slots:
+      first:
+        startingItem: FTLKeyStation
+        whitelist:
+          tags:
+            - FTLKey
+        locked: true
+        swap: false
+        ejectOnDeconstruct: true
+        ejectOnBreak: true
+      second:
+        startingItem: FTLKeyCargo
+        whitelist:
+          tags:
+            - FTLKey
+        locked: true
+        swap: false
+        ejectOnDeconstruct: true
+        ejectOnBreak: true
