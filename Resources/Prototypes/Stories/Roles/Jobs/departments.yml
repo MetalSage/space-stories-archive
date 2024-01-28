@@ -7,3 +7,16 @@
   - SpacePrisonOfficer
   - SpacePrisonEngineer
   - SpacePrisonMedic
+
+- type: department
+  id: CentralCommand
+  description: department-CentralCommand-description
+  color: "#ADFF2F"
+  roles:
+    - OCC
+    - DCC
+    - OfficerCC
+    - ECC
+    - MCC
+    - SCC
+    - HSCC

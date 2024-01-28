@@ -28,6 +28,7 @@ public enum SpawnPointType
 {
     Unset = 0,
     LateJoin,
+    CCJob, // This thing is needed to spawn a role on the Central Command, not in the terminal
     Job,
     Observer,
 }

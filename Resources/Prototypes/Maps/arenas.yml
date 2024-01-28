@@ -14,3 +14,10 @@
             - Passenger
           availableJobs:
             Passenger: [ -1, -1 ]
+            OCC: [ 3, 3 ]
+            DCC: [ 3, 3 ]
+            MCC: [ 3, 3 ]
+            ECC: [ 3, 3 ]
+            SCC: [ 3, 3 ]
+            OfficerCC: [ 3, 3 ]
+            HSCC: [ 3, 3 ]

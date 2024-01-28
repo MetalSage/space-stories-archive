@@ -1,0 +1,28 @@
+- type: job
+  id: SCC
+  name: job-name-service-cent-comm
+  description: service-cent-comm-desc
+  playTimeTracker: JobSCC
+  weight: 10
+  startingGear: SCCGear
+  icon: "JobIconSCC"
+  supervisors: job-supervisors-chief-of-staff
+  canBeAntag: false
+  accessGroups:
+    - AllAccess
+  access:
+    - CentralCommand
+  special:
+    - !type:AddImplantSpecial
+      implants: [ MindShieldImplant ]
+
+- type: startingGear
+  id: SCCGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitBartender
+    outerClothing: ClothingOuterVest
+    gloves: ClothingHandsGlovesColorWhite
+    shoes: ClothingShoesColorBlack
+    id: CentcomPDA
+    ears: ClothingHeadsetCentCom
+    pocket1: CigPackGreen

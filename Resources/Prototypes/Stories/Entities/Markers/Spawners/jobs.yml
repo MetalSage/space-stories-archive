@@ -12,6 +12,19 @@
       - state: green
       - state: hos
 
+# CC Jobs late joib
+
+- type: entity
+  name: centcomm job spawn point
+  id: SpawnPointCCJob
+  parent: MarkerBase
+  components:
+    - type: Sprite
+      sprite: Markers/jobs.rsi
+      state: green
+    - type: SpawnPoint
+      spawn_type: CCJob
+
 # Base
 
 - type: entity
@@ -122,3 +135,89 @@
     layers:
       - state: green
       - state: seniorengineer
+
+# Cent Comm
+
+- type: entity
+  id: SpawnPointOCC
+  parent: SpawnPointJobBase
+  name: occ
+  components:
+    - type: SpawnPoint
+      job_id: OCC
+    - type: Sprite
+      layers:
+        - state: green
+        - state: centcom
+
+- type: entity
+  id: SpawnPointDCC
+  parent: SpawnPointJobBase
+  name: dcc
+  components:
+    - type: SpawnPoint
+      job_id: DCC
+    - type: Sprite
+      layers:
+        - state: green
+        - state: centcom
+
+- type: entity
+  id: SpawnPointOfficerCC
+  parent: SpawnPointJobBase
+  name: officercc
+  components:
+    - type: SpawnPoint
+      job_id: OfficerCC
+    - type: Sprite
+      layers:
+        - state: green
+        - state: centcom
+
+- type: entity
+  id: SpawnPointECC
+  parent: SpawnPointJobBase
+  name: ecc
+  components:
+    - type: SpawnPoint
+      job_id: ECC
+    - type: Sprite
+      layers:
+        - state: green
+        - state: centcom
+
+- type: entity
+  id: SpawnPointMCC
+  parent: SpawnPointJobBase
+  name: mcc
+  components:
+    - type: SpawnPoint
+      job_id: MCC
+    - type: Sprite
+      layers:
+        - state: green
+        - state: centcom
+
+- type: entity
+  id: SpawnPointSCC
+  parent: SpawnPointJobBase
+  name: scc
+  components:
+    - type: SpawnPoint
+      job_id: SCC
+    - type: Sprite
+      layers:
+        - state: green
+        - state: centcom
+
+- type: entity
+  id: SpawnPointHSCC
+  parent: SpawnPointJobBase
+  name: hscc
+  components:
+    - type: SpawnPoint
+      job_id: HSCC
+    - type: Sprite
+      layers:
+        - state: green
+        - state: centcom

@@ -32,6 +32,8 @@ using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
 using TimedDespawnComponent = Robust.Shared.Spawners.TimedDespawnComponent;
+using Content.Shared.Roles.Jobs;
+using Content.Shared.Roles;
 
 namespace Content.Server.Shuttles.Systems;
 
@@ -333,10 +335,25 @@ public sealed class ArrivalsSystem : EntitySystem
 
             var points = EntityQueryEnumerator<SpawnPointComponent, TransformComponent>();
             var possiblePositions = new List<EntityCoordinates>();
+
+            // This list is needed so that roles with this name are spawned not in the terminal, but at the central command station.
+            List<string?> CCJobsList = new List<string?>() { "job-name-operator-cent-comm", "job-name-officer-cent-comm", "job-name-delegat-cent-comm", "job-name-service-cent-comm", "job-name-engineer-cent-comm", "job-name-medic-cent-comm", "job-name-head-of-staff-cent-comm" };
+
+
             while (points.MoveNext(out var uid, out var spawnPoint, out var xform))
             {
                 if (spawnPoint.SpawnType != SpawnPointType.LateJoin || xform.MapID != mapId)
                     continue;
+
+                #region CC jobs (late join)
+
+                _protoManager.TryIndex(ev.Job?.Prototype ?? string.Empty, out JobPrototype? prototype); // Space Stories for CC jobs (late join)
+                if (CCJobsList.Contains(prototype?.Name))
+                {
+                    continue;
+                }
+
+                #endregion CC jobs (late join)
 
                 possiblePositions.Add(xform.Coordinates);
             }

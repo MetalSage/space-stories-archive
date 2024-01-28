@@ -27,3 +27,26 @@
 
 - type: playTimeTracker
   id: JobSeniorResearcher
+
+# CC Jobs start
+- type: playTimeTracker
+  id: JobOCC
+
+- type: playTimeTracker
+  id: JobDCC
+
+- type: playTimeTracker
+  id: JobOfficerCC
+
+- type: playTimeTracker
+  id: JobECC
+
+- type: playTimeTracker
+  id: JobMCC
+
+- type: playTimeTracker
+  id: JobSCC
+
+- type: playTimeTracker
+  id: JobHSCC
+# CC Jobs end

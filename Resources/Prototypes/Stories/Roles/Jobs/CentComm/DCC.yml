@@ -1,0 +1,33 @@
+- type: job
+  id: DCC
+  name: job-name-delegat-cent-comm
+  description: delegat-cent-comm-desc
+  playTimeTracker: JobDCC
+  weight: 10
+  startingGear: DCCGear
+  icon: "JobIconDCC"
+  supervisors: job-supervisors-chief-of-staff
+  canBeAntag: false
+  accessGroups:
+  - AllAccess
+  access:
+  - CentralCommand
+  special:
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant ]
+
+- type: startingGear
+  id: DCCGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitCentcomOfficial
+    back: ClothingBackpackSatchelLeather
+    shoes: ClothingShoesBootsJack
+    id: CentcomPDA
+    ears: ClothingHeadsetAltCentCom
+    gloves: ClothingHandsGlovesColorBlack
+    head: ClothingHeadHatCentcom
+    outerClothing: ClothingOuterArmorBasic
+    eyes: ClothingEyesGlassesSunglasses
+    belt: BoxFolderCentComClipboard
+    pocket1: PenCentcom
+    pocket2: RubberStampCentcom
