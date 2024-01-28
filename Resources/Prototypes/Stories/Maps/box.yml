@@ -61,6 +61,7 @@
             Clown: [ 1, 1 ]
             Mime: [ 1, 1 ]
             Musician: [ 1, 1 ]
+            
             #stories
             IAA: [ 1, 1 ]
             JediNt: [ 1, 1 ]
@@ -68,6 +69,8 @@
             SeniorPhysician: [ 1, 1 ]
             SeniorResearcher: [ 1, 1 ]
             SeniorOfficer: [ 1, 1 ]
+
+            #Prison
             HeadOfSpacePrison: [ 1, 1 ]
             SpacePrisonOfficer: [ 3, 3 ]
             SpacePrisonEngineer: [ 2, 2 ]
