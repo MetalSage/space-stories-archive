@@ -33929,14 +33929,6 @@ entities:
           showEnts: False
           occludes: True
           ents: []
-        ShuttleConsole-FTLKeySlotA: !type:ContainerSlot
-          showEnts: False
-          occludes: True
-          ent: null
-        ShuttleConsole-FTLKeySlotB: !type:ContainerSlot
-          showEnts: False
-          occludes: True
-          ent: null
     - type: ItemSlots
 - proto: ComputerShuttleSalvage
   entities:
@@ -33951,14 +33943,6 @@ entities:
           showEnts: False
           occludes: True
           ents: []
-        ShuttleConsole-FTLKeySlotA: !type:ContainerSlot
-          showEnts: False
-          occludes: True
-          ent: null
-        ShuttleConsole-FTLKeySlotB: !type:ContainerSlot
-          showEnts: False
-          occludes: True
-          ent: null
     - type: ItemSlots
 - proto: ComputerSolarControl
   entities:
