@@ -25,9 +25,6 @@
         trade:
           paths:
           - /Maps/Stories/Misc/trading_outpost.yml
-          addComponents:
-            - type: ProtectedGrid
-            - type: TradeStation
 
 - type: entity
   id: StoriesBaseStationShuttles

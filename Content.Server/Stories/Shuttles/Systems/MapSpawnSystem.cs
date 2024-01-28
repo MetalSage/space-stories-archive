@@ -1,8 +1,6 @@
 using Content.Server.Shuttles.Components;
-using Content.Server.Station.Components;
 using Content.Server.Station.Events;
 using Content.Shared.Shuttles.Components;
-using Robust.Shared.Map;
 using Robust.Shared.Utility;
 
 namespace Content.Server.Shuttles.Systems;
@@ -21,11 +19,6 @@ public sealed partial class ShuttleSystem
 
     private void MapSpawns(EntityUid uid, MapSpawnComponent component)
     {
-        if (!TryComp<StationDataComponent>(uid, out var data))
-        {
-            return;
-        }
-
         // Spawn a map for spawn grids
         var paths = new List<ResPath>();
 
@@ -64,16 +57,6 @@ public sealed partial class ShuttleSystem
                         Dirty(ent[0], iffComp);
                     }
 
-                    foreach (var compReg in group.AddComponents.Values)
-                    {
-                        var compType = compReg.Component.GetType();
-
-                        if (HasComp(ent[0], compType))
-                            continue;
-
-                        var comp = _factory.GetComponent(compType);
-                        AddComp(ent[0], comp, true);
-                    }
                 }
                 else
                 {
