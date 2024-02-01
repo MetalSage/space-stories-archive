@@ -79,7 +79,7 @@ namespace Content.Server.Stories.Implants
             if (!component.NotUsedSolutions.ContainsValue(true))
             {
                 // Have no capsules
-                _popup.PopupCursor(Loc.GetString("inject-trigger-empty-message"), user);
+                _popup.PopupEntity(Loc.GetString("inject-trigger-empty-message"), user, user);
                 return;
             }
 
@@ -97,7 +97,7 @@ namespace Content.Server.Stories.Implants
             // Try get insert solution
             if (!_solutionContainer.TryGetInjectableSolution(user, out var targetSoln, out var targetSolution))
             {
-                _popup.PopupCursor(Loc.GetString("inject-trigger-cant-inject-message", ("target", Identity.Entity(user, _entMan))), user);
+                _popup.PopupEntity(Loc.GetString("inject-trigger-cant-inject-message", ("target", Identity.Entity(user, _entMan))), user, user);
                 return;
             }
 
@@ -109,7 +109,7 @@ namespace Content.Server.Stories.Implants
 
             if (realTransferAmount <= 0)
             {
-                _popup.PopupCursor(Loc.GetString("inject-trigger-empty-capsule-message"), user);
+                _popup.PopupEntity(Loc.GetString("inject-trigger-empty-capsule-message"), user, user);
                 return;
             }
 
@@ -118,14 +118,14 @@ namespace Content.Server.Stories.Implants
 
             if (!targetSolution.CanAddSolution(removedSolution))
             {
-                _popup.PopupCursor(Loc.GetString("inject-trigger-cant-inject-message", ("target", Identity.Entity(user, _entMan))), user);
+                _popup.PopupEntity(Loc.GetString("inject-trigger-cant-inject-message", ("target", Identity.Entity(user, _entMan))), user, user);
                 return;
             }
 
             _reactiveSystem.DoEntityReaction(user, removedSolution, ReactionMethod.Injection);
             _solutionContainers.TryAddSolution(targetSoln.Value, removedSolution);
 
-            _popup.PopupCursor(Loc.GetString("inject-trigger-feel-prick-message"), user);
+            _popup.PopupEntity(Loc.GetString("inject-trigger-feel-prick-message"), user, user);
 
             // same LogType as syringes...
             _adminLogger.Add(LogType.ForceFeed, $"{_entMan.ToPrettyString(user):user} used inject implant with a solution {SolutionContainerSystem.ToPrettyString(removedSolution):removedSolution}");
