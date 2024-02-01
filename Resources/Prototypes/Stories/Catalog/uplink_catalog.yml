@@ -1,0 +1,9 @@
+- type: listing
+  id: UplinkChemicalImplant
+  name: uplink-stimulants-implant-name
+  description: uplink-stimulants-implant-desc
+  productEntity: StimulantsImplanter
+  cost:
+    Telecrystal: 7
+  categories:
+  - UplinkUtility
