@@ -3,6 +3,7 @@
   name: uplink-stimulants-implant-name
   description: uplink-stimulants-implant-desc
   productEntity: StimulantsImplanter
+  icon: { sprite: /Textures/Objects/Specific/Chemistry/syringe.rsi, state: syringe_base0 }
   cost:
     Telecrystal: 7
   categories:
