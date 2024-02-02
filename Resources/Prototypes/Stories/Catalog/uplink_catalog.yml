@@ -5,7 +5,7 @@
   productEntity: StimulantsImplanter
   icon: { sprite: /Textures/Objects/Specific/Chemistry/syringe.rsi, state: syringe_base0 }
   cost:
-    Telecrystal: 7
+    Telecrystal: 12
   categories:
   - UplinkImplants
   conditions:
