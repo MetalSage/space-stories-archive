@@ -20,9 +20,9 @@ public sealed class ShadowlingBlindnessSmokeSystem : EntitySystem
 
         ev.Handled = true;
         var solution = new Solution();
-        solution.AddReagent("ShadowlingSmokeReagent", 300);
+        solution.AddReagent("ShadowlingSmokeReagent", 100);
 
         var smokeEnt = Spawn("Smoke", transform.Coordinates);
-        _smoke.StartSmoke(smokeEnt, solution, 30, 12);
+        _smoke.StartSmoke(smokeEnt, solution, 30, 7);
     }
 }

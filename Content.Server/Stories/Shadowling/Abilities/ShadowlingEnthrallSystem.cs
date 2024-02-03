@@ -1,4 +1,3 @@
-using Content.Server.Chat.Systems;
 using Content.Server.DoAfter;
 using Content.Server.Popups;
 using Content.Server.Stories.Lib;
@@ -17,7 +16,6 @@ public sealed class ShadowlingEnthrallSystem : EntitySystem
     [Dependency] private readonly PopupSystem _popup = default!;
     [Dependency] private readonly DoAfterSystem _doAfter = default!;
     [Dependency] private readonly ShadowlingSystem _shadowling = default!;
-    [Dependency] private readonly ChatSystem _chat = default!;
     [Dependency] private readonly IConfigurationManager _config = default!;
     [Dependency] private readonly StoriesUtilsSystem _utils = default!;
 
@@ -45,7 +43,7 @@ public sealed class ShadowlingEnthrallSystem : EntitySystem
         if (ev.Handled)
             return;
 
-        if (_shadowling.IsShadowling(uid) || _shadowling.IsThrall(uid))
+        if (_shadowling.IsShadowling(ev.Target) || _shadowling.IsThrall(ev.Target))
         {
             _popup.PopupEntity("Вы не можете порабощать своих союзников", uid, uid);
             return;
@@ -58,7 +56,7 @@ public sealed class ShadowlingEnthrallSystem : EntitySystem
         var shadowlingEnthrallRequireMindAvailability = _config.GetCVar(CCVars.ShadowlingEnthrallRequireMindAvailability);
         if (
             shadowlingEnthrallRequireMindAvailability &&
-            _utils.IsInConsciousness(ev.Target)
+            !_utils.IsInConsciousness(ev.Target)
         )
         {
             _popup.PopupEntity("Вы можете порабощать существ только в сознании", uid, uid);
@@ -78,7 +76,7 @@ public sealed class ShadowlingEnthrallSystem : EntitySystem
         _popup.PopupEntity("Вы поглощаете чей-то разум...", ev.Performer, ev.Performer);
         _popup.PopupEntity("Ваш разум поглощается тенями...", ev.Target, ev.Target);
 
-        var doAfter = new DoAfterArgs(EntityManager, ev.Performer, 30, new EnthrallDoAfterEvent(), ev.Performer, ev.Target)
+        var doAfter = new DoAfterArgs(EntityManager, ev.Performer, 5, new EnthrallDoAfterEvent(), ev.Performer, ev.Target)
         {
             BreakOnUserMove = true,
             BlockDuplicate = true,
@@ -102,7 +100,7 @@ public sealed class ShadowlingEnthrallSystem : EntitySystem
         var shadowlingEnthrallRequireMindAvailability = _config.GetCVar(CCVars.ShadowlingEnthrallRequireMindAvailability);
         if (
             shadowlingEnthrallRequireMindAvailability &&
-            _utils.IsInConsciousness(ev.Target)
+            !_utils.IsInConsciousness(ev.Target)
         )
         {
             _popup.PopupEntity("Вы можете порабощать существ только в сознании", uid, uid);

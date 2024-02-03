@@ -3,9 +3,14 @@
   entity: MobShadowling
   forced: true
   inventory: Drop
+  revertOnCrit: false
+  revertOnDeath: false
 
 - type: polymorph
   id: Ascended
-  entity: MobAscended
+  entity: MobAscendance
   forced: true
   inventory: Drop
+  allowRepeatedMorphs: true
+  revertOnCrit: false
+  revertOnDeath: false

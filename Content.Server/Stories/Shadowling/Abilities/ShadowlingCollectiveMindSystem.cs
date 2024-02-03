@@ -1,5 +1,4 @@
 using System.Linq;
-using Content.Server.Actions;
 using Content.Server.Chat.Managers;
 using Content.Server.Popups;
 using Content.Shared.Chat;
@@ -13,7 +12,6 @@ public sealed class ShadowlingCollectiveMindSystem : EntitySystem
 {
     [Dependency] private readonly PopupSystem _popup = default!;
     [Dependency] private readonly ShadowlingSystem _shadowling = default!;
-    [Dependency] private readonly ActionsSystem _actions = default!;
     [Dependency] private readonly IChatManager _chat = default!;
     [Dependency] private readonly IPlayerManager _player = default!;
     [Dependency] private readonly IPrototypeManager _prototype = default!;
@@ -43,32 +41,32 @@ public sealed class ShadowlingCollectiveMindSystem : EntitySystem
 
         foreach (var thrall in thralls)
         {
-            _popup.PopupEntity("Вы чувствуете как нити теней пронизывают вашу душу", thrall);
+            _popup.PopupEntity("Вы чувствуете как нити теней пронизывают вашу душу", uid, thrall);
         }
 
         List<string> newActions = new();
 
-        if (thrallsCount >= 3 && !component.GrantedActions.Contains(BlindnessSmokeAction))
+        if ((thrallsCount >= 3 || component.DebugDisableThrallsCountCheck) && !component.GrantedActions.ContainsKey(BlindnessSmokeAction))
         {
             newActions.Add(BlindnessSmokeAction);
         }
 
-        if (thrallsCount >= 5 && !component.GrantedActions.Contains(DrainThrallsAction))
-        {
-            newActions.Add(DrainThrallsAction);
-        }
+        // if ((thrallsCount >= 5 || component.DebugDisableThrallsCountCheck) && !component.GrantedActions.ContainsKey(DrainThrallsAction))
+        // {
+        //     newActions.Add(DrainThrallsAction);
+        // }
 
-        if (thrallsCount >= 7 && !component.GrantedActions.Contains(SonicScreechAction))
+        if ((thrallsCount >= 7 || component.DebugDisableThrallsCountCheck) && !component.GrantedActions.ContainsKey(SonicScreechAction))
         {
             newActions.Add(SonicScreechAction);
         }
 
-        if (thrallsCount >= 9 && !component.GrantedActions.Contains(BlackRecuperationAction))
+        if ((thrallsCount >= 9 || component.DebugDisableThrallsCountCheck) && !component.GrantedActions.ContainsKey(BlackRecuperationAction))
         {
             newActions.Add(BlackRecuperationAction);
         }
 
-        if (thrallsCount >= 15 && !component.GrantedActions.Contains(AscendanceAction))
+        if ((thrallsCount >= 15 || component.DebugDisableThrallsCountCheck) && !component.GrantedActions.ContainsKey(AscendanceAction))
         {
             newActions.Add(AscendanceAction);
         }
@@ -88,20 +86,19 @@ public sealed class ShadowlingCollectiveMindSystem : EntitySystem
                 if (!_prototype.TryIndex(action, out var actionPrototype))
                     continue;
 
-                _actions.AddAction(uid, action);
+                _shadowling.AddAction(uid, action, component);
 
                 var message =
                     $"Была разблокирована способность {Loc.GetString(actionPrototype.Name)}. {Loc.GetString(actionPrototype.Description)}";
                 _chat.ChatMessageToOne(ChatChannel.Unspecified, message, message, default, false, session.Channel);
             }
+            Dirty(uid, component);
 
-            _popup.PopupEntity($"У вас {thrallsCount} живых порабощённых. Новые способности разблокированы!", uid);
+            _popup.PopupEntity($"У вас {thrallsCount} живых порабощённых. Новые способности разблокированы!", uid, uid);
         }
         else
         {
             _popup.PopupEntity($"У вас {thrallsCount} живых порабощённых", uid, uid);
         }
-
-        Dirty(uid, component);
     }
 }

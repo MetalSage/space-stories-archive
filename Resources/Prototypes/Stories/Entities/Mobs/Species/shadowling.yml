@@ -2,14 +2,27 @@
   save: false
   name: Urist' McShadowling
   parent:
-  - MobBloodstream
-  - MobFlammable
-  - BaseMobSpecies
+  - BaseMob
+  - MobDamageable
   id: BaseMobShadowling
   abstract: true
   components:
-  - type: Inventory
-    templateId: Shadowling
+  - type: Insulated
+  - type: CombatMode
+  - type: InputMover
+  - type: MobMover
+  - type: Hands
+  - type: Tool
+    speed: 5
+    qualities:
+      - Prying
+  - type: Prying
+    pryPowered: !type:Bool
+      true
+    force: !type:Bool
+      true
+    useSound:
+      path: /Audio/Items/crowbar.ogg
   - type: PassiveDamage # Slight passive regen. Assuming one damage type, comes out to about 4 damage a minute.
     allowedStates:
     - Alive
@@ -21,6 +34,7 @@
         Brute: -0.07
   # Organs
   - type: Shadowling
+    performLightDamage: true
   - type: StatusEffects
     allowed:
     - Stun
@@ -60,6 +74,11 @@
     spawned:
       - id: FoodMeat
         amount: 5
+  - type: MobState
+    allowedStates:
+    - Alive
+    - Critical
+    - Dead
   - type: MobThresholds
     thresholds:
       0: Alive
@@ -67,13 +86,19 @@
       200: Dead
   - type: Flashable
   - type: Blindable
+  - type: RotationVisuals
+    defaultRotation: 90
+    horizontalRotation: 90
+  - type: StandingState
+    canCrawl: true
   - type: FireVisuals
     alternateState: Standing
-  - type: HumanoidAppearance
-    species: Shadowling
-  - type: Icon
-    sprite: Stories/Mobs/Species/Shadowling/parts.rsi
-    state: full
+  - type: Sprite
+    drawdepth: Mobs
+    sprite: Stories/Mobs/Demons/shadowling.rsi
+    layers:
+    - map: ["enum.DamageStateVisualLayers.Base"]
+      state: shadowling_s
   - type: Body
     prototype: Shadowling
     requiredLegs: 2
@@ -101,17 +126,13 @@
     baseWalkSpeed : 2.7
     baseSprintSpeed : 4.5
   - type: Perishable
-
-- type: entity
-  save: false
-  name: Urist McShadowling
-  parent: BaseSpeciesDummy
-  id: MobShadowlingDummy
-  noSpawn: true
-  description: A dummy Shadowling meant to be used in character setup.
-  components:
-  - type: HumanoidAppearance
-    species: Shadowling
+  - type: Eye
+    drawFov: false
+    visMask:
+      - Normal
+  - type: ContentEye
+    maxZoom: 1.2, 1.2
+  - type: Puller
 
 - type: radioChannel
   id: ShadowlingMind

@@ -16,7 +16,4 @@ public sealed partial class IncorporealComponent : Component
 
     [DataField("collisionLayerBefore"), ViewVariables(VVAccess.ReadOnly)]
     public int CollisionLayerBefore;
-
-    [DataField("turnRenderBack"), ViewVariables(VVAccess.ReadWrite)]
-    public bool TurnRenderBack = true;
 }

@@ -1,10 +1,14 @@
-using System.Linq;
+using Content.Server.NPC.Components;
+using Content.Server.NPC.Systems;
 using Content.Server.Popups;
 using Content.Server.Radio.Components;
 using Content.Server.Stories.Lib;
 using Content.Server.Stunnable;
 using Content.Shared.IdentityManagement;
 using Content.Shared.Mindshield.Components;
+using Content.Shared.Mobs;
+using Content.Shared.Mobs.Components;
+using Content.Shared.Roles;
 using Content.Shared.Stories.Mindshield;
 
 namespace Content.Server.Stories.Shadowling;
@@ -13,6 +17,10 @@ public sealed partial class ShadowlingSystem
     [Dependency] private readonly PopupSystem _popup = default!;
     [Dependency] private readonly StunSystem _stun = default!;
     [Dependency] private readonly StoriesUtilsSystem _utils = default!;
+    [Dependency] private readonly NpcFactionSystem _npcFaction = default!;
+
+    [ValidatePrototypeId<NpcFactionPrototype>]
+    public const string ShadowlingNpcFaction = "Shadowling";
 
     public void InitializeThralls()
     {
@@ -23,24 +31,21 @@ public sealed partial class ShadowlingSystem
     /// <summary>
     /// Make someone a thrall, set up all needed components (shadowling component, shadowling mind radio)
     /// </summary>
-    public void Enthrall(EntityUid target, EntityUid shadowling)
+    public void Enthrall(EntityUid target, EntityUid master)
     {
-        var mastersComponent = Comp<ShadowlingComponent>(shadowling);
-        mastersComponent.Slaves.Add(target);
+        _npcFaction.AddFaction(target, ShadowlingNpcFaction);
         var slave = EnsureComp<ShadowlingThrallComponent>(target);
-        slave.Master = shadowling;
         Dirty(target, slave);
-        Dirty(shadowling, mastersComponent);
         var radio = EnsureComp<ActiveRadioComponent>(target);
         radio.Channels.Add(ShadowlingMindRadioPrototype);
         EnsureComp<ShadowlingThrallRoleComponent>(target);
+
+        var args = new AfterEnthralledEvent(target, master);
+        RaiseLocalEvent(target, ref args);
     }
 
-    public void Unthrall(EntityUid target, EntityUid shadowling)
+    public void Unthrall(EntityUid target)
     {
-        var mastersComponent = Comp<ShadowlingComponent>(shadowling);
-        mastersComponent.Slaves.Remove(target);
-        Dirty(shadowling, mastersComponent);
         RemCompDeferred<ShadowlingThrallComponent>(target);
         RemCompDeferred<ShadowlingThrallRoleComponent>(target);
         var radio = Comp<ActiveRadioComponent>(target);
@@ -57,8 +62,7 @@ public sealed partial class ShadowlingSystem
         var stunTime = TimeSpan.FromSeconds(4);
         var name = Identity.Entity(uid, EntityManager);
 
-        var thrallComponent = Comp<ShadowlingThrallComponent>(uid);
-        Unthrall(uid, thrallComponent.Master);
+        Unthrall(uid);
 
         _stun.TryParalyze(uid, stunTime, true);
         _popup.PopupEntity(Loc.GetString("thrall-break-control", ("name", name)), uid);
@@ -66,7 +70,15 @@ public sealed partial class ShadowlingSystem
 
     public IEnumerable<EntityUid> GetThralls()
     {
-        var mobs = _utils.GetAliveMobList();
-        return mobs.Where(IsThrall);
+        var entities = EntityQueryEnumerator<MobStateComponent>();
+
+        while (entities.MoveNext(out var uid, out var mobState))
+        {
+            if (mobState.CurrentState == MobState.Alive && IsThrall(uid))
+                yield return uid;
+        }
     }
 }
+
+[ByRefEvent]
+public record struct AfterEnthralledEvent(EntityUid Target, EntityUid Master);

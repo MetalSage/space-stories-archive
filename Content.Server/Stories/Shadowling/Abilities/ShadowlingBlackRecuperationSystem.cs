@@ -1,12 +1,11 @@
 using Content.Server.Popups;
-using Content.Server.Stories.Lib;
 using Content.Shared.Mobs.Systems;
+using Content.Shared.Rejuvenate;
 using Content.Shared.Stories.Shadowling;
 
 namespace Content.Server.Stories.Shadowling;
 public sealed class ShadowlingBlackRecuperationSystem : EntitySystem
 {
-    [Dependency] private readonly StoriesUtilsSystem _utils = default!;
     [Dependency] private readonly PopupSystem _popup = default!;
     [Dependency] private readonly MobStateSystem _mobState = default!;
 
@@ -40,6 +39,6 @@ public sealed class ShadowlingBlackRecuperationSystem : EntitySystem
         ev.Handled = true;
 
         _popup.PopupEntity("Ваши раны покрываются тенью и затягиваются...", ev.Target, ev.Target);
-        _utils.Rejuvenate(ev.Target);
+        RaiseLocalEvent(ev.Target, new RejuvenateEvent());
     }
 }

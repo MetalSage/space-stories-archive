@@ -9,7 +9,6 @@ public sealed class ShadowlingSystem : SharedShadowlingSystem<ShadowlingThrallCo
 {
     [Dependency] private readonly IPlayerManager _player = default!;
     [Dependency] private readonly ILightManager _light = default!;
-    [Dependency] private readonly IEyeManager _eye = default!;
 
     public override void Initialize()
     {
@@ -27,7 +26,6 @@ public sealed class ShadowlingSystem : SharedShadowlingSystem<ShadowlingThrallCo
             return;
 
         _light.DrawShadows = false;
-        _eye.CurrentEye.DrawFov = false;
     }
 
     private void OnPlayerAttached(EntityUid uid, ShadowlingComponent component, ref PlayerAttachedEvent ev)
@@ -36,7 +34,6 @@ public sealed class ShadowlingSystem : SharedShadowlingSystem<ShadowlingThrallCo
             return;
 
         _light.DrawShadows = false;
-        _eye.CurrentEye.DrawFov = false;
     }
 
     private void OnPlayerDetached(EntityUid uid, ShadowlingComponent component, ref PlayerDetachedEvent ev)
@@ -45,7 +42,6 @@ public sealed class ShadowlingSystem : SharedShadowlingSystem<ShadowlingThrallCo
             return;
 
         _light.DrawShadows = true;
-        _eye.CurrentEye.DrawFov = true;
     }
 
     private void OnShutdown(EntityUid uid, ShadowlingComponent component, ref ComponentShutdown ev)
@@ -54,6 +50,5 @@ public sealed class ShadowlingSystem : SharedShadowlingSystem<ShadowlingThrallCo
             return;
 
         _light.DrawShadows = true;
-        _eye.CurrentEye.DrawFov = true;
     }
 }

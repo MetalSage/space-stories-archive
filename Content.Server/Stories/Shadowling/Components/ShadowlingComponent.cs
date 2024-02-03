@@ -1,15 +1,12 @@
+using Content.Shared.Damage;
 using Content.Shared.Stories.Shadowling;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom;
-using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 
 namespace Content.Server.Stories.Shadowling;
 
 [RegisterComponent]
 public sealed partial class ShadowlingComponent : SharedShadowlingComponent
 {
-    [ViewVariables(VVAccess.ReadOnly), DataField("slaves")]
-    public List<EntityUid> Slaves = new();
-
     [ViewVariables(VVAccess.ReadOnly), DataField("inShadowWalk")]
     public bool InShadowWalk;
 
@@ -20,5 +17,36 @@ public sealed partial class ShadowlingComponent : SharedShadowlingComponent
     public TimeSpan ShadowWalkEndsIn = TimeSpan.FromSeconds(3);
 
     [ViewVariables(VVAccess.ReadOnly), DataField("grantedActions")]
-    public List<string> GrantedActions = new();
+    public Dictionary<string, EntityUid> GrantedActions = new();
+
+    [DataField("darknessHealing")]
+    public DamageSpecifier DarknessHealing = new()
+    {
+        DamageDict = new()
+        {
+            { "Blunt", -5 },
+            { "Slash", -5 },
+            { "Piercing", -5 },
+            { "Heat", -5 },
+            { "Shock", -5 }
+        }
+    };
+
+    [DataField("lightnessDamage")]
+    public DamageSpecifier LightnessDamage = new()
+    {
+        DamageDict = new()
+        {
+            { "Heat", 3 }
+        }
+    };
+
+    [ViewVariables(VVAccess.ReadOnly), DataField("ascended")]
+    public bool Ascended = false;
+
+    [ViewVariables(VVAccess.ReadWrite), DataField("performLightDamage")]
+    public bool PerformLightDamage = false;
+
+    [ViewVariables(VVAccess.ReadWrite), DataField("debugDisableThrallsCountCheck")]
+    public bool DebugDisableThrallsCountCheck = false;
 }

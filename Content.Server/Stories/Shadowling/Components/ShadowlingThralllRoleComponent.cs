@@ -5,5 +5,4 @@ namespace Content.Server.Stories.Shadowling;
 [RegisterComponent]
 public sealed partial class ShadowlingThrallRoleComponent : AntagonistRoleComponent
 {
-
 }

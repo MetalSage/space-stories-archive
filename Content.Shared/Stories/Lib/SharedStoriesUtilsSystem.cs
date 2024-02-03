@@ -19,29 +19,9 @@ public abstract partial class SharedStoriesUtilsSystem : EntitySystem
     [Dependency] protected readonly IEntityManager _entity = default!;
     [Dependency] protected readonly MobStateSystem _mobState = default!;
 
-    public IEnumerable<EntityUid> GetAliveMobList()
-    {
-        var entities = _entity.AllEntityQueryEnumerator<MobStateComponent>();
-
-        while (entities.MoveNext(out var uid, out var mobState))
-        {
-            if (mobState.CurrentState == MobState.Alive)
-                yield return uid;
-        }
-    }
-
-    public bool IsMob(EntityUid uid)
-    {
-        return HasComp<MobStateComponent>(uid);
-    }
-
-    public bool IsIncorporeal(EntityUid uid)
-    {
-        return HasComp<IncorporealComponent>(uid);
-    }
-
     public bool IsInConsciousness(EntityUid uid)
     {
+        // TODO: When unconscious status will appear add check for it here
         if (!TryComp<ActorComponent>(uid, out var actor))
             return false;
 

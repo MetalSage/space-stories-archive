@@ -6,7 +6,6 @@ using Content.Shared.Physics;
 using Content.Shared.Stories.Lib.Incorporeal;
 using Robust.Server.GameObjects;
 using Robust.Shared.Physics;
-using Robust.Shared.Physics.Components;
 
 namespace Content.Server.Stories.Lib.Incorporeal;
 
@@ -29,7 +28,6 @@ public sealed class IncorporealSystem : EntitySystem
 
     private void OnStartup(EntityUid uid, IncorporealComponent component, ref ComponentStartup args)
     {
-        var physics = Comp<PhysicsComponent>(uid);
         var fixtures = Comp<FixturesComponent>(uid);
         var fixture = fixtures.Fixtures.First();
         component.CollisionLayerBefore = fixture.Value.CollisionLayer;
@@ -58,7 +56,17 @@ public sealed class IncorporealSystem : EntitySystem
     private void OnRefreshMovementSpeedModifiersEvent(EntityUid uid, IncorporealComponent component,
         ref RefreshMovementSpeedModifiersEvent args)
     {
-        args.ModifySpeed(component.SpeedModifier, component.SpeedModifier);
+        switch (component.LifeStage)
+        {
+            case ComponentLifeStage.Added:
+            case ComponentLifeStage.Adding:
+            case ComponentLifeStage.Initialized:
+            case ComponentLifeStage.Initializing:
+            case ComponentLifeStage.Starting:
+            case ComponentLifeStage.Running:
+                args.ModifySpeed(component.SpeedModifier, component.SpeedModifier);
+                break;
+        }
     }
 
     private void OnInteractionAttemptEvent(EntityUid uid, IncorporealComponent shadowling, ref InteractionAttemptEvent args)
@@ -67,16 +75,13 @@ public sealed class IncorporealSystem : EntitySystem
         args.Cancel();
     }
 
-    public void MakeIncorporeal(EntityUid uid, bool turnRenderBack = true)
+    public void MakeIncorporeal(EntityUid uid)
     {
         if (IsIncorporeal(uid))
             return;
 
-        var incorporeal = EnsureComp<IncorporealComponent>(uid);
-        incorporeal.TurnRenderBack = turnRenderBack;
-        Dirty(uid, incorporeal);
+        EnsureComp<IncorporealComponent>(uid);
     }
-
 
     public void MakeCorporeal(EntityUid uid)
     {

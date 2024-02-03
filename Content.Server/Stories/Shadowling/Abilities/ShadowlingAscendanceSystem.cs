@@ -31,27 +31,33 @@ public sealed class ShadowlingAscendanceSystem : EntitySystem
 
     private void OnAscendance(EntityUid uid, ShadowlingComponent component, ref ShadowlingAscendanceEvent ev)
     {
-        if (!TryComp<TransformComponent>(uid, out var transform))
+        if (ev.Handled)
             return;
 
         ev.Handled = true;
+        Log.Debug("Point 0");
 
         var solution = new Solution();
-        solution.AddReagent("ShadowlingSmokeReagent", 300);
+        solution.AddReagent("ShadowlingSmokeReagent", 100);
 
-        var smokeEnt = Spawn("Smoke", transform.Coordinates);
-        _smoke.StartSmoke(smokeEnt, solution, 30, 12);
+        var smokeEnt = Spawn("Smoke", Transform(uid).Coordinates);
+        _smoke.StartSmoke(smokeEnt, solution, 5, 7);
 
         var newNullableUid = _polymorph.PolymorphEntity(uid, ShadowlingAscendedPolymorph);
+
+        Log.Debug("Point 1");
 
         if (newNullableUid is not { } newUid)
             return;
 
-        _stun.TryStun(newUid, TimeSpan.FromSeconds(30), true);
+        Log.Debug("Point 2");
+
+        _stun.TryStun(newUid, TimeSpan.FromSeconds(5), true);
         _standing.Down(newUid, dropHeldItems: false, canStandUp: false);
         _physics.SetBodyType(newUid, BodyType.Static);
+        Log.Debug("Point 3");
 
-        var doAfter = new DoAfterArgs(EntityManager, newUid, 30, new ShadowlingAscendanceDoAfterEvent(), newUid)
+        var doAfter = new DoAfterArgs(EntityManager, newUid, 5, new ShadowlingAscendanceDoAfterEvent(), newUid)
         {
             RequireCanInteract = false,
         };

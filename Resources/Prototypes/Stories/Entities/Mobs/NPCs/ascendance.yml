@@ -7,6 +7,7 @@
   description: Если вы его видите, то вам следует бежать
   components:
   - type: Shadowling
+    ascended: true
   - type: Insulated
   - type: CombatMode
   - type: InputMover
@@ -28,10 +29,10 @@
   - type: Hands
   - type: Sprite
     drawdepth: Mobs
-    sprite: Stories/Mobs/Demons/ascendance.rsi
+    sprite: Stories/Mobs/Demons/shadowling.rsi
     layers:
     - map: ["enum.DamageStateVisualLayers.Base"]
-      state: active
+      state: shadowling_ascended
   - type: Fixtures
     fixtures:
       fix1:
@@ -74,7 +75,6 @@
     drawFov: false
     visMask:
       - Normal
-      - Ghost
   - type: ContentEye
     maxZoom: 1.2, 1.2
   - type: DoAfter
@@ -97,3 +97,4 @@
     channels:
     - ShadowlingMind
     globalReceive: true
+  - type: Puller

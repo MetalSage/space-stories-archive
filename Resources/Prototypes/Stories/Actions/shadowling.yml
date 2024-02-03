@@ -190,6 +190,7 @@
     icon: { sprite: Stories/Actions/shadowling.rsi, state: plane_shift }
     itemIconStyle: NoItem
     priority: -11
+    checkCanInteract: false
     event: !type:ShadowlingPlaneShiftEvent {}
 
 - type: entity

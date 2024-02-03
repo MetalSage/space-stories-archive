@@ -54,13 +54,13 @@ public sealed class ShadowlingSonicScreechSystem : EntitySystem
             if (TryComp<StaminaComponent>(body, out _))
             {
                 _stamina.TakeStaminaDamage(body, 100);
-                _popup.PopupClient("Волна визга оглушает вас!", body, body);
+                _popup.PopupEntity("Волна визга оглушает вас!", body, body);
                 continue;
             }
             if (TryComp<BorgChassisComponent>(uid, out var borg))
             {
                 _emp.DoEmpEffects(body, 50_000, 15);
-                _popup.PopupClient("Волна визга выводит вашу электронику из строя", body, body);
+                _popup.PopupEntity("Волна визга выводит вашу электронику из строя", body, body);
             }
         }
     }

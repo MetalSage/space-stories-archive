@@ -18,8 +18,19 @@ public sealed class ShadowlingHatchSystem : EntitySystem
     [Dependency] private readonly StunSystem _stun = default!;
     [Dependency] private readonly PolymorphSystem _polymorph = default!;
     [Dependency] private readonly PhysicsSystem _physics = default!;
+    [Dependency] private readonly MetaDataSystem _meta = default!;
+    [Dependency] private readonly ShadowlingSystem _shadowling = default!;
 
     public readonly string ShadowlingPolymorph = "Shadowling";
+    public readonly List<string> DefaultAbilities = new()
+    {
+        "ActionShadowlingGlare",
+        "ActionShadowlingVeil",
+        "ActionShadowlingShadowWalk",
+        "ActionShadowlingIcyVeins",
+        "ActionShadowlingCollectiveMind",
+        "ActionShadowlingRapidReHatch",
+    };
 
     public override void Initialize()
     {
@@ -37,21 +48,24 @@ public sealed class ShadowlingHatchSystem : EntitySystem
         ev.Handled = true;
 
         var solution = new Solution();
-        solution.AddReagent("ShadowlingSmokeReagent", 300);
+        solution.AddReagent("ShadowlingSmokeReagent", 100);
 
         var smokeEnt = Spawn("Smoke", transform.Coordinates);
-        _smoke.StartSmoke(smokeEnt, solution, 30, 12);
+        _smoke.StartSmoke(smokeEnt, solution, 5, 7);
+        var oldMeta = MetaData(uid);
 
         var newNullableUid = _polymorph.PolymorphEntity(uid, ShadowlingPolymorph);
 
         if (newNullableUid is not { } newUid)
             return;
 
-        _stun.TryStun(newUid, TimeSpan.FromSeconds(30), true);
+        _meta.SetEntityName(newUid, oldMeta.EntityName);
+
+        _stun.TryStun(newUid, TimeSpan.FromSeconds(5), true);
         _standing.Down(newUid, dropHeldItems: false, canStandUp: false);
         _physics.SetBodyType(newUid, BodyType.Static);
 
-        var doAfter = new DoAfterArgs(EntityManager, newUid, 30, new ShadowlingHatchDoAfterEvent(), newUid)
+        var doAfter = new DoAfterArgs(EntityManager, newUid, 5, new ShadowlingHatchDoAfterEvent(), newUid)
         {
             RequireCanInteract = false,
         };
@@ -62,5 +76,11 @@ public sealed class ShadowlingHatchSystem : EntitySystem
     {
         _standing.Stand(uid);
         _physics.SetBodyType(uid, BodyType.KinematicController);
+        _shadowling.RemoveAction(uid, ShadowlingSystem.ShadowlingHatchAction, component);
+
+        foreach (var action in DefaultAbilities)
+        {
+            _shadowling.AddAction(uid, action, component);
+        }
     }
 }

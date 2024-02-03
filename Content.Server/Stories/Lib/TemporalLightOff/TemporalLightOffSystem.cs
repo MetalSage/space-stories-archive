@@ -34,7 +34,7 @@ public sealed partial class TemporalLightOffSystem : EntitySystem
     {
         if (!Resolve(uid, ref pointLight))
             return;
-        if (pointLight.Enabled == false)
+        if (!pointLight.Enabled)
             return;
 
         var curTime = _timing.CurTime;
@@ -56,14 +56,18 @@ public sealed partial class TemporalLightOffSystem : EntitySystem
 
     public override void Update(float frameTime)
     {
-        var query = EntityQueryEnumerator<TemporalLightOffComponent>();
+        var query = EntityQueryEnumerator<TemporalLightOffComponent, PointLightComponent>();
         var curTime = _timing.CurTime;
 
-        while (query.MoveNext(out var uid, out var comp))
+        while (query.MoveNext(out var uid, out var comp, out var pointLight))
         {
-            if (comp.EnableLightAt > curTime)
+            if (comp.EnableLightAt < curTime)
             {
                 EnableLight(uid);
+            }
+            else if (pointLight.Enabled)
+            {
+                _pointLight.SetEnabled(uid, false, pointLight);
             }
         }
     }

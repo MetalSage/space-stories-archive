@@ -20,7 +20,7 @@ public sealed class ShadowlingIcyVeinsSystem : EntitySystem
     private void OnIcyVeinsEvent(EntityUid uid, ShadowlingComponent component, ref ShadowlingIcyVeinsEvent ev)
     {
         ev.Handled = true;
-        var bodies = _shadowling.GetEntitiesAroundShadowling<BodyComponent>(uid, 15);
+        var bodies = _shadowling.GetEntitiesAroundShadowling<BodyComponent>(uid, 7.5f);
         var solution = new Solution();
         solution.AddReagent(IceOilPrototype, 10);
 
