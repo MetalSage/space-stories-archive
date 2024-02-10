@@ -71,7 +71,7 @@ public sealed partial class PhotosensitivitySystem : EntitySystem
                 {
                     foreach (var entity in _mapSystem.GetAnchoredEntities(grid, grid.Comp, line.Current))
                     {
-                        if (HasComp<OccluderComponent>(entity))
+                        if (TryComp<OccluderComponent>(entity, out var occluder) && occluder.Enabled)
                         {
                             lightDirInterrupted = true;
                             break;
@@ -85,9 +85,12 @@ public sealed partial class PhotosensitivitySystem : EntitySystem
 
             if (lightPoint.Comp.MaskPath is { } maskPath && maskPath.EndsWith("cone.png"))
             {
-                var lightPointPositionRotation = _transform.GetWorldPositionRotation(lightPoint);
-                var vector = destination - lightPointPositionRotation.WorldPosition;
+                var lightPointRotation = _transform.GetWorldRotation(lightPoint);
+                var entityVector = destination - source;
+                var entityAngle = entityVector.ToWorldAngle();
 
+                if (entityAngle > lightPointRotation + 45 || entityAngle < lightPointRotation - 45)
+                    continue;
             }
 
             illumination = Math.Max(illumination, lightPoint.Comp.Radius - lightPoint.Comp.Energy * dist);

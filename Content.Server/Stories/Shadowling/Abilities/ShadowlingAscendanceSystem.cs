@@ -45,17 +45,12 @@ public sealed class ShadowlingAscendanceSystem : EntitySystem
 
         var newNullableUid = _polymorph.PolymorphEntity(uid, ShadowlingAscendedPolymorph);
 
-        Log.Debug("Point 1");
-
         if (newNullableUid is not { } newUid)
             return;
-
-        Log.Debug("Point 2");
 
         _stun.TryStun(newUid, TimeSpan.FromSeconds(5), true);
         _standing.Down(newUid, dropHeldItems: false, canStandUp: false);
         _physics.SetBodyType(newUid, BodyType.Static);
-        Log.Debug("Point 3");
 
         var doAfter = new DoAfterArgs(EntityManager, newUid, 5, new ShadowlingAscendanceDoAfterEvent(), newUid)
         {

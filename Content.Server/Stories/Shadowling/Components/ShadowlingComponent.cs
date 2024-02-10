@@ -37,7 +37,7 @@ public sealed partial class ShadowlingComponent : SharedShadowlingComponent
     {
         DamageDict = new()
         {
-            { "Heat", 3 }
+            { "Heat", 1 }
         }
     };
 

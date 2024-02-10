@@ -59,6 +59,7 @@
     useDelay: 90
     icon: { sprite: Stories/Actions/shadowling.rsi, state: shadow_walk }
     itemIconStyle: NoItem
+    checkCanInteract: false
     priority: -11
     event: !type:ShadowlingShadowWalkEvent {}
 
