@@ -9,6 +9,7 @@ namespace Content.Shared.Alert
     {
         Error,
         LowOxygen,
+        LowNitrogen,
         LowPressure,
         HighPressure,
         Fire,
@@ -51,9 +52,7 @@ namespace Content.Shared.Alert
         SuitPower,
         BorgHealth,
         BorgCrit,
-        BorgDead,
-        SpafHealth,
-        SpafDead
+        BorgDead
     }
 
 }
