@@ -1,0 +1,29 @@
+- type: entity
+  name: валентиновый торт
+  parent: FoodCakeChocolate
+  id: FoodCakeValentine
+  description: Торт в форме сердечка. Не похож на ложь.
+  components:
+  - type: Sprite
+    sprite: Stories/Objects/Misc/valentine/cake.rsi
+    state: cake
+  - type: SliceableFood
+    slice: FoodCakeValentineSlice
+    
+- type: entity
+  name: кусочек валентинового торта
+  parent: FoodCakeChocolateSlice
+  id: FoodCakeValentineSlice
+  components:
+  - type: Sprite
+    sprite: Stories/Objects/Misc/valentine/cake.rsi
+    state: slice
+  
+- type: microwaveMealRecipe
+  id: RecipeCakeValentine
+  name: рецепт шоколадного торта
+  result: FoodCakeValentine
+  time: 5
+  solids:
+    FoodCakePlain: 1
+    FoodSnackValentineSweet: 4

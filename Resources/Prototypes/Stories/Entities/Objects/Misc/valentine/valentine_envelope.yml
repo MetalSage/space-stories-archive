@@ -1,0 +1,47 @@
+- type: entity
+  id: ValentineEnvelope
+  parent: BoxBase
+  name: валентинка
+  description: Конверт с каким-то посланием. Украшен сердечками.
+  components:
+  - type: Sprite
+    sprite: Stories/Objects/Misc/valentine/envelope.rsi
+    layers:
+    - state: envelope
+      map: [ base ]
+    - state: paper1
+      map: ["paper1"]
+      visible: false
+    - state: paper2
+      map: ["paper2"]
+      visible: false     
+  - type: Item
+    size: Small
+    shape: null
+  - type: Storage
+    maxItemSize: Small
+    grid:
+    - 0,0,0,0
+    whitelist:
+      tags:
+        - Document
+  - type: Tag
+    tags:
+    - Folder
+  - type: StorageFill
+    contents:
+      - id: Paper
+  - type: GenericVisualizer
+    visuals:
+      enum.StorageVisuals.Open:
+        base:
+          True: { state: envelope-open }
+          False: { state: envelope }
+  - type: ItemCounter
+    count:
+      tags: [Document]
+    composite: true
+    layerStates:
+    - paper1
+    - paper2
+  - type: Appearance

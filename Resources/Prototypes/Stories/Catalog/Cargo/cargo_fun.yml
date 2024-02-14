@@ -1,0 +1,10 @@
+- type: cargoProduct
+  id: FunValentineSet
+  icon:
+    sprite: Stories/Objects/Misc/valentine/sweetbox.rsi
+    state: sweetbox
+  product: CrateFunValentineSet 
+  cost: 1500
+  category: Fun
+  group: market
+

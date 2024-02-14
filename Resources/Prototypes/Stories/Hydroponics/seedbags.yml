@@ -1,0 +1,39 @@
+- type: entity
+  parent: SeedBase
+  name: пакет семян лилии
+  id: LilieSeeds
+  components:
+  - type: Seed
+    seedId: lilie
+  - type: Sprite
+    sprite: Stories/Objects/Specific/Hydroponics/lilie.rsi
+  
+- type: entity
+  parent: SeedBase
+  name: пакет семян подсолнуха
+  id: SunflowerSeeds
+  components:
+  - type: Seed
+    seedId: sunflower
+  - type: Sprite
+    sprite: Stories/Objects/Specific/Hydroponics/sunflower.rsi
+      
+- type: entity
+  parent: SeedBase
+  name: пакет семян роз
+  id: RoseSeeds
+  components:
+  - type: Seed
+    seedId: rose
+  - type: Sprite
+    sprite: Stories/Objects/Specific/Hydroponics/rose.rsi
+      
+- type: entity
+  parent: SeedBase
+  name: пакет семян полевых цветов
+  id: FieldFlowersSeeds
+  components:
+  - type: Seed
+    seedId: fieldflower
+  - type: Sprite
+    sprite: Stories/Objects/Specific/Hydroponics/fieldflower.rsi

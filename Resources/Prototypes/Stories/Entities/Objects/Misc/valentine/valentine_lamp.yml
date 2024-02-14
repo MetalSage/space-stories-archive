@@ -1,0 +1,17 @@
+- type: entity
+  name: лампа валентинка
+  id: ValentineLamp
+  parent: BaseLamp
+  description: Лампа с сердечками.
+  components:
+  - type: Sprite
+    sprite: Stories/Objects/Misc/Lights/valentine_lamp.rsi
+    layers:
+      - state: lamp
+        map: [ "base" ]
+      - state: lamp-on
+        shader: unshaded
+        visible: false
+        map: [ "light" ]
+  - type: Item
+    sprite: Stories/Objects/Misc/Lights/valentine_lamp.rsi

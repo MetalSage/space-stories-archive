@@ -1,0 +1,19 @@
+- type: entity
+  name: набор валентина
+  description: Коробка, содержащая все для впечатления второй половинки.
+  id: CrateFunValentineSet
+  parent: CratePlastic
+  components:
+  - type: StorageFill
+    contents:
+      - id: ValentineEnvelope
+        amount: 10
+      - id: ValentineSweetBox
+        amount: 5
+      - id: FoodCakeValentine
+        amount: 1
+      - id: ValentineLamp
+        amount: 2
+      - id: ValentineCandle
+        amount: 5
+     

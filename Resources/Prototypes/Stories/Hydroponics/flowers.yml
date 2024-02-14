@@ -1,0 +1,47 @@
+- type: entity
+  name: лилия
+  parent: BaseItem
+  id: FlowerLilie
+  description: Многие народы считали, что этот цветок олицетворяет изящество, красоту и роскошь.
+  components:
+  - type: Sprite
+    sprite: Stories/Objects/Specific/Hydroponics/lilie.rsi
+    state: produce
+  - type: Produce
+    seedId: lilie
+
+- type: entity
+  name: подсолнух
+  parent: BaseItem
+  id: Sunflower
+  description: Многие народы считали, что этот цветок означает жизнь, радость и процветание, символ гармонии и красоты, символ связи земли и неба
+  components:
+  - type: Sprite
+    sprite: Stories/Objects/Specific/Hydroponics/sunflower.rsi
+    state: produce
+  - type: Produce
+    seedId: sunflower
+
+- type: entity
+  name: роза
+  parent: BaseItem
+  id: FlowerRose
+  description: Многие народы считали, что этот цветок символизирует триаду Любви, Терпения и Мученичества Богоматери
+  components:
+  - type: Sprite
+    sprite: Stories/Objects/Specific/Hydroponics/rose.rsi
+    state: produce
+  - type: Produce
+    seedId: rose
+
+- type: entity
+  name: полевые цветы
+  parent: BaseItem
+  id: FieldFlower
+  description: А запах ... м-м-м. Интересно, какой чай из них может сварить Asler?
+  components:
+  - type: Sprite
+    sprite: Stories/Objects/Specific/Hydroponics/fieldflower.rsi
+    state: produce
+  - type: Produce
+    seedId: fieldflower

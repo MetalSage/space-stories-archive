@@ -1,0 +1,22 @@
+- type: reagent
+  id: ValentineIceCream
+  name: красное мороженное
+  parent: BaseSoda
+  desc: Мороженное с розовым оттенком. Неизвестно, кто назвал его красным.
+  physicalDesc: reagent-physical-desc-creamy
+  flavor: icecream
+  color: "#EFA5A4"
+  recognizable: true
+  metamorphicSprite:
+    sprite: Stories/Objects/Misc/valentine/icecream.rsi
+    state: icon
+    
+- type: reaction
+  id: ValentineIceCream
+  reactants:
+    IceCream:
+      amount: 1
+    JuiceWatermelon:
+      amount: 1
+  products:
+    ValentineIceCream: 2

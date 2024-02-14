@@ -1,0 +1,14 @@
+- type: entity
+  name: свечка валентинка
+  parent: Candle
+  id: ValentineCandle
+  description: Свечка для самых романтических встреч.
+  components:
+    - type: Sprite
+      noRot: true
+      sprite: Stories/Objects/Misc/Lights/valentine_candles.rsi
+      layers:
+        - state: candle
+    - type: FireVisuals
+      sprite: Stories/Objects/Misc/Lights/valentine_candles.rsi
+      normalState: fire

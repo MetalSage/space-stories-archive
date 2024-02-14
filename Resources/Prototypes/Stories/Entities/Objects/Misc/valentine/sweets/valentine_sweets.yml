@@ -1,0 +1,54 @@
+- type: entity
+  name: шоколадная конфетка
+  parent: FoodSnackBase
+  id: FoodSnackValentineSweet
+  description: На вкус как шоколадка.
+  components:
+  - type: FlavorProfile
+    flavors:
+      - chocolate
+  - type: Sprite
+    sprite: Stories/Objects/Misc/valentine/sweets.rsi
+    state: sweet
+  - type: Item
+    size: Tiny
+  - type: SolutionContainerManager
+    solutions:
+      food:
+        maxVol: 15
+        reagents:
+        - ReagentId: Nutriment
+          Quantity: 2
+        - ReagentId: Theobromine
+          Quantity: 2
+        - ReagentId: CocoaPowder
+          Quantity: 1
+          
+- type: entity
+  name: коробка конфет
+  parent: BoxCardboard
+  id: ValentineSweetBox
+  description: Коробка конфет в форме сердца.
+  components:
+  - type: Sprite
+    sprite: Stories/Objects/Misc/valentine/sweetbox.rsi
+    layers:
+    - map: [ base ]
+      state: sweetbox
+  - type: Storage
+    grid:
+    - 1,0,1,0
+    - 3,0,3,0
+    - 0,1,4,2
+    - 1,3,3,3
+    - 2,4,2,4
+  - type: GenericVisualizer
+    visuals:
+      enum.StorageVisuals.Open:
+        base:
+          True: { state: sweetbox-open }
+          False: { state: sweetbox }
+  - type: StorageFill
+    contents:
+      - id: FoodSnackValentineSweet
+        amount: 16
