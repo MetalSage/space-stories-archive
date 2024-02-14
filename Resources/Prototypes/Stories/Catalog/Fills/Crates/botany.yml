@@ -2,7 +2,7 @@
   id: CrateHydroponicsSeedsFlower
   parent: CrateHydroponics
   name: ящик цветочных семян
-  description: Набор любителей красивого. Содержит по несколько семян различных цветов.
+  description: Набор любителей красивого. Содержит несколько семян различных цветов.
   components:
   - type: StorageFill
     contents:

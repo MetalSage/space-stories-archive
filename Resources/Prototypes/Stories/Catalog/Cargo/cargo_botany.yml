@@ -1,0 +1,10 @@
+- type: cargoProduct
+  id: HydroponicsSeedsFlowers
+  icon:
+    sprite: Stories/Objects/Specific/Hydroponics/rose.rsi
+    state: harvest
+  product: CrateHydroponicsSeedsFlower
+  cost: 500
+  category: Hydroponics
+  group: market
+
