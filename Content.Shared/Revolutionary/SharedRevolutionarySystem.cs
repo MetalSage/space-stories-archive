@@ -20,7 +20,6 @@ public sealed class SharedRevolutionarySystem : EntitySystem
     {
         base.Initialize();
 
-        SubscribeLocalEvent<MindShieldComponent, MapInitEvent>(MindShieldImplanted);
         SubscribeLocalEvent<RevolutionaryComponent, ComponentGetStateAttemptEvent>(OnRevCompGetStateAttempt);
         SubscribeLocalEvent<HeadRevolutionaryComponent, ComponentGetStateAttemptEvent>(OnRevCompGetStateAttempt);
         SubscribeLocalEvent<RevolutionaryComponent, ComponentStartup>(DirtyRevComps);

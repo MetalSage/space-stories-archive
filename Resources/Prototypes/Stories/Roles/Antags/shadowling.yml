@@ -2,7 +2,7 @@
   id: Shadowling
   name: Тенеморф | БЕТА |
   antagonist: true
-  setPreference: true
+  setPreference: false
   objective: Поработите экипаж и станьте богом
   requirements:
   - !type:OverallPlaytimeRequirement

@@ -22,33 +22,55 @@ public sealed class ShadowlingSystem : SharedShadowlingSystem<ShadowlingThrallCo
 
     private void OnStartup(EntityUid uid, ShadowlingComponent component, ref ComponentStartup ev)
     {
-        if (_player.LocalEntity != uid)
+        if (_player.LocalSession == null)
+            return;
+        if (_player.LocalSession.AttachedEntity != uid)
             return;
 
-        _light.DrawShadows = false;
+        ToggleDarkVision(component, true);
     }
 
     private void OnPlayerAttached(EntityUid uid, ShadowlingComponent component, ref PlayerAttachedEvent ev)
     {
-        if (_player.LocalEntity != uid)
+        if (_player.LocalSession == null)
+            return;
+        if (_player.LocalSession.AttachedEntity != uid)
+            return;
+        if (ev.Entity != uid)
             return;
 
-        _light.DrawShadows = false;
+        ToggleDarkVision(component, true);
     }
 
     private void OnPlayerDetached(EntityUid uid, ShadowlingComponent component, ref PlayerDetachedEvent ev)
     {
-        if (_player.LocalEntity != uid)
+        if (_player.LocalSession?.AttachedEntity != null)
+            return;
+        if (ev.Entity != uid)
             return;
 
-        _light.DrawShadows = true;
+        ToggleDarkVision(component, false);
     }
 
     private void OnShutdown(EntityUid uid, ShadowlingComponent component, ref ComponentShutdown ev)
     {
-        if (_player.LocalEntity != uid)
+        if (_player.LocalSession == null)
+            return;
+        if (_player.LocalSession.AttachedEntity != uid)
             return;
 
-        _light.DrawShadows = true;
+        ToggleDarkVision(component, false);
+    }
+
+    private void ToggleDarkVision(ShadowlingComponent component, bool newState)
+    {
+        if (newState)
+        {
+            _light.DrawShadows = false;
+        }
+        else
+        {
+            _light.DrawShadows = true;
+        }
     }
 }

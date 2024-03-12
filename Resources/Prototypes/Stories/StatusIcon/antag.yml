@@ -2,12 +2,12 @@
   id: ShadowlingFaction
   priority: 11
   icon:
-    sprite: Stories/Interface/Misc/job_icons.rsi
+    sprite: /Textures/Stories/Interface/Misc/job_icons.rsi
     state: Shadowlings
 
 - type: statusIcon
   id: ShadowlingThrallFaction
   priority: 11
   icon:
-    sprite: Stories/Interface/Misc/job_icons.rsi
+    sprite: /Textures/Stories/Interface/Misc/job_icons.rsi
     state: ShadowlingsSlave

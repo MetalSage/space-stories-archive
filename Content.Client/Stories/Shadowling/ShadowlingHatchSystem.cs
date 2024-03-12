@@ -6,8 +6,8 @@ namespace Content.Client.Stories.Shadowling;
 
 public sealed class ShadowlingHatchSystem : EntitySystem
 {
-    [Dependency] private readonly ILightManager _light = default!;
     [Dependency] private readonly IPlayerManager _player = default!;
+    [Dependency] private readonly IEyeManager _eye = default!;
 
     public override void Initialize()
     {
@@ -20,8 +20,7 @@ public sealed class ShadowlingHatchSystem : EntitySystem
     {
         if (_player.LocalEntity == uid)
         {
-            _light.DrawShadows = false;
-            _light.DrawHardFov = false;
+            _eye.CurrentEye.DrawFov = false;
         }
     }
 }

@@ -1,16 +1,18 @@
 - type: polymorph
   id: Shadowling
-  entity: MobShadowling
-  forced: true
-  inventory: Drop
-  revertOnCrit: false
-  revertOnDeath: false
+  configuration:
+    entity: MobShadowling
+    forced: true
+    inventory: Drop
+    revertOnCrit: false
+    revertOnDeath: false
 
 - type: polymorph
   id: Ascended
-  entity: MobAscendance
-  forced: true
-  inventory: Drop
-  allowRepeatedMorphs: true
-  revertOnCrit: false
-  revertOnDeath: false
+  configuration:
+    entity: MobAscendance
+    forced: true
+    inventory: Drop
+    allowRepeatedMorphs: true
+    revertOnCrit: false
+    revertOnDeath: false
