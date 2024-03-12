@@ -1,0 +1,49 @@
+- type: entity
+  id: WeaponStasisGunBase
+  abstract: true
+  parent: BaseItem
+  components:
+  - type: Sprite
+    sprite: Objects/Weapons/Guns/Basic/spraynozzle.rsi
+    state: icon
+  - type: Item
+    sprite: Objects/Weapons/Guns/Basic/spraynozzle.rsi
+    size: Large
+  - type: GunWieldBonus
+    minAngle: -43
+    maxAngle: -43
+  - type: Wieldable
+  - type: Gun
+    cameraRecoilScalar: 0.1
+    fireRate: 0.5
+    selectedMode: SemiAuto
+    angleDecay: 45
+    minAngle: 44
+    maxAngle: 45
+    availableModes:
+    - SemiAuto
+    soundGunshot:
+      path: /Audio/Weapons/Guns/Gunshots/kinetic_accel.ogg
+  - type: AmmoCounter
+  - type: Appearance
+  - type: Clothing
+    sprite: Objects/Weapons/Guns/Basic/spraynozzle.rsi
+    quickEquip: false
+    slots:
+    - Belt
+  - type: UseDelay
+    delay: 0.25
+  - type: ClothingSlotAmmoProvider
+    targetSlot: BACK
+    providerWhitelist:
+      tags:
+      - StasisBattery
+      
+- type: entity
+  id: WeaponStasisGun
+  parent: WeaponStasisGunBase
+  name: темпоральное устройство заморозки
+  description: Устройство для остановки временного потока любого существа
+  components:
+  - type: Sprite
+    sprite: Objects/Weapons/Guns/Basic/spraynozzle.rsi

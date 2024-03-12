@@ -1,0 +1,30 @@
+- type: entity
+  parent: ClothingBackpack
+  id: ClothingBackpackStasisBattery
+  name: стазисное хранилище тахионов
+  description: Хранит энергию для заморозки временного потока. Также оснащен небольшим блюспейс хранилищем.
+  components:
+  - type: Sprite
+    sprite: Clothing/Back/Backpacks/waterbackpack.rsi
+    state: icon
+  - type: Clothing
+    slots: BACK
+    sprite: Clothing/Back/Backpacks/waterbackpack.rsi
+  - type: BasicEntityAmmoProvider
+    proto: BulletStasis
+    capacity: 1
+    count: 1
+  - type: RechargeBasicEntityAmmo
+    rechargeCooldown: 2.5
+    rechargeSound:
+      path: /Audio/Weapons/Guns/MagIn/kinetic_reload.ogg
+  - type: Item
+    size: Ginormous
+  - type: Storage
+    maxItemSize: Huge
+    grid:
+    - 0,0,19,9
+  - type: Tag
+    tags:
+    - StasisBattery
+    - WhitelistChameleon

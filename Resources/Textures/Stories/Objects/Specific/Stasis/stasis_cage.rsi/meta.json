@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "license": "CC-BY-SA-3.0",
+  "copyright": "by SpaceStories",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "icon"
+    },
+	{
+      "name": "stasis_cage"
+    },
+	{
+      "name": "stasis_cage-on",
+	  "delays": [
+	    [
+		  0.1,
+		  0.1,
+		  0.1,
+		  0.1
+		]
+	  ]
+    }
+  ]
+}
