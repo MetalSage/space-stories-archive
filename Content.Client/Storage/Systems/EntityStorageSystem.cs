@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using Content.Client.StatusIcon;
 using Content.Client.Storage.Components;
 using Content.Shared.Destructible;
 using Content.Shared.Foldable;
@@ -18,6 +17,7 @@ public sealed class EntityStorageSystem : SharedEntityStorageSystem
     public override void Initialize()
     {
         base.Initialize();
+        SubscribeLocalEvent<EntityStorageComponent, EntityUnpausedEvent>(OnEntityUnpausedEvent);
         SubscribeLocalEvent<EntityStorageComponent, ComponentInit>(OnComponentInit);
         SubscribeLocalEvent<EntityStorageComponent, ComponentStartup>(OnComponentStartup);
         SubscribeLocalEvent<EntityStorageComponent, ActivateInWorldEvent>(OnInteract, after: new[] { typeof(LockSystem) });
@@ -29,8 +29,6 @@ public sealed class EntityStorageSystem : SharedEntityStorageSystem
 
         SubscribeLocalEvent<EntityStorageComponent, ComponentGetState>(OnGetState);
         SubscribeLocalEvent<EntityStorageComponent, ComponentHandleState>(OnHandleState);
-
-        SubscribeLocalEvent<InsideEntityStorageComponent, StatusIconVisibleEvent>(OnStatusIconVisible);
     }
 
     public override bool ResolveStorage(EntityUid uid, [NotNullWhen(true)] ref SharedEntityStorageComponent? component)
@@ -41,10 +39,5 @@ public sealed class EntityStorageSystem : SharedEntityStorageSystem
         TryComp<EntityStorageComponent>(uid, out var storage);
         component = storage;
         return component != null;
-    }
-
-    private void OnStatusIconVisible(EntityUid uid, InsideEntityStorageComponent comp, ref StatusIconVisibleEvent args)
-    {
-        args.Visible = false;
     }
 }
