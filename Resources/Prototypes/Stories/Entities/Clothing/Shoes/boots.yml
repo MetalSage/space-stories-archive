@@ -33,3 +33,58 @@
       sprite: Stories/Clothing/Shoes/Boots/jackboots_sp.rsi
     - type: Clothing
       sprite: Stories/Clothing/Shoes/Boots/jackboots_sp.rsi
+
+- type: entity
+  parent: ClothingShoesBootsMag
+  id: ClothingShoesBootsChrono
+  name: сапоги будущего
+  description: Продвинутая футуристичная обувь, гарантирующая удобство носителя и полное сцепление с любой поверхностью
+  components:
+  - type: Sprite
+    sprite: Stories/Clothing/Shoes/Boots/chronolegioneer.rsi
+    state: icon
+  - type: Clothing
+    sprite: Stories/Clothing/Shoes/Boots/chronolegioneer.rsi
+  - type: Magboots
+    toggleAction: ActionToggleMagbootsAdvanced
+  - type: ClothingSpeedModifier
+    walkModifier: 1
+    sprintModifier: 1
+    enabled: false
+  - type: NoSlip
+  - type: GasTank
+    outputPressure: 1
+    air:
+      volume: 10
+      temperature: 1
+      moles:
+        - 1000 # oxygen
+        - 1000 # nitrogen
+  - type: ActivatableUI
+    key: enum.SharedGasTankUiKey.Key
+  - type: Jetpack
+    moleUsage: 0.00002
+  - type: CanMoveInAir
+  - type: InputMover
+    toParent: true
+  - type: MovementSpeedModifier
+    weightlessAcceleration: 1.5
+    weightlessFriction: 1
+    weightlessModifier: 2.5
+  - type: UserInterface
+    interfaces:
+      - key: enum.SharedGasTankUiKey.Key
+        type: GasTankBoundUserInterface
+  - type: Tag
+    tags:
+    - WhitelistChameleon
+  - type: FootstepModifier
+    footstepSoundCollection:
+      collection: FootstepHeavySuit
+
+- type: entity
+  parent: ClothingShoesBootsChrono
+  id: ClothingShoesBootsChronoUnremoveable
+  suffix: Неснимаемые
+  components:
+  - type: Unremoveable

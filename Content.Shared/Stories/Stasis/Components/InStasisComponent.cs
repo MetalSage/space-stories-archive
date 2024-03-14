@@ -15,7 +15,8 @@ namespace Content.Shared.Stories.Stasis
 
         public SoundSpecifier StasisEndSound = new SoundPathSpecifier("/Audio/Stories/Effects/Stasis/stasis_reversed.ogg");
 
-        public string EffectEntityProto = "EffectProtectiveBubble";
+        [DataField("effectProto")]
+        public string EffectEntityProto = "EffectStasis";
 
         public EntityUid Effect = new();
     }

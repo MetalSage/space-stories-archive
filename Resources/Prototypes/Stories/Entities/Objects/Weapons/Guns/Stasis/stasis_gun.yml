@@ -4,10 +4,10 @@
   parent: BaseItem
   components:
   - type: Sprite
-    sprite: Objects/Weapons/Guns/Basic/spraynozzle.rsi
+    sprite: Stories/Objects/Weapons/Guns/Stasis/stasisgun.rsi
     state: icon
   - type: Item
-    sprite: Objects/Weapons/Guns/Basic/spraynozzle.rsi
+    sprite: Stories/Objects/Weapons/Guns/Stasis/stasisgun.rsi
     size: Large
   - type: GunWieldBonus
     minAngle: -43
@@ -23,11 +23,10 @@
     availableModes:
     - SemiAuto
     soundGunshot:
-      path: /Audio/Weapons/Guns/Gunshots/kinetic_accel.ogg
-  - type: AmmoCounter
+      path: /Audio/Stories/Weapons/Stasis/stasisgun_shoot.ogg
   - type: Appearance
   - type: Clothing
-    sprite: Objects/Weapons/Guns/Basic/spraynozzle.rsi
+    sprite: Stories/Objects/Weapons/Guns/Stasis/stasisgun.rsi
     quickEquip: false
     slots:
     - Belt
@@ -42,8 +41,9 @@
 - type: entity
   id: WeaponStasisGun
   parent: WeaponStasisGunBase
-  name: темпоральное устройство заморозки
+  name: стазис пушка
   description: Устройство для остановки временного потока любого существа
   components:
   - type: Sprite
-    sprite: Objects/Weapons/Guns/Basic/spraynozzle.rsi
+    sprite: Stories/Objects/Weapons/Guns/Stasis/stasisgun.rsi
+    state: icon

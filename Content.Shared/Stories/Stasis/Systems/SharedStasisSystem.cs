@@ -2,6 +2,7 @@ using Content.Shared.ActionBlocker;
 using Content.Shared.Administration.Logs;
 using Content.Shared.Damage;
 using Content.Shared.Database;
+using Content.Shared.Emoting;
 using Content.Shared.Hands;
 using Content.Shared.Implants;
 using Content.Shared.Interaction.Events;
@@ -9,11 +10,13 @@ using Content.Shared.Inventory.Events;
 using Content.Shared.Item;
 using Content.Shared.Movement.Events;
 using Content.Shared.Pulling.Events;
+using Content.Shared.Speech;
 using Content.Shared.Standing;
 using Content.Shared.StatusEffect;
 using Content.Shared.Stories.Stasis.Components;
 using Content.Shared.Throwing;
 using Robust.Shared.Audio.Systems;
+using Robust.Shared.Containers;
 
 namespace Content.Shared.Stories.Stasis;
 
@@ -25,6 +28,7 @@ public abstract class SharedStasisSystem : EntitySystem
     [Dependency] private readonly ActionBlockerSystem _blocker = default!;
     [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
     [Dependency] private readonly SharedAudioSystem _audio = default!;
+    [Dependency] private readonly SharedContainerSystem _container = default!;
     [Dependency] private readonly StatusEffectsSystem _statusEffects = default!;
     [Dependency] private readonly StandingStateSystem _standingSystem = default!;
     [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
@@ -49,8 +53,16 @@ public abstract class SharedStasisSystem : EntitySystem
         SubscribeLocalEvent<InStasisComponent, IsUnequippingAttemptEvent>(OnAttempt);
         SubscribeLocalEvent<InStasisComponent, BeforeDamageChangedEvent>(OnDamage);
         SubscribeLocalEvent<InStasisComponent, StartPullAttemptEvent>(OnAttempt);
-        SubscribeLocalEvent<InStasisComponent, BeingPulledAttemptEvent>(OnAttempt);
-        SubscribeLocalEvent<InStasisComponent, AddImplantAttemptEvent>(OnAttempt);
+        SubscribeLocalEvent<InStasisComponent, SpeakAttemptEvent>(OnAttempt);
+        SubscribeLocalEvent<InStasisComponent, EmoteAttemptEvent>(OnAttempt);
+        SubscribeLocalEvent<InStasisComponent, GettingInteractedWithAttemptEvent>(OnInteractionWithAttempt);
+      //  SubscribeLocalEvent<InStasisComponent, ContainerGettingInsertedAttemptEvent>(OnContainmentAttempt);
+
+        SubscribeLocalEvent<NoStasisComponent, GotEquippedEvent>(OnEquip);
+        SubscribeLocalEvent<NoStasisComponent, GotUnequippedEvent>(OnUnequip);
+
+        SubscribeLocalEvent<StasisStorageComponent, ContainerIsInsertingAttemptEvent>(OnContained);
+        SubscribeLocalEvent<StasisStorageComponent, ContainerIsRemovingAttemptEvent>(OnContainRemoved);
     }
 
     private void OnStasisAdded(EntityUid uid, InStasisComponent stasised, EntityEventArgs args)
@@ -75,6 +87,14 @@ public abstract class SharedStasisSystem : EntitySystem
         args.Cancel();
     }
 
+    private void OnInteractionWithAttempt(EntityUid uid, InStasisComponent component, GettingInteractedWithAttemptEvent args)
+    {
+        if (HasComp<StasisImmunityComponent>(args.Uid))
+            return;
+
+        args.Cancel();
+    }
+
     private void OnMoveAttempt(EntityUid uid, InStasisComponent component, UpdateCanMoveEvent args)
     {
         if (component.LifeStage > ComponentLifeStage.Running)
@@ -90,7 +110,7 @@ public abstract class SharedStasisSystem : EntitySystem
         if (time.HasValue)
             statusTime = time.Value;
         else
-            statusTime = new TimeSpan(0, 0, 0, 0, -1);
+            statusTime = new TimeSpan(1, 0, 0, 0, 0);
 
         if (!Resolve(uid, ref status, false))
             return false;
@@ -114,6 +134,32 @@ public abstract class SharedStasisSystem : EntitySystem
         args.Cancelled = true;
     }
 
+    public void OnEquip(EntityUid uid, NoStasisComponent component, GotEquippedEvent args)
+    {
+        if (HasComp<StasisImmunityComponent>(args.Equipee))
+            return;
+
+        EntityManager.AddComponent<StasisImmunityComponent>(args.Equipee);
+    }
+
+    public void OnUnequip(EntityUid uid, NoStasisComponent component, GotUnequippedEvent args)
+    {
+        if (HasComp<StasisImmunityComponent>(args.Equipee))
+            EntityManager.RemoveComponent<StasisImmunityComponent>(args.Equipee);
+    }
+
+    public void OnContained(EntityUid uid, StasisStorageComponent component, ContainerIsInsertingAttemptEvent args)
+    {
+        if (HasComp<StasisImmunityComponent>(args.EntityUid))
+            return;
+
+        TryStasis(args.EntityUid, true, null, null);
+    }
+
+    public void OnContainRemoved(EntityUid uid, StasisStorageComponent component, ContainerIsRemovingAttemptEvent args)
+    {
+        _statusEffects.TryRemoveStatusEffect(args.EntityUid, "Stasis");
+    }
 }
 
 /// <summary>
