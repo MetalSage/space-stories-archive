@@ -1,4 +1,4 @@
-using Content.Server.Administration;
+﻿using Content.Server.Administration;
 using Content.Server.GameTicking;
 using Content.Server.GameTicking.Events;
 using Content.Server.Worldgen.Components;
@@ -74,7 +74,7 @@ public sealed class WorldgenConfigSystem : EntitySystem
             return;
 
         var target = _map.GetMapEntityId(_gameTicker.DefaultMap);
-        Log.Debug($"Trying to configure {_gameTicker.DefaultMap}, aka {ToPrettyString(target)} aka {target}");
+        Logger.Debug($"Trying to configure {_gameTicker.DefaultMap}, aka {ToPrettyString(target)} aka {target}");
         var cfg = _proto.Index<WorldgenConfigPrototype>(_worldgenConfig);
 
         cfg.Apply(target, _ser, EntityManager); // Apply the config to the map.

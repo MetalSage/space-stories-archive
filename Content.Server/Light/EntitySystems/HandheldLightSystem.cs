@@ -1,6 +1,5 @@
 using Content.Server.Actions;
 using Content.Server.Popups;
-using Content.Server.Power.EntitySystems;
 using Content.Server.PowerCell;
 using Content.Shared.Actions;
 using Content.Shared.Examine;
@@ -26,7 +25,6 @@ namespace Content.Server.Light.EntitySystems
         [Dependency] private readonly ActionContainerSystem _actionContainer = default!;
         [Dependency] private readonly PopupSystem _popup = default!;
         [Dependency] private readonly PowerCellSystem _powerCell = default!;
-        [Dependency] private readonly BatterySystem _battery = default!;
         [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
         [Dependency] private readonly SharedAudioSystem _audio = default!;
         [Dependency] private readonly SharedPointLightSystem _lights = default!;
@@ -247,15 +245,12 @@ namespace Content.Server.Light.EntitySystems
         public void TryUpdate(Entity<HandheldLightComponent> uid, float frameTime)
         {
             var component = uid.Comp;
-            if (!_powerCell.TryGetBatteryFromSlot(uid, out var batteryUid, out var battery, null) &&
+            if (!_powerCell.TryGetBatteryFromSlot(uid, out var battery) &&
                 !TryComp(uid, out battery))
             {
                 TurnOff(uid, false);
                 return;
             }
-
-            if (batteryUid == null)
-                return;
 
             var appearanceComponent = EntityManager.GetComponentOrNull<AppearanceComponent>(uid);
 
@@ -273,7 +268,7 @@ namespace Content.Server.Light.EntitySystems
                 _appearance.SetData(uid, HandheldLightVisuals.Power, HandheldLightPowerStates.Dying, appearanceComponent);
             }
 
-            if (component.Activated && !_battery.TryUseCharge(batteryUid.Value, component.Wattage * frameTime, battery))
+            if (component.Activated && !battery.TryUseCharge(component.Wattage * frameTime))
                 TurnOff(uid, false);
 
             UpdateLevel(uid);

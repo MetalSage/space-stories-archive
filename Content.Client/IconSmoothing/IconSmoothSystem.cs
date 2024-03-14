@@ -231,7 +231,7 @@ namespace Content.Client.IconSmoothing
 
             if (!spriteQuery.TryGetComponent(uid, out var sprite))
             {
-                Log.Error($"Encountered a icon-smoothing entity without a sprite: {ToPrettyString(uid)}");
+                Logger.Error($"Encountered a icon-smoothing entity without a sprite: {ToPrettyString(uid)}");
                 RemCompDeferred(uid, smooth);
                 return;
             }
@@ -242,7 +242,7 @@ namespace Content.Client.IconSmoothing
             {
                 if (!_mapManager.TryGetGrid(xform.GridUid, out grid))
                 {
-                    Log.Error($"Failed to calculate IconSmoothComponent sprite in {uid} because grid {xform.GridUid} was missing.");
+                    Logger.Error($"Failed to calculate IconSmoothComponent sprite in {uid} because grid {xform.GridUid} was missing.");
                     return;
                 }
             }

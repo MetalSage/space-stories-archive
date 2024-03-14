@@ -90,10 +90,6 @@
     {
       "name": "steel-bench",
       "directions": 4
-    },
-	{
-		"name": "brass_chair",
-		"directions": 4
-	}
+    }
   ]
 }

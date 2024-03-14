@@ -241,6 +241,7 @@
 
 - type: entity
   id: LockableButtonCaptain
+  name: lockable button
   suffix: Captain
   parent: LockableButton
   components:
@@ -249,6 +250,7 @@
 
 - type: entity
   id: LockableButtonHeadOfPersonnel
+  name: lockable button
   suffix: HeadOfPersonnel
   parent: LockableButton
   components:
@@ -257,6 +259,7 @@
 
 - type: entity
   id: LockableButtonChiefEngineer
+  name: lockable button
   suffix: ChiefEngineer
   parent: LockableButton
   components:
@@ -265,6 +268,7 @@
 
 - type: entity
   id: LockableButtonChiefMedicalOfficer
+  name: lockable button
   suffix: ChiefMedicalOfficer
   parent: LockableButton
   components:
@@ -273,6 +277,7 @@
 
 - type: entity
   id: LockableButtonHeadOfSecurity
+  name: lockable button
   suffix: HeadOfSecurity
   parent: LockableButton
   components:
@@ -281,6 +286,7 @@
 
 - type: entity
   id: LockableButtonResearchDirector
+  name: lockable button
   suffix: ResearchDirector
   parent: LockableButton
   components:
@@ -289,6 +295,7 @@
 
 - type: entity
   id: LockableButtonCommand
+  name: lockable button
   suffix: Command
   parent: LockableButton
   components:
@@ -297,6 +304,7 @@
 
 - type: entity
   id: LockableButtonCryogenics
+  name: lockable button
   suffix: Cryogenics
   parent: LockableButton
   components:
@@ -305,6 +313,7 @@
 
 - type: entity
   id: LockableButtonSecurity
+  name: lockable button
   suffix: Security
   parent: LockableButton
   components:
@@ -313,6 +322,7 @@
 
 - type: entity
   id: LockableButtonDetective
+  name: lockable button
   suffix: Detective
   parent: LockableButton
   components:
@@ -321,6 +331,7 @@
 
 - type: entity
   id: LockableButtonArmory
+  name: lockable button
   suffix: Armory
   parent: LockableButton
   components:
@@ -329,6 +340,7 @@
 
 - type: entity
   id: LockableButtonBrig
+  name: lockable button
   suffix: Brig
   parent: LockableButton
   components:
@@ -337,6 +349,7 @@
 
 - type: entity
   id: LockableButtonLawyer
+  name: lockable button
   suffix: Lawyer
   parent: LockableButton
   components:
@@ -345,6 +358,7 @@
 
 - type: entity
   id: LockableButtonEngineering
+  name: lockable button
   suffix: Engineering
   parent: LockableButton
   components:
@@ -353,6 +367,7 @@
 
 - type: entity
   id: LockableButtonMedical
+  name: lockable button
   suffix: Medical
   parent: LockableButton
   components:
@@ -361,6 +376,7 @@
 
 - type: entity
   id: LockableButtonQuartermaster
+  name: lockable button
   suffix: Quartermaster
   parent: LockableButton
   components:
@@ -369,6 +385,7 @@
 
 - type: entity
   id: LockableButtonSalvage
+  name: lockable button
   suffix: Salvage
   parent: LockableButton
   components:
@@ -377,6 +394,7 @@
 
 - type: entity
   id: LockableButtonCargo
+  name: lockable button
   suffix: Cargo
   parent: LockableButton
   components:
@@ -385,6 +403,7 @@
 
 - type: entity
   id: LockableButtonResearch
+  name: lockable button
   suffix: Research
   parent: LockableButton
   components:
@@ -393,6 +412,7 @@
 
 - type: entity
   id: LockableButtonService
+  name: lockable button
   suffix: Service
   parent: LockableButton
   components:
@@ -401,6 +421,7 @@
 
 - type: entity
   id: LockableButtonMaintenance
+  name: lockable button
   suffix: Maintenance
   parent: LockableButton
   components:
@@ -409,6 +430,7 @@
 
 - type: entity
   id: LockableButtonExternal
+  name: lockable button
   suffix: External
   parent: LockableButton
   components:
@@ -417,6 +439,7 @@
 
 - type: entity
   id: LockableButtonJanitor
+  name: lockable button
   suffix: Janitor
   parent: LockableButton
   components:
@@ -425,6 +448,7 @@
 
 - type: entity
   id: LockableButtonTheatre
+  name: lockable button
   suffix: Theatre
   parent: LockableButton
   components:
@@ -433,6 +457,7 @@
 
 - type: entity
   id: LockableButtonBar
+  name: lockable button
   suffix: Bar
   parent: LockableButton
   components:
@@ -441,6 +466,7 @@
 
 - type: entity
   id: LockableButtonChemistry
+  name: lockable button
   suffix: Chemistry
   parent: LockableButton
   components:
@@ -449,6 +475,7 @@
 
 - type: entity
   id: LockableButtonKitchen
+  name: lockable button
   suffix: Kitchen
   parent: LockableButton
   components:
@@ -457,6 +484,7 @@
 
 - type: entity
   id: LockableButtonChapel
+  name: lockable button
   suffix: Chapel
   parent: LockableButton
   components:
@@ -465,6 +493,7 @@
 
 - type: entity
   id: LockableButtonHydroponics
+  name: lockable button
   suffix: Hydroponics
   parent: LockableButton
   components:
@@ -473,6 +502,7 @@
 
 - type: entity
   id: LockableButtonAtmospherics
+  name: lockable button
   suffix: Atmospherics
   parent: LockableButton
   components:

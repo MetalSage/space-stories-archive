@@ -41,7 +41,6 @@
         - Geiger
         - TrayScanner
         - GasAnalyzer
-        - HandLabeler
   - type: ItemMapper
     mapLayers:
       drill:
@@ -266,12 +265,10 @@
         - PillCanister
         - Radio
         - DiscreteHealthAnalyzer
-        - SurgeryTool
       components:
         - Hypospray
         - Injector
         - Pill
-        - HandLabeler
   - type: ItemMapper
     mapLayers:
       bottle:
@@ -344,7 +341,6 @@
       components:
         - Seed
         - Smokable
-        - HandLabeler
   - type: ItemMapper
     mapLayers:
       hatchet:

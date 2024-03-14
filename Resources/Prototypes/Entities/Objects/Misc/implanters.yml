@@ -119,8 +119,6 @@
           implantOnly:
             True: {state: broken}
             False: {state: implanter1}
-    - type: Tag
-      tags: []
 
 #Fun implanters
 

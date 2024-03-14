@@ -103,7 +103,7 @@
     tags:
       - Syndicate
   - type: RadarConsole
-    maxRange: 384
+    maxRange: 1536
   - type: WorldLoader
     radius: 1536
   - type: PointLight
@@ -964,9 +964,6 @@
       state: request
     - map: ["computerLayerKeys"]
       state: tech_key
-  - type: Anchorable
-    flags:
-    - Anchorable
   - type: CargoPalletConsole
   - type: ActivatableUI
     key: enum.CargoPalletConsoleUiKey.Sale

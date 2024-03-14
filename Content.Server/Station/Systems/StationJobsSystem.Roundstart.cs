@@ -323,7 +323,8 @@ public sealed partial class StationJobsSystem
 
             jobs.ExtendedAccess = count <= thresh;
 
-            Log.Debug("Station {Station} on extended access: {ExtendedAccess}",
+            Logger.DebugS(
+                "station", "Station {Station} on extended access: {ExtendedAccess}",
                 Name(station), jobs.ExtendedAccess);
         }
     }

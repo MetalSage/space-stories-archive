@@ -30,6 +30,7 @@
   - Reporter
   - Visitor
   - Zookeeper
+  - Detective
   - ServiceWorker
 
 - type: department
@@ -84,7 +85,6 @@
   - SecurityCadet
   - SecurityOfficer
   - SeniorOfficer # Stories-Seniors
-  - Detective
   - Warden
   - JediNt # Stories-Jedi
 

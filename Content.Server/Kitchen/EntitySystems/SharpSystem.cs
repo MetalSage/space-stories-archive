@@ -1,11 +1,8 @@
 ﻿using Content.Server.Body.Systems;
 using Content.Server.Kitchen.Components;
-using Content.Shared.Administration.Logs;
 using Content.Shared.Body.Components;
-using Content.Shared.Database;
 using Content.Shared.Interaction;
 using Content.Shared.Nutrition.Components;
-using Content.Server.Nutrition.EntitySystems;
 using Content.Shared.Popups;
 using Content.Shared.Storage;
 using Content.Shared.Verbs;
@@ -29,13 +26,12 @@ public sealed class SharpSystem : EntitySystem
     [Dependency] private readonly ContainerSystem _containerSystem = default!;
     [Dependency] private readonly MobStateSystem _mobStateSystem = default!;
     [Dependency] private readonly IRobustRandom _robustRandom = default!;
-    [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
 
     public override void Initialize()
     {
         base.Initialize();
 
-        SubscribeLocalEvent<SharpComponent, AfterInteractEvent>(OnAfterInteract, before: new[] { typeof(UtensilSystem) });
+        SubscribeLocalEvent<SharpComponent, AfterInteractEvent>(OnAfterInteract);
         SubscribeLocalEvent<SharpComponent, SharpDoAfterEvent>(OnDoAfter);
 
         SubscribeLocalEvent<ButcherableComponent, GetVerbsEvent<InteractionVerb>>(OnGetInteractionVerbs);
@@ -43,34 +39,31 @@ public sealed class SharpSystem : EntitySystem
 
     private void OnAfterInteract(EntityUid uid, SharpComponent component, AfterInteractEvent args)
     {
-        if (args.Handled)
-            return;
-
         if (args.Target is null || !args.CanReach)
             return;
 
-        args.Handled = TryStartButcherDoAfter(uid, args.Target.Value, args.User);
+        TryStartButcherDoafter(uid, args.Target.Value, args.User);
     }
 
-    private bool TryStartButcherDoAfter(EntityUid knife, EntityUid target, EntityUid user)
+    private void TryStartButcherDoafter(EntityUid knife, EntityUid target, EntityUid user)
     {
         if (!TryComp<ButcherableComponent>(target, out var butcher))
-            return false;
+            return;
 
         if (!TryComp<SharpComponent>(knife, out var sharp))
-            return false;
+            return;
 
-        if (TryComp<MobStateComponent>(target, out var mobState) && !_mobStateSystem.IsDead(target, mobState))
-            return false;
-
-        if (butcher.Type != ButcheringType.Knife && target != user)
+        if (butcher.Type != ButcheringType.Knife)
         {
             _popupSystem.PopupEntity(Loc.GetString("butcherable-different-tool", ("target", target)), knife, user);
-            return true;
+            return;
         }
 
+        if (TryComp<MobStateComponent>(target, out var mobState) && !_mobStateSystem.IsDead(target, mobState))
+            return;
+
         if (!sharp.Butchering.Add(target))
-            return true;
+            return;
 
         var doAfter =
             new DoAfterArgs(EntityManager, user, sharp.ButcherDelayModifier * butcher.ButcherDelay, new SharpDoAfterEvent(), knife, target: target, used: knife)
@@ -80,8 +73,8 @@ public sealed class SharpSystem : EntitySystem
                 BreakOnDamage = true,
                 NeedHand = true
             };
+
         _doAfterSystem.TryStartDoAfter(doAfter);
-        return true;
     }
 
     private void OnDoAfter(EntityUid uid, SharpComponent component, DoAfterEvent args)
@@ -128,11 +121,6 @@ public sealed class SharpSystem : EntitySystem
         _destructibleSystem.DestroyEntity(args.Args.Target.Value);
 
         args.Handled = true;
-
-        _adminLogger.Add(LogType.Gib,
-            $"{EntityManager.ToPrettyString(args.User):user} " +
-            $"has butchered {EntityManager.ToPrettyString(args.Target):target} " +
-            $"with {EntityManager.ToPrettyString(args.Used):knife}");
     }
 
     private void OnGetInteractionVerbs(EntityUid uid, ButcherableComponent component, GetVerbsEvent<InteractionVerb> args)
@@ -166,7 +154,7 @@ public sealed class SharpSystem : EntitySystem
             Act = () =>
             {
                 if (!disabled)
-                    TryStartButcherDoAfter(args.Using!.Value, args.Target, args.User);
+                    TryStartButcherDoafter(args.Using!.Value, args.Target, args.User);
             },
             Message = message,
             Disabled = disabled,

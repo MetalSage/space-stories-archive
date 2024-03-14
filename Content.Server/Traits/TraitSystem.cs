@@ -27,7 +27,7 @@ public sealed class TraitSystem : EntitySystem
         {
             if (!_prototypeManager.TryIndex<TraitPrototype>(traitId, out var traitPrototype))
             {
-                Log.Warning($"No trait found with ID {traitId}!");
+                Logger.Warning($"No trait found with ID {traitId}!");
                 return;
             }
 

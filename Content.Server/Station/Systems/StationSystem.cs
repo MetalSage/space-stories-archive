@@ -456,7 +456,7 @@ public sealed class StationSystem : EntitySystem
 
         if (xform.GridUid == EntityUid.Invalid)
         {
-            Log.Debug("Unable to get owning station - GridUid invalid.");
+            Log.Debug("A");
             return null;
         }
 

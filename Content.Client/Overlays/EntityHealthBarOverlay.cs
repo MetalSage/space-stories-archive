@@ -8,8 +8,6 @@ using Robust.Client.Graphics;
 using Robust.Shared.Enums;
 using System.Numerics;
 using Content.Shared.StatusIcon.Components;
-using Content.Client.UserInterface.Systems;
-using Robust.Shared.Prototypes;
 using static Robust.Shared.Maths.Color;
 
 namespace Content.Client.Overlays;
@@ -19,25 +17,19 @@ namespace Content.Client.Overlays;
 /// </summary>
 public sealed class EntityHealthBarOverlay : Overlay
 {
-    [Dependency] private readonly IPrototypeManager _prototype = default!;
     private readonly IEntityManager _entManager;
     private readonly SharedTransformSystem _transform;
     private readonly MobStateSystem _mobStateSystem;
     private readonly MobThresholdSystem _mobThresholdSystem;
-    private readonly ProgressColorSystem _progressColor;
     public override OverlaySpace Space => OverlaySpace.WorldSpaceBelowFOV;
     public HashSet<string> DamageContainers = new();
-    private readonly ShaderInstance _shader;
 
     public EntityHealthBarOverlay(IEntityManager entManager)
     {
-        IoCManager.InjectDependencies(this);
         _entManager = entManager;
-        _transform = _entManager.System<SharedTransformSystem>();
-        _mobStateSystem = _entManager.System<MobStateSystem>();
-        _mobThresholdSystem = _entManager.System<MobThresholdSystem>();
-        _progressColor = _entManager.System<ProgressColorSystem>();
-        _shader = _prototype.Index<ShaderPrototype>("unshaded").Instance();
+        _transform = _entManager.EntitySysManager.GetEntitySystem<SharedTransformSystem>();
+        _mobStateSystem = _entManager.EntitySysManager.GetEntitySystem<MobStateSystem>();
+        _mobThresholdSystem = _entManager.EntitySysManager.GetEntitySystem<MobThresholdSystem>();
     }
 
     protected override void Draw(in OverlayDrawArgs args)
@@ -49,8 +41,6 @@ public sealed class EntityHealthBarOverlay : Overlay
         const float scale = 1f;
         var scaleMatrix = Matrix3.CreateScale(new Vector2(scale, scale));
         var rotationMatrix = Matrix3.CreateRotation(-rotation);
-
-        handle.UseShader(_shader);
 
         var query = _entManager.AllEntityQueryEnumerator<MobThresholdsComponent, MobStateComponent, DamageableComponent, SpriteComponent>();
         while (query.MoveNext(out var uid,
@@ -157,11 +147,30 @@ public sealed class EntityHealthBarOverlay : Overlay
         return (0, true);
     }
 
-    public Color GetProgressColor(float progress, bool crit)
+    public static Color GetProgressColor(float progress, bool crit)
     {
-        if (crit)
-            progress = 0;
+        if (progress >= 1.0f)
+        {
+            return Lime;
+        }
 
-        return _progressColor.GetProgressColor(progress);
+        if (!crit)
+        {
+            switch (progress)
+            {
+                case > 0.90F:
+                    return LightGreen;
+                case > 0.75F:
+                    return Green;
+                case > 0.50F:
+                    return Orange;
+                case > 0.25F:
+                    return OrangeRed;
+                case > 0.10F:
+                    return Red;
+            }
+        }
+
+        return Red;
     }
 }

@@ -97,7 +97,7 @@
 
 - type: entity
   name: lizard-tail kebab
-  parent: FoodMeatKebab
+  parent: FoodSkewerBase
   id: FoodMeatLizardtailKebab
   description: Severed lizard tail on a stick.
   components:

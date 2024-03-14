@@ -21,7 +21,7 @@ public sealed partial class AirlockComponent : Component
     public bool Safety = true;
 
     [ViewVariables(VVAccess.ReadWrite)]
-    [DataField, AutoNetworkedField]
+    [DataField]
     public bool EmergencyAccess = false;
 
     /// <summary>

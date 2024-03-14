@@ -1,6 +1,5 @@
 using System.Numerics;
 using Content.Server.Body.Components;
-using Content.Server.Botany.Components;
 using Content.Server.Fluids.EntitySystems;
 using Content.Server.Materials;
 using Content.Server.Power.Components;
@@ -18,7 +17,6 @@ using Content.Shared.Interaction.Events;
 using Content.Shared.Jittering;
 using Content.Shared.Medical;
 using Content.Shared.Mind;
-using Content.Shared.Materials;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.Nutrition.Components;
@@ -28,7 +26,6 @@ using Robust.Server.Player;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Configuration;
 using Robust.Shared.Physics.Components;
-using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 
 namespace Content.Server.Medical.BiomassReclaimer
@@ -49,9 +46,6 @@ namespace Content.Server.Medical.BiomassReclaimer
         [Dependency] private readonly IPlayerManager _playerManager = default!;
         [Dependency] private readonly MaterialStorageSystem _material = default!;
         [Dependency] private readonly SharedMindSystem _minds = default!;
-
-        [ValidatePrototypeId<MaterialPrototype>]
-        public const string BiomassPrototype = "Biomass";
 
         public override void Update(float frameTime)
         {
@@ -85,9 +79,7 @@ namespace Content.Server.Medical.BiomassReclaimer
                     continue;
                 }
 
-                var actualYield = (int) (reclaimer.CurrentExpectedYield); // can only have integer biomass
-                reclaimer.CurrentExpectedYield = reclaimer.CurrentExpectedYield - actualYield; // store non-integer leftovers
-                _material.SpawnMultipleFromMaterial(actualYield, BiomassPrototype, Transform(uid).Coordinates);
+                _material.SpawnMultipleFromMaterial(reclaimer.CurrentExpectedYield, "Biomass", Transform(uid).Coordinates);
 
                 reclaimer.BloodReagent = null;
                 reclaimer.SpawnedEntities.Clear();
@@ -156,14 +148,10 @@ namespace Content.Server.Medical.BiomassReclaimer
             if (!args.CanReach || args.Target == null)
                 return;
 
-            if (!CanGib(reclaimer, args.Used))
+            if (!HasComp<MobStateComponent>(args.Used) || !CanGib(reclaimer, args.Used))
                 return;
 
-            if (!TryComp<PhysicsComponent>(args.Used, out var physics))
-                return;
-
-            var delay = reclaimer.Comp.BaseInsertionDelay * physics.FixturesMass;
-            _doAfterSystem.TryStartDoAfter(new DoAfterArgs(EntityManager, args.User, delay, new ReclaimerDoAfterEvent(), reclaimer, target: args.Target, used: args.Used)
+            _doAfterSystem.TryStartDoAfter(new DoAfterArgs(EntityManager, args.User, 7f, new ReclaimerDoAfterEvent(), reclaimer, target: args.Target, used: args.Used)
             {
                 BreakOnTargetMove = true,
                 BreakOnUserMove = true,
@@ -186,14 +174,11 @@ namespace Content.Server.Medical.BiomassReclaimer
 
         private void OnDoAfter(Entity<BiomassReclaimerComponent> reclaimer, ref ReclaimerDoAfterEvent args)
         {
-            if (args.Handled || args.Cancelled)
-                return;
-
-            if (args.Args.Used == null || args.Args.Target == null || !HasComp<BiomassReclaimerComponent>(args.Args.Target.Value))
+            if (args.Handled || args.Cancelled || args.Args.Target == null || HasComp<BiomassReclaimerComponent>(args.Args.Target.Value))
                 return;
 
             _adminLogger.Add(LogType.Action, LogImpact.Extreme, $"{ToPrettyString(args.Args.User):player} used a biomass reclaimer to gib {ToPrettyString(args.Args.Target.Value):target} in {ToPrettyString(reclaimer):reclaimer}");
-            StartProcessing(args.Args.Used.Value, reclaimer);
+            StartProcessing(args.Args.Target.Value, reclaimer);
 
             args.Handled = true;
         }
@@ -215,13 +200,8 @@ namespace Content.Server.Medical.BiomassReclaimer
                 component.SpawnedEntities = butcherableComponent.SpawnedEntities;
             }
 
-            var expectedYield = physics.FixturesMass * component.YieldPerUnitMass;
-            if (HasComp<ProduceComponent>(toProcess))
-                expectedYield *= component.ProduceYieldMultiplier;
-            component.CurrentExpectedYield += expectedYield;
-
+            component.CurrentExpectedYield = (int) Math.Max(0, physics.FixturesMass * component.YieldPerUnitMass);
             component.ProcessingTimer = physics.FixturesMass * component.ProcessingTimePerUnitMass;
-
             QueueDel(toProcess);
         }
 
@@ -230,8 +210,7 @@ namespace Content.Server.Medical.BiomassReclaimer
             if (HasComp<ActiveBiomassReclaimerComponent>(reclaimer))
                 return false;
 
-            bool isPlant = HasComp<ProduceComponent>(dragged);
-            if (!isPlant && !HasComp<MobStateComponent>(dragged))
+            if (!HasComp<MobStateComponent>(dragged))
                 return false;
 
             if (!Transform(reclaimer).Anchored)
@@ -240,7 +219,7 @@ namespace Content.Server.Medical.BiomassReclaimer
             if (TryComp<ApcPowerReceiverComponent>(reclaimer, out var power) && !power.Powered)
                 return false;
 
-            if (!isPlant && reclaimer.Comp.SafetyEnabled && !_mobState.IsDead(dragged))
+            if (reclaimer.Comp.SafetyEnabled && !_mobState.IsDead(dragged))
                 return false;
 
             // Reject souled bodies in easy mode.

@@ -45,7 +45,7 @@
   - type: ItemSlots
     slots:
       item:
-        name: clothing-boots-sidearm
+        name: clothing-military-boots-sidearm
         whitelist:
           tags:
           - Knife

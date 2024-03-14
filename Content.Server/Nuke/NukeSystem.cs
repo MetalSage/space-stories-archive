@@ -46,8 +46,7 @@ public sealed class NukeSystem : EntitySystem
     /// <summary>
     ///     Used to calculate when the nuke song should start playing for maximum kino with the nuke sfx
     /// </summary>
-    private float _nukeSongLength;
-    private string _selectedNukeSong = String.Empty;
+    private const float NukeSongLength = 60f + 51.6f;
 
     /// <summary>
     ///     Time to leave between the nuke song and the nuke alarm playing.
@@ -293,9 +292,9 @@ public sealed class NukeSystem : EntitySystem
 
         // Start playing the nuke event song so that it ends a couple seconds before the alert sound
         // should play
-        if (nuke.RemainingTime <= _nukeSongLength + nuke.AlertSoundTime + NukeSongBuffer && !nuke.PlayedNukeSong && !string.IsNullOrEmpty(_selectedNukeSong))
+        if (nuke.RemainingTime <= NukeSongLength + nuke.AlertSoundTime + NukeSongBuffer && !nuke.PlayedNukeSong)
         {
-            _sound.DispatchStationEventMusic(uid, _selectedNukeSong, StationEventMusicType.Nuke);
+            _sound.DispatchStationEventMusic(uid, nuke.ArmMusic, StationEventMusicType.Nuke);
             nuke.PlayedNukeSong = true;
         }
 
@@ -458,9 +457,6 @@ public sealed class NukeSystem : EntitySystem
         var y = (int) pos.Y;
         var posText = $"({x}, {y})";
 
-        // We are collapsing the randomness here, otherwise we would get separate random song picks for checking duration and when actually playing the song afterwards
-        _selectedNukeSong = _audio.GetSound(component.ArmMusic);
-
         // warn a crew
         var announcement = Loc.GetString("nuke-component-announcement-armed",
             ("time", (int) component.RemainingTime), ("position", posText));
@@ -468,7 +464,6 @@ public sealed class NukeSystem : EntitySystem
         _chatSystem.DispatchStationAnnouncement(stationUid ?? uid, announcement, sender, false, null, Color.Red);
 
         _sound.PlayGlobalOnStation(uid, _audio.GetSound(component.ArmSound));
-        _nukeSongLength = (float) _audio.GetAudioLength(_selectedNukeSong).TotalSeconds;
 
         // turn on the spinny light
         _pointLight.SetEnabled(uid, true);

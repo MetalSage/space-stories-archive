@@ -15,7 +15,7 @@ namespace Content.Server.Medical.BiomassReclaimer
         /// <summary>
         /// The interval for <see cref="RandomMessTimer"/>.
         /// </summary>
-        [ViewVariables(VVAccess.ReadWrite), DataField]
+        [ViewVariables(VVAccess.ReadWrite), DataField("randomMessInterval")]
         public TimeSpan RandomMessInterval = TimeSpan.FromSeconds(5);
 
         /// <summary>
@@ -28,10 +28,9 @@ namespace Content.Server.Medical.BiomassReclaimer
         /// <summary>
         /// Amount of biomass that the mob being processed will yield.
         /// This is calculated from the YieldPerUnitMass.
-        /// Also stores non-integer leftovers.
         /// </summary>
         [ViewVariables]
-        public float CurrentExpectedYield = 0f;
+        public int CurrentExpectedYield = default;
 
         /// <summary>
         /// The reagent that will be spilled while processing a mob.
@@ -51,18 +50,6 @@ namespace Content.Server.Medical.BiomassReclaimer
         public float YieldPerUnitMass = 0.4f;
 
         /// <summary>
-        /// How many seconds to take to insert an entity per unit of its mass.
-        /// </summary>
-        [DataField, ViewVariables(VVAccess.ReadWrite)]
-        public float BaseInsertionDelay = 0.1f;
-
-        /// <summary>
-        /// How much to multiply biomass yield from botany produce.
-        /// </summary>
-        [DataField, ViewVariables(VVAccess.ReadWrite)]
-        public float ProduceYieldMultiplier = 0.25f;
-
-        /// <summary>
         /// The time it takes to process a mob, per mass.
         /// </summary>
         [DataField, ViewVariables(VVAccess.ReadWrite)]
@@ -71,7 +58,7 @@ namespace Content.Server.Medical.BiomassReclaimer
         /// <summary>
         /// Will this refuse to gib a living mob?
         /// </summary>
-        [ViewVariables(VVAccess.ReadWrite), DataField]
+        [ViewVariables(VVAccess.ReadWrite), DataField("safetyEnabled")]
         public bool SafetyEnabled = true;
     }
 }

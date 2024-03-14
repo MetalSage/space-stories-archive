@@ -187,7 +187,7 @@ public sealed partial class HumanoidAppearanceSystem : SharedHumanoidAppearanceS
 
         if (speciesPrototype == null)
         {
-            Log.Error("Tried to get age representation of species that couldn't be indexed: " + species);
+            Logger.Error("Tried to get age representation of species that couldn't be indexed: " + species);
             return Loc.GetString("identity-age-young");
         }
 

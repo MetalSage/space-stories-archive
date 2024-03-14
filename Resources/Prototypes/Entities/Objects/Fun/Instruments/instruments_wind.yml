@@ -64,7 +64,6 @@
   - type: Item
     size: Small
     sprite: Objects/Fun/Instruments/harmonica.rsi
-    storedRotation: -90
   - type: Tag
     tags:
     - WoodwindInstrument
@@ -135,7 +134,7 @@
     sprite: Objects/Fun/Instruments/panflute.rsi
     state: icon
   - type: Item
-    size: Small
+    size: Normal
     sprite: Objects/Fun/Instruments/panflute.rsi
   - type: Tag
     tags:
@@ -154,9 +153,8 @@
     sprite: Objects/Fun/Instruments/ocarina.rsi
     state: icon
   - type: Item
-    size: Small
+    size: Normal
     sprite: Objects/Fun/Instruments/ocarina.rsi
-    storedRotation: -90
   - type: Tag
     tags:
     - WoodwindInstrument

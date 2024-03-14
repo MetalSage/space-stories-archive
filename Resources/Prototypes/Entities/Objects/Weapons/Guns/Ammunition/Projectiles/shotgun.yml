@@ -81,13 +81,12 @@
   components:
   - type: Sprite
     sprite: Objects/Weapons/Guns/Projectiles/projectiles2.rsi
-    state: shard
+    state: buckshot
   - type: Projectile
     damage:
       types:
         Piercing: 3
-        Slash: 3 
-        
+        Slash: 3 #remember, it's metal shrapnel!
 
 - type: entity
   id: PelletShotgunTranquilizer

@@ -1,4 +1,2 @@
-ent-FTLPoint = Точка БСС
-    .desc = { ent-MarkerBase.desc }
-ent-FTLExclusion = Зона отчуждения БСС
+ent-FTLPoint = точка БСС
     .desc = { ent-MarkerBase.desc }

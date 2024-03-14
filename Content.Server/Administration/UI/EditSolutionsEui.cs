@@ -36,7 +36,7 @@ namespace Content.Server.Administration.UI
         public override void Closed()
         {
             base.Closed();
-            _entityManager.System<AdminVerbSystem>().OnEditSolutionsEuiClosed(Player, this);
+            _entityManager.System<AdminVerbSystem>().OnEditSolutionsEuiClosed(Player);
         }
 
         public override EuiStateBase GetNewState()

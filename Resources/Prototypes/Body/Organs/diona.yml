@@ -46,7 +46,7 @@
       food:
         maxVol: 5
         reagents:
-        - ReagentId: GreyMatter
+        - ReagentId: UncookedAnimalProteins
           Quantity: 5
 
 - type: entity

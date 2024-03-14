@@ -18,7 +18,7 @@ public sealed partial class MeleeWeaponComponent : Component
     /// <summary>
     /// Does this entity do a disarm on alt attack.
     /// </summary>
-    [DataField, ViewVariables(VVAccess.ReadWrite), AutoNetworkedField]
+    [DataField, ViewVariables(VVAccess.ReadWrite)]
     public bool AltDisarm = true;
 
     /// <summary>

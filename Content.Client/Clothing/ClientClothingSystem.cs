@@ -271,7 +271,7 @@ public sealed class ClientClothingSystem : ClothingSystem
         {
             if (!revealedLayers.Add(key))
             {
-                Log.Warning($"Duplicate key for clothing visuals: {key}. Are multiple components attempting to modify the same layer? Equipment: {ToPrettyString(equipment)}");
+                Logger.Warning($"Duplicate key for clothing visuals: {key}. Are multiple components attempting to modify the same layer? Equipment: {ToPrettyString(equipment)}");
                 continue;
             }
 

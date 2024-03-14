@@ -27,14 +27,10 @@
         food:
           maxVol: 5
           reagents:
-          - ReagentId: GreyMatter
+          - ReagentId: UncookedAnimalProteins
             Quantity: 5
-        organ:
-          reagents:
-          - ReagentId: Slime
-            Quantity: 10
 
-      
+
 - type: entity
   id: OrganSlimeLungs
   parent: BaseHumanOrgan
@@ -60,7 +56,7 @@
     solutions:
       organ:
         reagents:
-        - ReagentId: Slime
+        - ReagentId: Nutriment
           Quantity: 10
       Lung:
         maxVol: 100.0

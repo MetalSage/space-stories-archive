@@ -16,5 +16,3 @@ reagent-name-fat = жир
 reagent-desc-fat = Независимо от того, как он был получен, его применение важно.
 reagent-name-vomit = рвота
 reagent-desc-vomit = Вы можете увидеть в ней несколько кусков чьей-то последней еды.
-reagent-name-grey-matter = серое вещество
-reagent-desc-grey-matter = Сок мыслей, вытекающий из ушей.
