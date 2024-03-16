@@ -52,29 +52,6 @@
     sprintModifier: 1
     enabled: false
   - type: NoSlip
-  - type: GasTank
-    outputPressure: 1
-    air:
-      volume: 10
-      temperature: 1
-      moles:
-        - 1000 # oxygen
-        - 1000 # nitrogen
-  - type: ActivatableUI
-    key: enum.SharedGasTankUiKey.Key
-  - type: Jetpack
-    moleUsage: 0.00002
-  - type: CanMoveInAir
-  - type: InputMover
-    toParent: true
-  - type: MovementSpeedModifier
-    weightlessAcceleration: 1.5
-    weightlessFriction: 1
-    weightlessModifier: 2.5
-  - type: UserInterface
-    interfaces:
-      - key: enum.SharedGasTankUiKey.Key
-        type: GasTankBoundUserInterface
   - type: Tag
     tags:
     - WhitelistChameleon

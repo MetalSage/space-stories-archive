@@ -56,7 +56,6 @@ public abstract class SharedStasisSystem : EntitySystem
         SubscribeLocalEvent<InStasisComponent, SpeakAttemptEvent>(OnAttempt);
         SubscribeLocalEvent<InStasisComponent, EmoteAttemptEvent>(OnAttempt);
         SubscribeLocalEvent<InStasisComponent, GettingInteractedWithAttemptEvent>(OnInteractionWithAttempt);
-      //  SubscribeLocalEvent<InStasisComponent, ContainerGettingInsertedAttemptEvent>(OnContainmentAttempt);
 
         SubscribeLocalEvent<NoStasisComponent, GotEquippedEvent>(OnEquip);
         SubscribeLocalEvent<NoStasisComponent, GotUnequippedEvent>(OnUnequip);

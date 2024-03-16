@@ -7,14 +7,14 @@
   - type: Sprite
     noRot: true
     drawdepth: Objects
-    sprite: Objects/Storage/petcarrier.rsi
+    sprite: Stories/Objects/Specific/Stasis/stasis_cage.rsi
     layers:
-    - state: pet_carrier_base
+    - state: stasis_cage-base
       map: ["enum.StorageVisualLayers.Base"]
-    - state: pet_carrier_door
+    - state: stasis_cage-closed
       map: ["enum.StorageVisualLayers.Door"]
   - type: Icon
-    sprite: Objects/Storage/petcarrier.rsi
+    sprite: Stories/Objects/Specific/Stasis/stasis_cage.rsi
     state: icon
   - type: InteractionOutline
   - type: Physics
@@ -33,13 +33,14 @@
     capacity: 1
     airtight: false
     itemCanStoreMobs: true
+    openOnMove: false
   - type: ResistLocker
   - type: PlaceableSurface
     isPlaceable: false
   - type: Appearance
   - type: EntityStorageVisuals
-    stateDoorOpen: pet_carrier_open
-    stateDoorClosed: pet_carrier_door
+    stateDoorOpen: stasis_cage-opened
+    stateDoorClosed: stasis_cage-closed
   - type: ContainerContainer
     containers:
       entity_storage: !type:Container
@@ -47,5 +48,7 @@
   - type: StasisStorage
   - type: Item
     size: Normal
-    storedRotation: 90
-    sprite: Objects/Storage/petcarrier.rsi
+    sprite: Stories/Objects/Specific/Stasis/stasis_cage.rsi
+  - type: Tag
+    tags:
+      - StasisCage

@@ -66,8 +66,8 @@
         Radiation: 0.05
         Caustic: 0.05
   - type: ClothingSpeedModifier
-    walkModifier: 0.5
-    sprintModifier: 0.5
+    walkModifier: 0.70
+    sprintModifier: 0.70
   - type: HeldSpeedModifier
   - type: NoStasis
   - type: BlinkActionGiver

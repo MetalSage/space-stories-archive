@@ -2,7 +2,7 @@
   parent: ClothingBackpack
   id: ClothingBackpackStasisBattery
   name: стазисное хранилище
-  description: Хранит энергию для заморозки временного потока. Также оснащен небольшим блюспейс хранилищем.
+  description: Хранит энергию для заморозки временного потока. Также оснащен небольшим блюспейс хранилищем
   components:
   - type: Sprite
     sprite: Stories/Clothing/Back/Backpacks/stasis_back.rsi
@@ -23,7 +23,7 @@
   - type: Storage
     maxItemSize: Huge
     grid:
-    - 0,0,19,9
+    - 0,0,9,9
   - type: Tag
     tags:
     - StasisBattery
@@ -35,3 +35,19 @@
   suffix: Неснимаемый
   components:
   - type: Unremoveable
+  
+- type: entity
+  parent: ClothingBackpackStasisBatteryUnremoveable
+  id: ClothingBackpackStasisBatteryUnremoveableFilled
+  suffix: Хроноснаряжение, Неснимаемый
+  components:
+  - type: StorageFill
+    contents:
+      - id: StasisCage
+        amount: 4
+      - id: MedkitCombatStasiziumFilled
+      - id: StasisBaton
+      - id: FreedomImplanter
+      - id: ScramImplanter
+      - id: MindShieldImplanter
+      - id: RCDChrono

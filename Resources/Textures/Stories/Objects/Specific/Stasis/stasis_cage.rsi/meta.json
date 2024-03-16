@@ -11,18 +11,21 @@
       "name": "icon"
     },
 	{
-      "name": "stasis_cage"
+      "name": "stasis_cage-opened"
     },
 	{
-      "name": "stasis_cage-on",
-	  "delays": [
-	    [
-		  0.1,
-		  0.1,
-		  0.1,
-		  0.1
-		]
-	  ]
+      "name": "stasis_cage-base"
+    },
+	{
+      "name": "stasis_cage-closed"
+    },
+	{
+      "name": "inhand-left",
+	  "directions": 4
+    },
+	{
+      "name": "inhand-right",
+	  "directions": 4
     }
   ]
 }
