@@ -63,7 +63,7 @@
       emergencyLightColor: DarkViolet
       forceEnableEmergencyLights: true
       shuttleTime: 1200
-    tempus:
+    tempest:
       announcement: alert-level-tempest-announcement
       selectable: false
       sound:
