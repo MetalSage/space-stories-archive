@@ -51,3 +51,6 @@
       - id: ScramImplanter
       - id: MindShieldImplanter
       - id: RCDChrono
+      - id: ChronoTeleporter
+      - id: HandHeldMassScanner
+      - id: Flash

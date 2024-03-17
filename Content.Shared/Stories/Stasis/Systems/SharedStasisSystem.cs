@@ -4,6 +4,7 @@ using Content.Shared.Damage;
 using Content.Shared.Damage.Components;
 using Content.Shared.Database;
 using Content.Shared.Emoting;
+using Content.Shared.Gibbing.Events;
 using Content.Shared.Hands;
 using Content.Shared.Implants;
 using Content.Shared.Interaction.Events;

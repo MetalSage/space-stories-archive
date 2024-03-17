@@ -98,3 +98,4 @@
   - type: Access
     tags:
     - CentralCommand
+    - SyndicateAgent
