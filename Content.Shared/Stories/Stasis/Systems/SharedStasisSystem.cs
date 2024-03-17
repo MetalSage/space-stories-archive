@@ -1,6 +1,7 @@
 using Content.Shared.ActionBlocker;
 using Content.Shared.Administration.Logs;
 using Content.Shared.Damage;
+using Content.Shared.Damage.Components;
 using Content.Shared.Database;
 using Content.Shared.Emoting;
 using Content.Shared.Hands;
@@ -14,6 +15,7 @@ using Content.Shared.Speech;
 using Content.Shared.Standing;
 using Content.Shared.StatusEffect;
 using Content.Shared.Stories.Stasis.Components;
+using Content.Shared.Stunnable;
 using Content.Shared.Throwing;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Containers;
@@ -28,7 +30,7 @@ public abstract class SharedStasisSystem : EntitySystem
     [Dependency] private readonly ActionBlockerSystem _blocker = default!;
     [Dependency] private readonly ISharedAdminLogManager _adminLogger = default!;
     [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedContainerSystem _container = default!;
+    [Dependency] private readonly SharedStunSystem _stun = default!;
     [Dependency] private readonly StatusEffectsSystem _statusEffects = default!;
     [Dependency] private readonly StandingStateSystem _standingSystem = default!;
     [Dependency] private readonly SharedTransformSystem _transformSystem = default!;
@@ -135,6 +137,13 @@ public abstract class SharedStasisSystem : EntitySystem
 
     public void OnEquip(EntityUid uid, NoStasisComponent component, GotEquippedEvent args)
     {
+
+        if (TryComp<StaminaComponent>(args.Equipee, out var staminaComp))
+        {
+            staminaComp.CritThreshold = 1000;
+            staminaComp.Decay = 100;
+        }
+
         if (HasComp<StasisImmunityComponent>(args.Equipee))
             return;
 
@@ -143,6 +152,12 @@ public abstract class SharedStasisSystem : EntitySystem
 
     public void OnUnequip(EntityUid uid, NoStasisComponent component, GotUnequippedEvent args)
     {
+        if (TryComp<StaminaComponent>(args.Equipee, out var staminaComp))
+        {
+            staminaComp.CritThreshold = 100;
+            staminaComp.Decay = 3;
+
+        }
         if (HasComp<StasisImmunityComponent>(args.Equipee))
             EntityManager.RemoveComponent<StasisImmunityComponent>(args.Equipee);
     }

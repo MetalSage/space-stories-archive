@@ -23,7 +23,7 @@
   - type: Storage
     maxItemSize: Huge
     grid:
-    - 0,0,9,9
+    - 0,0,8,5
   - type: Tag
     tags:
     - StasisBattery
