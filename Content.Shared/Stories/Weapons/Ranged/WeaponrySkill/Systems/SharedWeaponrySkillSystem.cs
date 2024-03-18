@@ -39,10 +39,15 @@ public abstract class SharedWeaponrySkillSystem : EntitySystem
         if (component.WeaponEquipee == null)
             return;
 
+        if (!component.Enabled)
+            return;
+
         if (HasComp<WeaponrySkillComponent>(component.WeaponEquipee))
             return;
 
         args.MinAngle += component.AdditionalMinAngle;
+        args.AngleDecay += component.AngleDecay;
+        args.AngleIncrease += component.AngleIncrease;
         args.MaxAngle += component.AdditionalMaxAngle;
         args.FireRate *= component.FireSpeedModifier;
 

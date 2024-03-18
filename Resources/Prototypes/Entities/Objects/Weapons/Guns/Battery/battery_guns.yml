@@ -236,6 +236,7 @@
     fireCost: 62.5
   - type: StaticPrice
     price: 300
+  - type: WeaponrySkillTrainer
 
 - type: entity
   name: pulse pistol
@@ -509,6 +510,7 @@
     - type: ProjectileBatteryAmmoProvider
       proto: BulletDisablerPractice
       fireCost: 100
+    - type: WeaponrySkillTrainer
 
 - type: entity
   name: taser
