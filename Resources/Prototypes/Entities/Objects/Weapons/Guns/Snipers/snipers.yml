@@ -36,7 +36,8 @@
         ents: []
   - type: StaticPrice
     price: 500
-
+  - type: RequiresWeaponrySkill
+  
 - type: entity
   name: Kardashev-Mosin
   parent: BaseWeaponSniper
