@@ -10,7 +10,7 @@
 - type: entity
   parent: ClothingNeckBase
   id: ClothingNeckCloakSith
-  name: плащ ситха
+  name: плащ инквизитора
   description: Невероятное произведение искусства объединяющие в себе прочность и легкость. Заряжен неведомой энергией.
   components:
   - type: TemperatureProtection

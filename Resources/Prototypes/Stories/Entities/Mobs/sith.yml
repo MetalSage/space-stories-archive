@@ -1,6 +1,6 @@
 - type: entity
   id: MobSithGhost
-  name: теневой ситх
+  name: инквизитор
   description: Очень страшный.
   components:
   - type: SithGhost

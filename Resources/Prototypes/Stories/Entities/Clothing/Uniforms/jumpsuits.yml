@@ -54,7 +54,7 @@
 - type: entity
   parent: ClothingUniformBase
   id: ClothingUniformJumpsuitSith
-  name: униформа ситха
+  name: униформа инквизитора
   description: Однажды на одной станции Галактической Империи...
   components:
   - type: Tag

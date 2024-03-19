@@ -1,7 +1,7 @@
 - type: entity
   parent: ClothingHandsGlovesColorBlack
   id: ClothingHandsGlovesSith
-  name: перчатки ситха
+  name: перчатки инквизитора
   description: Странные перчатки.
   components:
   - type: Tag

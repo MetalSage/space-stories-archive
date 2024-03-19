@@ -1,7 +1,7 @@
 ﻿- type: entity
   parent: ClothingShoesBaseButcherable
   id: ClothingShoesSith
-  name: ботинки ситха
+  name: ботинки инквизитора
   description: Обычные черные ботинки.
   components:
   - type: NoSlip

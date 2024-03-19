@@ -16,7 +16,7 @@
 - type: entity
   parent: ClothingHeadBase
   id: ClothingHeadHatHoodSith
-  name: капюшон ситха
+  name: капюшон инквизитора
   noSpawn: true
   description: Какой же вы злодей без крутого капюшона?
   components:
