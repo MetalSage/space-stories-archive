@@ -182,9 +182,8 @@
       hidden: true
       needHand: true
       delay: 10
-      breakOnUserMove: true
       breakOnDamage: true
-      breakOnTargetMove: true
+      breakOnMove: true
       event: !type:EntityTargetForceUserActionEvent
         volume: 100
         event: !type:HypnosisTargetActionEvent

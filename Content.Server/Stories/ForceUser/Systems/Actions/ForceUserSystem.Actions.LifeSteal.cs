@@ -25,8 +25,7 @@ public sealed partial class ForceUserSystem
 
         var doAfterEventArgs = new DoAfterArgs(EntityManager, args.Performer, seconds: args.DoAfterTime, new LifeStolenEvent(), args.Target, args.Target)
         {
-            BreakOnTargetMove = true,
-            BreakOnUserMove = true,
+            BreakOnMove = true,
             BreakOnDamage = true,
             Broadcast = true,
             NeedHand = true

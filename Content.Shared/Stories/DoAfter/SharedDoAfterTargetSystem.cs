@@ -37,10 +37,9 @@ public sealed partial class SharedDoAfterTargetSystem : EntitySystem
             AttemptFrequency = args.AttemptFrequency,
             Broadcast = args.Broadcast,
             BreakOnHandChange = args.BreakOnHandChange,
-            BreakOnUserMove = args.BreakOnUserMove,
+            BreakOnMove = args.BreakOnMove,
             BreakOnWeightlessMove = args.BreakOnWeightlessMove,
             BreakOnDamage = args.BreakOnDamage,
-            BreakOnTargetMove = args.BreakOnTargetMove,
             DamageThreshold = args.DamageThreshold,
             BlockDuplicate = args.BlockDuplicate,
             CancelDuplicate = args.CancelDuplicate,
@@ -106,8 +105,8 @@ public sealed partial class DoAfterTargetEvent : EntityTargetActionEvent
     /// <summary>
     ///     If do_after stops when the user moves
     /// </summary>
-    [DataField("breakOnUserMove")]
-    public bool BreakOnUserMove;
+    [DataField("breakOnMove")]
+    public bool BreakOnMove;
 
     /// <summary>
     ///     If this is true then any movement, even when weightless, will break the doafter.
@@ -115,12 +114,6 @@ public sealed partial class DoAfterTargetEvent : EntityTargetActionEvent
     /// </summary>
     [DataField("breakOnWeightlessMove")]
     public bool BreakOnWeightlessMove;
-
-    /// <summary>
-    ///     If do_after stops when the target moves (if there is a target)
-    /// </summary>
-    [DataField("breakOnTargetMove")]
-    public bool BreakOnTargetMove;
 
     /// <summary>
     ///     Threshold for user and target movement

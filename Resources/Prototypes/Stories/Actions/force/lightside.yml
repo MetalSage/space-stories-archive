@@ -90,9 +90,8 @@
     event: !type:DoAfterTargetEvent
       needHand: true
       delay: 2
-      breakOnUserMove: true
       breakOnDamage: true
-      breakOnTargetMove: true
+      breakOnMove: true
       event: !type:EntityTargetForceUserActionEvent
         volume: 25
         event: !type:InjectReagentsToTargetEvent
