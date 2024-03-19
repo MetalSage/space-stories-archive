@@ -15,3 +15,23 @@
     pocket1: PinpointerStation
     pocket2: SonicScrewdriver
   innerClothingSkirt: ClothingUniformJumpskirtColorBlack
+
+- type: startingGear
+  id: SithGear
+  equipment:
+    jumpsuit: ClothingUniformJumpsuitSith
+    # belt holds katana so satchel has the tools for sabotaging things
+    mask: ClothingMaskGasSith
+    neck: ClothingNeckCloakSith
+    # head: ClothingHeadHatHoodSith
+    eyes: ClothingEyesHudSyndicate
+    gloves: ClothingHandsGlovesSith
+    # outerClothing: ClothingOuterSuitSpaceNinja
+    shoes: ClothingShoesSith
+    id: AgentIDCard
+    back: JetpackBlackFilled
+    ears: ClothingHeadsetGrey
+    pocket1: LightSaberDoubleSith
+    pocket2: PinpointerUniversal
+    belt: ClothingBeltSith
+    suitstorage: OxygenTankFilled
