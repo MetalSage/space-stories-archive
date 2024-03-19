@@ -1,0 +1,7 @@
+- type: entity
+  id: AirAlarmSP
+  parent: AirAlarm
+  suffix: Prison
+  components:
+  - type: AccessReader
+    access: [["EngineeringSP"]]

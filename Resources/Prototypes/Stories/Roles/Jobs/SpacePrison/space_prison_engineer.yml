@@ -17,13 +17,12 @@
   access:
   - Security
   - Brig
-  - Maintenance
-  - Service
-  - External
-  - Maintenance
-  - Engineering
-  - External
-  - Atmospherics
+  - MaintSP
+  - ExternalSP
+  - ShuttleSP
+  - ServiceSP
+  - EngineeringSP
+  - PrisonerSP
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant ]

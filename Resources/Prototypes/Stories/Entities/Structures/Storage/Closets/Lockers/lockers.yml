@@ -27,7 +27,7 @@
     stateDoorOpen: sp_open
     stateDoorClosed: sp_door
   - type: AccessReader
-    access: [["Security"]]
+    access: [["SecuritySP"]]
 
 #- type: entity
 #  id: LockerArmorySP
@@ -53,4 +53,40 @@
     stateDoorOpen: hosofsp_open
     stateDoorClosed: hosofsp_door
   - type: AccessReader
-    access: [["HeadOfSecurity"]]
+    access: [["HeadOfSpacePrison"]]
+
+# ШКАФ ХИМИКА
+- type: entity
+  id: LockerChemistryFilledSP
+  parent: LockerChemistryFilled
+  suffix: Prison
+  components:
+  - type: AccessReader
+    access: [["MedicalSP"]]
+    
+# ШКАФ АТМОСА
+- type: entity
+  id: LockerAtmosphericsFilledSP
+  parent: LockerAtmosphericsFilled
+  suffix: Prison
+  components:
+  - type: AccessReader
+    access: [["EngineeringSP"]]
+    
+# ЯЩИК ТОПЛИВА ДАМ
+- type: entity
+  id: CrateEngineeringAMEJarSP
+  parent: CrateEngineeringAMEJar
+  suffix: Prison
+  components:
+  - type: AccessReader
+    access: [["EngineeringSP"]]
+    
+# ШКАФ СВАРОЧНОГО ОБОРУДОВАНИЯ
+- type: entity
+  id: LockerWeldingSuppliesFilledSP
+  parent: LockerWeldingSuppliesFilled
+  suffix: Prison
+  components:
+  - type: AccessReader
+    access: [["EngineeringSP"]]

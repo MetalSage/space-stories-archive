@@ -2,13 +2,14 @@
   id: StandardSpacePrisonStation
   parent:
     - BaseStation
+    # - BaseRepeatedStationArrivals
     - BaseStationJobsSpawning
     - BaseStationRecords
-    - BaseStationCentcomm
-    - BaseStationAlertLevels
+    - PrisonStationAlertLevels
     - BaseStationSiliconLawCrewsimov
     - BaseStationAllEventsEligible
     - BaseStationNanotrasen
   noSpawn: true
   components:
     - type: Transform
+

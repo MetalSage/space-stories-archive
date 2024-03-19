@@ -6,7 +6,7 @@
   - type: Sprite
     sprite: Stories/Objects/Misc/id_cards.rsi
     layers:
-    - state: default
+    - state: gold
     - state: idhosp
   - type: PresetIdCard
     job: HeadOfSpacePrison
@@ -50,6 +50,18 @@
     - state: idspmedic
   - type: PresetIdCard
     job: SpacePrisonMedic
+
+- type: entity
+  parent: HeadOfSPIDCard
+  id: PrisonerIDCard
+  name: prisoner ID card
+  components:
+  - type: Sprite
+    layers:
+    - state: orange
+    - state: idprisoner
+  - type: PresetIdCard
+    job: Prisoner
 
 - type: entity
   parent: HeadOfSPIDCard

@@ -1,0 +1,44 @@
+# ОКСИД АЗОТА
+- type: entity
+  parent: NitrousOxideCanister
+  id: NitrousOxideCanisterSP
+  suffix: Prison
+  components:
+  - type: AccessReader
+    access: [["EngineeringSP"]]
+    
+# УГЛЕКИСЛЫЙ ГАЗ
+- type: entity
+  parent: CarbonDioxideCanister
+  id: CarbonDioxideCanisterSP
+  suffix: Prison
+  components:
+  - type: AccessReader
+    access: [["EngineeringSP"]]
+    
+# ВОЗДУХ
+- type: entity
+  parent: AirCanister
+  id: AirCanisterSP
+  suffix: Prison
+  components:
+  - type: AccessReader
+    access: [["EngineeringSP"]]
+    
+# КИСЛОРОД
+- type: entity
+  parent: OxygenCanister
+  id: OxygenCanisterSP
+  suffix: Prison
+  components:
+  - type: AccessReader
+    access: [["EngineeringSP"]]
+    
+# АЗОТ
+- type: entity
+  parent: NitrogenCanister
+  id: NitrogenCanisterSP
+  suffix: Prison
+  components:
+  - type: AccessReader
+    access: [["EngineeringSP"]]

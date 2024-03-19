@@ -3,6 +3,7 @@
   id: VendingMachineSPDrobe
   name: SPDrobe
   description: A vending machine for security and security-related clothing!
+  suffix: Prison
   components:
   - type: VendingMachine
     pack: SPDrobeInventory
@@ -22,4 +23,94 @@
     - state: panel
       map: ["enum.WiresVisualLayers.MaintenancePanel"]
   - type: AccessReader
-    access: [["Security"]]
+    access: [["SecuritySP"]]
+    
+# СБТЕХ
+- type: entity
+  parent: VendingMachineSec
+  id: VendingMachineSecSP
+  suffix: Prison
+  components:
+  - type: AccessReader
+    access: [["SecuritySP"]]
+
+# АЛКОМАТ
+- type: entity
+  parent: VendingMachineBooze
+  id: VendingMachineBoozeSP
+  suffix: Prison
+  components:
+  - type: AccessReader
+    access: [["ServiceSP"]]
+    
+# УБОРШКАФ
+- type: entity
+  parent: VendingMachineJaniDrobe
+  id: VendingMachineJaniDrobeSP
+  suffix: Prison
+  components:
+  - type: AccessReader
+    access: [["ServiceSP"]]
+    
+# МЕДШКАФ
+- type: entity
+  parent: VendingMachineMediDrobe
+  id: VendingMachineMediDrobeSP
+  suffix: Prison
+  components:
+  - type: AccessReader
+    access: [["MedicalSP"]]
+    
+# НАНОМЕД
+- type: entity
+  parent: VendingMachineMedical
+  id: VendingMachineMedicalSP
+  suffix: Prison
+  components:
+  - type: AccessReader
+    access: [["MedicalSP"]]
+    
+# НАНОМЕД
+- type: entity
+  parent: VendingMachineWallMedical
+  id: VendingMachineWallMedicalSP
+  suffix: Prison
+  components:
+  - type: AccessReader
+    access: [["MedicalSP"]]
+    
+# ХИМКОМАТ
+- type: entity
+  parent: VendingMachineChemicals
+  id: VendingMachineChemicalsSP
+  suffix: Prison
+  components:
+  - type: AccessReader
+    access: [["MedicalSP"]]
+    
+# ИНЖЕМАТ
+- type: entity
+  parent: VendingMachineEngivend
+  id: VendingMachineEngivendSP
+  suffix: Prison
+  components:
+  - type: AccessReader
+    access: [["EngineeringSP"]]
+    
+# ИНЖЕШКАФ
+- type: entity
+  parent: VendingMachineEngiDrobe
+  id: VendingMachineEngiDrobeSP
+  suffix: Prison
+  components:
+  - type: AccessReader
+    access: [["EngineeringSP"]]
+
+# АТМОСШКАФ
+- type: entity
+  parent: VendingMachineAtmosDrobe
+  id: VendingMachineAtmosDrobeSP
+  suffix: Prison
+  components:
+  - type: AccessReader
+    access: [["EngineeringSP"]]

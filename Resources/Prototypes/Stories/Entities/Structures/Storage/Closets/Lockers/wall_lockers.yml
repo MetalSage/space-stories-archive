@@ -1,0 +1,8 @@
+#ШКАФ МЕДИКА
+- type: entity
+  parent: LockerWallMedicalDoctorFilled
+  id: LockerWallMedicalDoctorFilledSP
+  suffix: Prison
+  components:
+  - type: AccessReader
+    access: [["MedicalSP"]]
