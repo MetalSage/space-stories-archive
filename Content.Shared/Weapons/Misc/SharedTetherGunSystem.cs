@@ -5,7 +5,7 @@ using Content.Shared.Hands.Components;
 using Content.Shared.Interaction;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.Movement.Events;
-using Content.Shared.Pulling.Components;
+using Content.Shared.Movement.Pulling.Components;
 using Content.Shared.Throwing;
 using Content.Shared.Toggleable;
 using Robust.Shared.Audio;
@@ -182,7 +182,7 @@ public abstract partial class SharedTetherGunSystem : EntitySystem
         if (_container.IsEntityInContainer(target) && !_container.TryRemoveFromContainer(target)) // SpaceStories
             return false;
 
-        if (TryComp<SharedPullableComponent>(target, out var pull) && pull.BeingPulled) // SpaceStories
+        if (TryComp<PullableComponent>(target, out var pull) && pull.BeingPulled) // SpaceStories
             return false;
 
         if (!component.CanTetherAlive && _mob.IsAlive(target))
