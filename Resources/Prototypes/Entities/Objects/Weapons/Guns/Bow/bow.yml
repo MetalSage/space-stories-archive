@@ -44,7 +44,6 @@
       projectiles: !type:ContainerSlot
   - type: ContainerAmmoProvider
     container: projectiles
-  - type: RequiresWeaponrySkill
 
 - type: entity
   id: BowImprovised
