@@ -26,10 +26,6 @@ public sealed partial class RequiresWeaponrySkillComponent : Component
     [ViewVariables(VVAccess.ReadWrite), DataField("angleDecay"), AutoNetworkedField]
     public Angle AngleDecay = Angle.FromDegrees(5);
 
-    // Current angle for update
-    [ViewVariables(VVAccess.ReadWrite), DataField("currentAngle"), AutoNetworkedField]
-    public Angle CurrentAngle = Angle.FromDegrees(0);
-
     // Firerate decrease
     [ViewVariables(VVAccess.ReadWrite), DataField("fireSpeedModifier"), AutoNetworkedField]
     public float FireSpeedModifier = 0.7f;
