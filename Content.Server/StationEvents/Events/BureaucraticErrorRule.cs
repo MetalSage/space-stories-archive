@@ -30,6 +30,8 @@ public sealed class BureaucraticErrorRule : StationEventSystem<BureaucraticError
         if (RobustRandom.Prob(0.25f))
         {
             var chosenJob = RobustRandom.PickAndTake(jobList);
+            if (_ignoredJobs.Contains(chosenJob))
+                return;
             _stationJobs.MakeJobUnlimited(chosenStation.Value, chosenJob); // INFINITE chaos.
             foreach (var job in jobList)
             {
