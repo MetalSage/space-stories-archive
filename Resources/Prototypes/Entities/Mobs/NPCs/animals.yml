@@ -1278,6 +1278,7 @@
     speechSounds: Monkey
     speechVerb: Monkey
   - type: MonkeyAccent
+  - type: WeaponrySkill
   - type: NpcFactionMember
     factions:
     - Syndicate
